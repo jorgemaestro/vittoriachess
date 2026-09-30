@@ -8,12 +8,14 @@ interface Props {
 	title?: string;
 	lang?: string;
 	noindex?: boolean;
+	/** "oscuro": la página entera en tono oscuro (ver tokens.css). */
+	tono?: 'claro' | 'oscuro';
 }
 
-const { title = 'Vittoria Chess', lang = 'es', noindex = false } = Astro.props;
+const { title = 'Vittoria Chess', lang = 'es', noindex = false, tono = 'claro' } = Astro.props;
 ---
 
-<html lang={lang}>
+<html lang={lang} data-tono={tono === 'oscuro' ? 'oscuro' : undefined}>
 	<head>
 		<meta charset="utf-8" />
 		<!-- Marca que hay JavaScript: sin ella, los componentes muestran su versión sin JS. -->

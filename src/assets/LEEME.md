@@ -7,7 +7,7 @@ gris. Detalle completo en docs/definicion.md ("Fotos y vídeos: nombres de archi
 | Dónde | Carpeta | Nombres |
 | --- | --- | --- |
 | Obras (orden de la tabla del documento) | obras/ | obra-01 … obra-08 |
-| Las piezas | piezas/ | rey, dama, alfil, caballo, torre, peon |
+| Las piezas | piezas/ | peon, caballo, alfil, torre, reina, rey |
 | Entrevista, acceso de la home | entrevista/ | home |
 | Entrevista, bloques de la página | entrevista/ | bloque-01 … bloque-06 |
 

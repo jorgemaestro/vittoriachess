@@ -58,6 +58,15 @@
   --logo-espaciado: 0.12em;
 }
 
+/* Tono oscuro (solo la página Las piezas): cambia los colores de uso, no la paleta.
+   Se activa con data-tono="oscuro" en <html> (prop tono de la plantilla Base). */
+[data-tono="oscuro"] {
+  --color-fondo: var(--onyx);
+  --color-tinta: var(--plaster);
+  --color-provisional: var(--graphite);
+  --color-seleccion: var(--graphite);
+}
+
 /* Tablet */
 @media (max-width: 1100px) {
   :root {

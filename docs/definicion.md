@@ -9,7 +9,7 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 - Lienzo de diseño: 1440 px. Las composiciones (posiciones de imágenes, zigzag de Obras, sangrías y el manifiesto) escalan en vw: px / 1440 × 100.
 - El margen, los tamaños de texto (salvo el manifiesto) y los grosores de línea van en px fijos, como en el prototipo aprobado (decidido el 30/09/2026).
 - Margen único: 20 px.
-- Paleta de marca (recibida el 30/09/2026): ONYX #17130F · GRAPHITE #48443F · ASH #989188 · BONE #F2EDE4 · PLASTER #F7F5F1 · BRONZE #B18F5A · BRONZE-D #765A32. Un solo mundo de color, sin modo oscuro. Todos los colores se definen como variables en src/styles/tokens.css para cambiarlos en un solo sitio. Los componentes usan siempre las variables de uso (fondo, tinta…), nunca los nombres de la paleta directamente.
+- Paleta de marca (recibida el 30/09/2026): ONYX #17130F · GRAPHITE #48443F · ASH #989188 · BONE #F2EDE4 · PLASTER #F7F5F1 · BRONZE #B18F5A · BRONZE-D #765A32. Un solo mundo de color, sin modo oscuro que dependa del sistema del visitante. Excepción decidida el 30/09/2026: la página Las piezas va siempre en tono oscuro (fondo ONYX; texto, enlaces, barra y pie en PLASTER; cajas provisionales y selección en GRAPHITE). El tono oscuro es un bloque de tokens.css que cambia solo los colores de uso. Todos los colores se definen como variables en src/styles/tokens.css para cambiarlos en un solo sitio. Los componentes usan siempre las variables de uso (fondo, tinta…), nunca los nombres de la paleta directamente.
 - Asignación de usos: Fondo → PLASTER (propuesta; sustituye a #F5F5F5). Pendiente de decidir: tinta, negro de la carga, blanco del cursor y de la nav sobre vídeo, gris provisional de imágenes y color de selección.
 - Colores provisionales anteriores, vigentes hasta decidir su sustituto: Tinta #2B2B2B · Negro #000000 · Blanco #FFFFFF · Provisional #D9D9D9 · Provisional oscuro #1A1A1A (en lugar del vídeo mientras no exista) · Selección #E2E2E2.
 - Curva de todas las animaciones: cubic-bezier(0.23, 1, 0.32, 1).
@@ -58,7 +58,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
    La geometría. La ley
    Seis piezas. Seis almas
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, aislado a la derecha: en la línea de "Seis piezas. Seis almas", alineado con su base y terminando a 138 px del borde derecho (9,583 vw). En móvil, debajo, a la izquierda y a 40 px.
-4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (REY, DAMA, ALFIL, CABALLO, TORRE, PEÓN), y VER LAS PIEZAS. Móvil: 2 columnas.
+4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Debajo, solo el enlace VER OBRAS a /obras, colocado igual que VER PIEZAS: a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
 6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px), 16 px debajo un fragmento (24 / 32 px, máx. 480 px) y 40 px debajo el enlace LEER ENTREVISTA (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda.
@@ -85,8 +85,8 @@ Llamada a contacto 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras
 
 ### Las piezas
 
-Seis figuras del rey al peón, solo izquierda y derecha, imágenes 600 × 800 (3:4) con el mismo fondo y encuadre. Pie: una palabra a 24 / 27,5 px, 12 px bajo la imagen. Sin enlaces. Izquierda a 96 px, derecha a 744 px, 560 px de paso vertical. Móvil: una columna, 80 px entre piezas.
-Pendiente: decidir si el manifiesto también abre esta página o queda solo en la home.
+Página en tono oscuro (ver Sistema base). Seis figuras del peón al rey, en este orden: PEÓN, CABALLO, ALFIL, TORRE, REINA, REY (decidido el 30/09/2026; REINA en lugar de DAMA). Alternan derecha e izquierda empezando por la derecha (peón a la derecha, rey a la izquierda). Imágenes 600 × 800 (3:4) con el mismo fondo y encuadre. Pie: solo el nombre de la pieza en estilo Llamada (40 / 48 px, peso 400; móvil 28 / 34), 12 px bajo la imagen. Sin enlaces. Izquierda a 96 px, derecha a 744 px, la primera a 201 px de arriba y 560 px de paso vertical. Llamada a contacto 240 px bajo el rey. Móvil: una columna, 80 px entre piezas.
+Solo se llega desde LAS PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (decidido el 30/09/2026).
 
 ### Entrevista
 
@@ -111,7 +111,7 @@ Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; b
 | Dónde | Carpeta y nombre |
 | --- | --- |
 | Obras (8, en el orden de la tabla) | src/assets/obras/obra-01 … obra-08 |
-| Las piezas | src/assets/piezas/rey, dama, alfil, caballo, torre, peon |
+| Las piezas | src/assets/piezas/peon, caballo, alfil, torre, reina, rey |
 | Entrevista, acceso de la home | src/assets/entrevista/home |
 | Entrevista, bloques de la página | src/assets/entrevista/bloque-01 … bloque-06 |
 
