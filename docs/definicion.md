@@ -52,10 +52,11 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
 
 1. Pantalla de carga.
 2. Vídeo a pantalla completa (100 % × 100 vh, cover), sin texto, sin sonido, en bucle, reproducción automática. Planos abstractos, muy de cerca, casi misteriosos, de las piezas. Versión vertical aparte para móvil. Póster mientras carga. Con movimiento reducido no arranca solo (queda el póster). Mientras no haya vídeo: bloque en provisional oscuro con el marcador [PENDIENTE: VÍDEO].
-3. Manifiesto, 10 vw bajo el vídeo, enlazado a Las piezas. Tercera línea sangrada 24,65 vw. Las líneas suben desde una máscara al entrar en pantalla (nunca quedan ocultas sin JavaScript):
+3. Manifiesto, 10 vw bajo el vídeo. No es un enlace (decidido el 30/09/2026). Las tres líneas alineadas a la izquierda, sin sangría (decidido el 30/09/2026; antes, tercera línea sangrada 24,65 vw). Las líneas suben desde una máscara al entrar en pantalla, 1,2 s y 80 ms entre líneas (nunca quedan ocultas sin JavaScript):
    El cuadrado. El origen
    La geometría. La ley
    Seis piezas. Seis almas
+   Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, aislado a la derecha: en la línea de "Seis piezas. Seis almas", alineado con su base y terminando a 138 px del borde derecho (9,583 vw). En móvil, debajo, a la izquierda y a 40 px.
 4. Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (REY, DAMA, ALFIL, CABALLO, TORRE, PEÓN), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras: título OBRAS enlazado; las tres primeras obras en zigzag (medidas de la tabla de Obras, relativas al bloque) y VER LAS 8 OBRAS alineado a 434 px.
 6. Acceso a Entrevista: título ENTREVISTA; foto 512 × 683 a 96 px del borde izquierdo; a la derecha una pregunta (10 px) y un fragmento (24 / 32 px, máx. 480 px); LEER LA ENTREVISTA.

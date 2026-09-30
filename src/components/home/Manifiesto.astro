@@ -1,0 +1,107 @@
+---
+// Home · Manifiesto — ver docs/definicion.md (Páginas: Home, punto 3).
+// Tres líneas 10 vw bajo el vídeo, a la izquierda; VER PIEZAS aislado a la derecha en la
+// línea de la tercera (debajo en móvil). Al entrar en pantalla, cada línea sube desde una
+// máscara. El texto solo se esconde si el script de la animación arranca: sin JavaScript
+// o si falla, se ve directamente.
+import Enlace from '../Enlace.astro';
+
+const lineas = ['El cuadrado. El origen', 'La geometría. La ley', 'Seis piezas. Seis almas'];
+---
+
+<section class="manifiesto">
+	<p class="texto" data-manifiesto>
+		{
+			lineas.map((linea) => (
+				<span class="linea">
+					<span class="interior">{linea}</span>
+				</span>
+			))
+		}
+	</p>
+	<p class="ver"><Enlace href="/las-piezas">VER PIEZAS</Enlace></p>
+</section>
+
+<script>
+	const texto = document.querySelector<HTMLElement>('[data-manifiesto]');
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (texto && !sinMovimiento && 'IntersectionObserver' in window) {
+		texto.classList.add('preparado');
+		const observador = new IntersectionObserver(
+			([entrada]) => {
+				if (entrada.isIntersecting) {
+					texto.classList.add('visible');
+					observador.disconnect();
+				}
+			},
+			{ rootMargin: '0px 0px -15% 0px' },
+		);
+		observador.observe(texto);
+	}
+</script>
+
+<style>
+	.manifiesto {
+		display: flex;
+		justify-content: space-between;
+		align-items: last baseline;
+		padding: 10vw var(--margen) 0;
+	}
+
+	.texto {
+		margin: 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--manifiesto);
+		line-height: var(--manifiesto-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Máscara: deja aire abajo para no cortar las letras que bajan (g, p). */
+	.linea {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.interior {
+		display: block;
+		transition: transform 1.2s var(--ease);
+	}
+
+	.preparado .interior {
+		transform: translateY(110%);
+	}
+
+	.preparado.visible .interior {
+		transform: none;
+	}
+
+	.visible .linea:nth-child(2) .interior {
+		transition-delay: 80ms;
+	}
+
+	.visible .linea:nth-child(3) .interior {
+		transition-delay: 160ms;
+	}
+
+	/* Termina a 138 px del borde derecho (9,583 vw): 20 px de margen + 8,194 vw. */
+	.ver {
+		margin: 0 8.194vw 0 0;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 809px) {
+		.manifiesto {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.ver {
+			margin: 40px 0 0;
+		}
+	}
+</style>
