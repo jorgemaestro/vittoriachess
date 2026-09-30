@@ -1,4 +1,4 @@
-// Entrevista — ver docs/definicion.md (Páginas: Entrevista).
+// Entrevista de la página Estudio — ver docs/definicion.md (Páginas: Estudio).
 // Texto recibido el 30/09/2026. Seis bloques: cada uno con una foto
 // (src/assets/entrevista/bloque-NN) y sus preguntas.
 

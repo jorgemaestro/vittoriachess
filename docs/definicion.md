@@ -33,7 +33,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Enlace.** Subrayado de 1 px del color del texto (decidido el 30/09/2026: línea fina y de grosor constante en cualquier pantalla; antes 1,34 px). Al pasar el ratón entra desde la izquierda en 1000 ms; al salir, sale por la derecha en 1200 ms (nunca vuelve por la izquierda). Enlace activo: subrayado fijo, sin reacción.
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ENTREVISTA · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
@@ -47,7 +47,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Páginas
 
-Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, las mismas bajo /en/.
+Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, las mismas bajo /en/.
 
 ### Home (de arriba abajo)
 
@@ -60,7 +60,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, aislado a la derecha: en la línea de "Seis piezas. Seis almas", alineado con su base y terminando a 138 px del borde derecho (9,583 vw). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Debajo, solo el enlace VER OBRAS a /obras, colocado igual que VER PIEZAS: a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
-6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px: "¿CÓMO ENTRÓ EL AJEDREZ EN TU VIDA?"), 16 px debajo un fragmento (24 / 32 px, máx. 480 px: "No recuerdo ganar ni perder. Recuerdo mirar las piezas. Desde entonces las vi como personajes.") y 40 px debajo el enlace LEER ENTREVISTA (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
+6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px: "¿CÓMO ENTRÓ EL AJEDREZ EN TU VIDA?"), 16 px debajo un fragmento (24 / 32 px, máx. 480 px: "No recuerdo ganar ni perder. Recuerdo mirar las piezas. Desde entonces las vi como personajes.") y 40 px debajo el enlace LEER ENTREVISTA, que lleva a /estudio (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda.
 8. Pie.
 
@@ -88,7 +88,9 @@ Llamada a contacto 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras
 Página en tono oscuro (ver Sistema base). Seis figuras del peón al rey, en este orden: PEÓN, CABALLO, ALFIL, TORRE, REINA, REY (decidido el 30/09/2026; REINA en lugar de DAMA). Alternan derecha e izquierda empezando por la derecha (peón a la derecha, rey a la izquierda). Imágenes 600 × 800 (3:4) con el mismo fondo y encuadre. Pie: solo el nombre de la pieza en estilo Llamada (40 / 48 px, peso 400; móvil 28 / 34), 12 px bajo la imagen. Sin enlaces. Izquierda a 96 px, derecha a 744 px, la primera a 201 px de arriba y 560 px de paso vertical. Llamada a contacto 240 px bajo el rey. Móvil: una columna, 80 px entre piezas.
 Solo se llega desde LAS PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (decidido el 30/09/2026).
 
-### Entrevista
+### Estudio
+
+Antes "Entrevista" (renombrada el 30/09/2026). Contiene la entrevista y, al final, la trayectoria (ver más abajo), antes de la llamada a contacto.
 
 Texto recibido el 30/09/2026: 11 preguntas (en src/data/entrevista.ts). Se lee de principio a fin haciendo scroll. Seis bloques alternos, empezando con la foto a la izquierda: foto 512 × 683 a 96 px de su borde y, al otro lado, una columna de texto de hasta 600 px alineada con la parte de arriba de la foto. Las preguntas se agrupan por tema: 1–2, 3–4, 5–6, 7–8, 9–10 y 11. Preguntas en Bold (700) y respuestas en Regular (400), ambas a 24 / 32 px, sin numerar; 16 px entre pregunta y respuesta y 48 px antes de la siguiente pregunta. 200 px entre bloques; el primero a 201 px de arriba. Llamada a contacto al final. Móvil: en cada bloque, foto arriba y texto 24 px debajo; 120 px entre bloques.
 

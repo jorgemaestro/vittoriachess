@@ -44,7 +44,7 @@ Vídeo → Manifiesto → Acceso a Las piezas → Acceso a Obras → Acceso a En
 
 ## Fase 5 — Resto de páginas
 
-Obras (8 en zigzag), Las piezas, Entrevista, Contacto y las tres legales.
+Obras (8 en zigzag), Las piezas, Estudio (antes Entrevista), Contacto y las tres legales.
 
 ## Fase 6 — Contenido y fotos reales
 
