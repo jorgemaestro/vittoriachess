@@ -1,0 +1,112 @@
+---
+// Entrevista — ver docs/definicion.md (Páginas: Entrevista).
+// Se lee de principio a fin haciendo scroll. Seis bloques alternos (foto a la izquierda en
+// el primero): foto 512 × 683 a 96 px de su borde y, al otro lado, columna de texto de
+// hasta 600 px. Preguntas en negrita y respuestas en regular, 24 / 32 px. 200 px entre
+// bloques; el primero a 201 px. Llamada a contacto al final.
+// Móvil: foto arriba y texto debajo; 120 px entre bloques.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Foto from '../components/Foto.astro';
+import LlamadaContacto from '../components/LlamadaContacto.astro';
+import { bloques } from '../data/entrevista';
+---
+
+<Base title="Entrevista — Vittoria Chess">
+	<Nav actual="entrevista" />
+	<main>
+		<h1 class="solo-lectores">Entrevista</h1>
+		<div class="entrevista">
+			{
+				bloques.map((preguntas, i) => (
+					<section class:list={['bloque', { derecha: i % 2 === 1 }]}>
+						<div class="foto">
+							<Foto
+								nombre={`entrevista/bloque-${String(i + 1).padStart(2, '0')}`}
+								alt={`[PENDIENTE: descripción de la foto ${i + 1} de la entrevista]`}
+								proporcion={512 / 683}
+								sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
+							/>
+						</div>
+						<div class="texto">
+							{preguntas.map((p) => (
+								<div class="qa">
+									<h2 class="pregunta">{p.pregunta}</h2>
+									<p class="respuesta">{p.respuesta}</p>
+								</div>
+							))}
+						</div>
+					</section>
+				))
+			}
+		</div>
+		<LlamadaContacto />
+	</main>
+	<Footer />
+</Base>
+
+<style>
+	.entrevista {
+		display: flex;
+		flex-direction: column;
+		gap: 200px;
+		padding: 201px 6.667vw 0; /* 96 px a cada lado */
+	}
+
+	/* Foto 512 px, texto hasta 600 px; entre ambos, 136 px (9,444 vw). */
+	.bloque {
+		display: flex;
+		align-items: flex-start;
+		gap: 9.444vw;
+	}
+
+	.bloque.derecha {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+	}
+
+	.foto {
+		flex: none;
+		width: 35.556vw;
+	}
+
+	.texto {
+		width: 41.667vw;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.qa + .qa {
+		margin-top: 48px;
+	}
+
+	.pregunta {
+		margin: 0;
+		font-size: inherit;
+		font-weight: var(--peso-negrita);
+	}
+
+	.respuesta {
+		margin: 16px 0 0;
+		font-weight: var(--peso-regular);
+	}
+
+	@media (max-width: 809px) {
+		.entrevista {
+			gap: 120px;
+			padding: 120px var(--margen) 0;
+		}
+
+		.bloque,
+		.bloque.derecha {
+			flex-direction: column;
+			gap: 24px;
+		}
+
+		.foto,
+		.texto {
+			width: 100%;
+		}
+	}
+</style>

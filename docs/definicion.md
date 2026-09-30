@@ -13,7 +13,7 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 - Asignación de usos: Fondo → PLASTER (propuesta; sustituye a #F5F5F5). Pendiente de decidir: tinta, negro de la carga, blanco del cursor y de la nav sobre vídeo, gris provisional de imágenes y color de selección.
 - Colores provisionales anteriores, vigentes hasta decidir su sustituto: Tinta #2B2B2B · Negro #000000 · Blanco #FFFFFF · Provisional #D9D9D9 · Provisional oscuro #1A1A1A (en lugar del vídeo mientras no exista) · Selección #E2E2E2.
 - Curva de todas las animaciones: cubic-bezier(0.23, 1, 0.32, 1).
-- Tipografías: Suisse Int'l (Swiss Typefaces) para todo el texto, pesos Regular (400) y Medium (500); Cinzel 500 solo para el logotipo provisional. Ambas alojadas en el proyecto (src/fonts/), nunca desde un servicio externo.
+- Tipografías: Suisse Int'l (Swiss Typefaces) para todo el texto, pesos Regular (400) y Medium (500), y Bold (700) solo para las preguntas de la entrevista (añadido el 30/09/2026); Cinzel 500 solo para el logotipo provisional. Ambas alojadas en el proyecto (src/fonts/), nunca desde un servicio externo.
 - Suisse Int'l es una fuente comercial: hace falta la licencia web y los archivos .woff2 (Regular y Medium). Hasta tenerlos, se usa Inter Tight como sustituta con las mismas medidas, y el cambio se hace en una sola línea de tokens.css.
 
 | Estilo | Tamaño / interlineado a 1440 | Uso |
@@ -60,7 +60,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, aislado a la derecha: en la línea de "Seis piezas. Seis almas", alineado con su base y terminando a 138 px del borde derecho (9,583 vw). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Debajo, solo el enlace VER OBRAS a /obras, colocado igual que VER PIEZAS: a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
-6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px), 16 px debajo un fragmento (24 / 32 px, máx. 480 px) y 40 px debajo el enlace LEER ENTREVISTA (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
+6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px: "¿CÓMO ENTRÓ EL AJEDREZ EN TU VIDA?"), 16 px debajo un fragmento (24 / 32 px, máx. 480 px: "No recuerdo ganar ni perder. Recuerdo mirar las piezas. Desde entonces las vi como personajes.") y 40 px debajo el enlace LEER ENTREVISTA (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda.
 8. Pie.
 
@@ -90,8 +90,7 @@ Solo se llega desde LAS PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto 
 
 ### Entrevista
 
-Seis bloques alternos (foto 512 × 683 a un lado, pregunta y respuesta al otro, alineadas arriba), 200 px entre bloques, columnas a 96 px de cada borde. Móvil: foto arriba, texto debajo.
-Pendiente: texto, número de preguntas, fotos.
+Texto recibido el 30/09/2026: 11 preguntas (en src/data/entrevista.ts). Se lee de principio a fin haciendo scroll. Seis bloques alternos, empezando con la foto a la izquierda: foto 512 × 683 a 96 px de su borde y, al otro lado, una columna de texto de hasta 600 px alineada con la parte de arriba de la foto. Las preguntas se agrupan por tema: 1–2, 3–4, 5–6, 7–8, 9–10 y 11. Preguntas en Bold (700) y respuestas en Regular (400), ambas a 24 / 32 px, sin numerar; 16 px entre pregunta y respuesta y 48 px antes de la siguiente pregunta. 200 px entre bloques; el primero a 201 px de arriba. Llamada a contacto al final. Móvil: en cada bloque, foto arriba y texto 24 px debajo; 120 px entre bloques.
 
 ### Contacto
 
@@ -123,4 +122,4 @@ ES por defecto; EN en /en/... con textos traducidos a mano.
 
 ## Pendientes de contenido
 
-Entrevista y fragmento de la home · email del formulario · sección Press (publicaciones / colaboraciones), aplazada el 30/09/2026: falta definir formato y contenido · logotipo en SVG · fotos y vídeo definitivos.
+Email del formulario · sección Press (publicaciones / colaboraciones), aplazada el 30/09/2026: falta definir formato y contenido · logotipo en SVG · fotos y vídeo definitivos.

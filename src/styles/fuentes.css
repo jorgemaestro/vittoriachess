@@ -19,6 +19,14 @@
 }
 
 @font-face {
+  font-family: "Inter Tight";
+  src: url("../fonts/inter-tight-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Cinzel";
   src: url("../fonts/cinzel-500.woff2") format("woff2");
   font-weight: 500;

@@ -34,6 +34,7 @@
   --fuente-logo: "Cinzel", Georgia, serif;
   --peso-regular: 400;
   --peso-medio: 500;
+  --peso-negrita: 700;           /* solo las preguntas de la entrevista */
 
   /* Escala tipográfica (tamaño / interlineado a 1440 px) */
   --nav-central: 24px;
