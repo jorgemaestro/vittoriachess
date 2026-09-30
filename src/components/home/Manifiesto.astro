@@ -1,10 +1,10 @@
 ---
 // Home · Manifiesto — ver docs/definicion.md (Páginas: Home, punto 3).
-// Tres líneas 10 vw bajo el vídeo, a la izquierda; VER PIEZAS aislado a la derecha en la
-// línea de la tercera (debajo en móvil). Al entrar en pantalla, cada línea sube desde una
+// Tres líneas 10 vw bajo el vídeo, a la izquierda; VER PIEZAS centrado entre el final del
+// manifiesto y el margen derecho, en la línea de la tercera (debajo en móvil). Al entrar en pantalla, cada línea sube desde una
 // máscara. El texto solo se esconde si el script de la animación arranca: sin JavaScript
 // o si falla, se ve directamente.
-import Enlace from '../Enlace.astro';
+import EnlaceGuia from '../EnlaceGuia.astro';
 
 const lineas = ['El cuadrado. El origen', 'La geometría. La ley', 'Seis piezas. Seis almas'];
 ---
@@ -19,7 +19,7 @@ const lineas = ['El cuadrado. El origen', 'La geometría. La ley', 'Seis piezas.
 			))
 		}
 	</p>
-	<p class="ver"><Enlace href="/las-piezas">VER PIEZAS</Enlace></p>
+	<p class="ver"><EnlaceGuia href="/las-piezas" lado="derecha">VER PIEZAS</EnlaceGuia></p>
 </section>
 
 <script>
@@ -86,9 +86,11 @@ const lineas = ['El cuadrado. El origen', 'La geometría. La ley', 'Seis piezas.
 		transition-delay: 160ms;
 	}
 
-	/* Termina a 138 px del borde derecho (9,583 vw): 20 px de margen + 8,194 vw. */
+	/* Ocupa el hueco entre el final del manifiesto y el margen derecho y se centra en él. */
 	.ver {
-		margin: 0 8.194vw 0 0;
+		flex: 1;
+		margin: 0;
+		text-align: center;
 		font-size: var(--nav-central);
 		line-height: var(--nav-central-alto);
 		white-space: nowrap;
@@ -102,6 +104,7 @@ const lineas = ['El cuadrado. El origen', 'La geometría. La ley', 'Seis piezas.
 
 		.ver {
 			margin: 40px 0 0;
+			text-align: left;
 		}
 	}
 </style>

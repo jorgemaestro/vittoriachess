@@ -1,17 +1,51 @@
 ---
-// Llamada a contacto — ver docs/definicion.md (Home, punto 7; también al final de Obras).
-// Texto y CONTACTAR alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px
-// del borde). En móvil, a la izquierda.
-import Enlace from './Enlace.astro';
+// Llamada a contacto — ver docs/definicion.md (Home, punto 7). Misma en home, Obras,
+// Las piezas y Estudio. Texto y CONTACTAR alineados a la derecha con VER OBRAS (terminan a
+// 138 px del borde); en móvil, a la izquierda.
+// Animación: la frase sube línea a línea desde una máscara (como el manifiesto); después
+// CONTACTAR sube y su línea guía llega desde la izquierda (EnlaceGuia). El texto solo se
+// esconde si el script arranca: sin JS, todo visible.
+import EnlaceGuia from './EnlaceGuia.astro';
+
+const lineas = ['Información sobre obras, ediciones', 'y proyectos por encargo.'];
 ---
 
-<section class="contacto" aria-label="Contacto">
-	<p class="frase">Información sobre obras, ediciones y proyectos por encargo.</p>
-	<p><Enlace href="/contacto">CONTACTAR</Enlace></p>
+<section class="contacto" aria-label="Contacto" data-llamada>
+	<p class="frase">
+		{
+			lineas.map((linea) => (
+				<span class="mascara">
+					<span class="contenido">{linea}</span>
+				</span>
+			))
+		}
+	</p>
+	<p>
+		<EnlaceGuia href="/contacto" lado="izquierda" retraso={400} subir>CONTACTAR</EnlaceGuia>
+	</p>
 </section>
 
+<script>
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	document.querySelectorAll<HTMLElement>('[data-llamada]').forEach((llamada) => {
+		if (sinMovimiento || !('IntersectionObserver' in window)) return;
+		llamada.classList.add('preparado');
+		const observador = new IntersectionObserver(
+			([entrada]) => {
+				if (entrada.isIntersecting) {
+					llamada.classList.add('visible');
+					observador.disconnect();
+				}
+			},
+			{ rootMargin: '0px 0px -15% 0px' },
+		);
+		observador.observe(llamada);
+	});
+</script>
+
 <style>
-	/* Termina a 138 px del borde derecho (9,583 vw), como VER PIEZAS y VER OBRAS. */
+	/* Termina a 138 px del borde derecho (9,583 vw), como VER OBRAS. */
 	.contacto {
 		display: flex;
 		flex-direction: column;
@@ -28,14 +62,42 @@ import Enlace from './Enlace.astro';
 		margin: 0;
 	}
 
-	/* Frase con peso: estilo Llamada (40 / 48 px, regular), en dos líneas equilibradas. */
+	/* Frase con peso: estilo Llamada (40 / 48 px, regular), en dos líneas. */
 	.frase {
-		max-width: 50vw;
 		font-weight: var(--peso-regular);
 		font-size: var(--llamada);
 		line-height: var(--llamada-alto);
 		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Si una línea no cabe (móvil), se parte en trozos equilibrados, sin palabras sueltas. */
+	.frase .contenido {
 		text-wrap: balance;
+	}
+
+	/* Máscara: deja aire abajo para no cortar letras que bajan. */
+	.mascara {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.contenido {
+		display: block;
+		transition: transform 1.2s var(--ease);
+	}
+
+	.preparado .contenido {
+		transform: translateY(110%);
+	}
+
+	.preparado.visible .contenido {
+		transform: none;
+	}
+
+	.visible .frase .mascara:nth-child(2) .contenido {
+		transition-delay: 80ms;
 	}
 
 	@media (max-width: 809px) {
@@ -43,10 +105,6 @@ import Enlace from './Enlace.astro';
 			align-items: flex-start;
 			padding-right: var(--margen);
 			text-align: left;
-		}
-
-		.frase {
-			max-width: none;
 		}
 	}
 </style>

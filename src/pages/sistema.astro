@@ -12,11 +12,12 @@ import Carga from '../components/Carga.astro';
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
 	['color-fondo', 'FONDO'],
-	['color-tinta', 'TINTA (PROVISIONAL)'],
-	['color-carga', 'CARGA (PROVISIONAL)'],
-	['color-claro', 'CLARO (PROVISIONAL)'],
+	['color-tinta', 'TINTA'],
+	['color-secundario', 'SECUNDARIO (TEXTOS PEQUEÑOS)'],
+	['color-carga', 'CARGA'],
+	['color-claro', 'CLARO'],
 	['color-provisional', 'CAJAS DE FOTO (PROVISIONAL)'],
-	['color-seleccion', 'SELECCIÓN (PROVISIONAL)'],
+	['color-seleccion', 'SELECCIÓN'],
 ];
 const estilos = [
 	['nav-central', 'NAV CENTRAL', '24 / 27,5 PX · 500', 'OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO'],
@@ -34,7 +35,7 @@ const estilos = [
 		</header>
 
 		<section class="bloque">
-			<h2 class="titulo">COLORES DE MARCA</h2>
+			<h2 class="titulo">PALETA DE MARCA (REFERENCIA, NO SE USA EN LA WEB)</h2>
 			<ul class="muestras">
 				{marca.map((c) => (
 					<li>

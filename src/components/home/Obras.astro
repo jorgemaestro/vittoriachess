@@ -1,8 +1,8 @@
 ---
 // Home · Acceso a Obras — ver docs/definicion.md (Páginas: Home, punto 5).
-// Un segundo vídeo a pantalla completa, sin título, y debajo VER OBRAS colocado igual que
-// VER PIEZAS: a la derecha, terminando a 138 px del borde (en móvil, a la izquierda).
-import Enlace from '../Enlace.astro';
+// Un segundo vídeo a pantalla completa, sin título, y debajo VER OBRAS a la derecha,
+// terminando a 138 px del borde (en móvil, a la izquierda). Línea guía desde la izquierda.
+import EnlaceGuia from '../EnlaceGuia.astro';
 import Video from './Video.astro';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 <section class="obras">
 	<Video nombre="Vídeo obras" {...Astro.props} />
-	<p class="ver"><Enlace href="/obras">VER OBRAS</Enlace></p>
+	<p class="ver"><EnlaceGuia href="/obras" lado="izquierda">VER OBRAS</EnlaceGuia></p>
 </section>
 
 <style>
@@ -22,7 +22,7 @@ interface Props {
 		margin-top: var(--aire);
 	}
 
-	/* Termina a 138 px del borde derecho (9,583 vw), como VER PIEZAS. */
+	/* Termina a 138 px del borde derecho (9,583 vw), como CONTACTAR. */
 	.ver {
 		margin: 40px calc(var(--margen) + 8.194vw) 0 var(--margen);
 		text-align: right;

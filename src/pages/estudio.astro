@@ -3,13 +3,14 @@
 // Se lee de principio a fin haciendo scroll. Seis bloques alternos (foto a la izquierda en
 // el primero): foto 512 × 683 a 96 px de su borde y, al otro lado, columna de texto de
 // hasta 600 px. Preguntas en negrita y respuestas en regular, 24 / 32 px. 200 px entre
-// bloques; el primero a 201 px. Llamada a contacto al final.
+// bloques; el primero a 201 px. Después, la trayectoria y la llamada a contacto.
 // Móvil: foto arriba y texto debajo; 120 px entre bloques.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
+import Trayectoria from '../components/Trayectoria.astro';
 import { bloques } from '../data/entrevista';
 ---
 
@@ -41,6 +42,7 @@ import { bloques } from '../data/entrevista';
 				))
 			}
 		</div>
+		<Trayectoria />
 		<LlamadaContacto />
 	</main>
 	<Footer />

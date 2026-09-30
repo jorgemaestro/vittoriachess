@@ -1,0 +1,209 @@
+---
+// Trayectoria — ver docs/definicion.md (Páginas: Estudio, Trayectoria).
+// Línea temporal: año a 96 px (fijo mientras pasan sus entradas), línea de 1 px a 434 px
+// que se dibuja con el scroll y entradas a 40 px de la línea que suben desde una máscara.
+// Sin JavaScript o con movimiento reducido: todo visible y la línea completa.
+import { trayectoria } from '../data/trayectoria';
+---
+
+<section class="trayectoria" aria-labelledby="titulo-trayectoria">
+	<h2 class="titulo" id="titulo-trayectoria">TRAYECTORIA</h2>
+	<div class="linea-tiempo" data-linea-tiempo>
+		<span class="linea" aria-hidden="true"></span>
+		{
+			trayectoria.map(({ anio, entradas }) => (
+				<div class="grupo">
+					<p class="anio">
+						<span class="mascara">
+							<span class="contenido">{anio}</span>
+						</span>
+					</p>
+					<ul class="entradas">
+						{entradas.map((e) => (
+							<li class="mascara">
+								<span class="contenido">
+									<span class="tipo">{e.tipo}</span>
+									<span class="nombre">{e.nombre}</span>
+								</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<script>
+	const zona = document.querySelector<HTMLElement>('[data-linea-tiempo]');
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (zona && !sinMovimiento && 'IntersectionObserver' in window) {
+		const linea = zona.querySelector<HTMLElement>('.linea')!;
+		zona.classList.add('preparado');
+
+		// La línea crece hasta la altura del 60 % de la pantalla.
+		let pendiente = false;
+		const dibujar = () => {
+			pendiente = false;
+			const caja = zona.getBoundingClientRect();
+			const avance = (innerHeight * 0.6 - caja.top) / caja.height;
+			linea.style.transform = `scaleY(${Math.min(1, Math.max(0, avance))})`;
+		};
+		addEventListener(
+			'scroll',
+			() => {
+				if (!pendiente) {
+					pendiente = true;
+					requestAnimationFrame(dibujar);
+				}
+			},
+			{ passive: true },
+		);
+		addEventListener('resize', dibujar);
+		dibujar();
+
+		// Años y entradas suben desde su máscara al entrar en pantalla (una sola vez).
+		const observador = new IntersectionObserver(
+			(entradas) => {
+				entradas.forEach((e) => {
+					if (e.isIntersecting) {
+						e.target.classList.add('visible');
+						observador.unobserve(e.target);
+					}
+				});
+			},
+			{ rootMargin: '0px 0px -10% 0px' },
+		);
+		zona.querySelectorAll('.mascara').forEach((m) => observador.observe(m));
+	}
+</script>
+
+<style>
+	.trayectoria {
+		margin-top: var(--aire);
+	}
+
+	.titulo {
+		margin: 0 0 80px;
+		padding-left: 6.667vw; /* 96 px */
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.linea-tiempo {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 120px;
+	}
+
+	/* Línea de 1 px a 434 px (borde: grosor exacto en cualquier pantalla). */
+	.linea {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 30.139vw;
+		border-left: var(--linea) solid currentColor;
+		transform-origin: top;
+	}
+
+	.grupo {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	/* Año a 96 px; se queda fijo mientras pasan las entradas de su año. */
+	.anio {
+		position: sticky;
+		top: 30vh;
+		flex: none;
+		width: 23.472vw; /* 96 → 434 px */
+		margin: 0;
+		padding-left: 6.667vw;
+		box-sizing: content-box;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Entradas a 40 px de la línea. */
+	.entradas {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		margin: 0;
+		padding: 0 var(--margen) 0 2.778vw;
+		list-style: none;
+	}
+
+	.tipo {
+		display: block;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.nombre {
+		display: block;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	/* Máscara: deja aire abajo para no cortar letras que bajan. */
+	.mascara {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.contenido {
+		display: block;
+		transition: transform 1.2s var(--ease);
+	}
+
+	.preparado .contenido {
+		transform: translateY(110%);
+	}
+
+	.preparado .visible .contenido {
+		transform: none;
+	}
+
+	.preparado .linea {
+		transform: scaleY(0);
+	}
+
+	@media (max-width: 809px) {
+		.titulo {
+			margin-bottom: 48px;
+			padding-left: var(--margen);
+		}
+
+		.linea-tiempo {
+			gap: 80px;
+		}
+
+		.linea {
+			left: var(--margen);
+		}
+
+		.grupo {
+			flex-direction: column;
+			gap: 24px;
+		}
+
+		.anio {
+			position: static;
+			width: auto;
+			padding-left: calc(var(--margen) + 20px);
+		}
+
+		.entradas {
+			padding-left: calc(var(--margen) + 20px);
+		}
+	}
+</style>

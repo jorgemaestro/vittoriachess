@@ -3,7 +3,7 @@
 // Sin título. Foto 512 × 683 a 96 px del borde; a la derecha (columna de 744 px) pregunta,
 // fragmento y LEER ENTREVISTA (lleva a /estudio). Móvil: foto a todo el ancho y texto debajo.
 // Foto: src/assets/entrevista/home (caja gris mientras no esté).
-import Enlace from '../Enlace.astro';
+import EnlaceGuia from '../EnlaceGuia.astro';
 import Foto from '../Foto.astro';
 
 const pregunta = '¿CÓMO ENTRÓ EL AJEDREZ EN TU VIDA?';
@@ -24,7 +24,7 @@ const fragmento =
 		<div class="texto">
 			<p class="pregunta">{pregunta}</p>
 			<p class="fragmento">{fragmento}</p>
-			<p class="leer"><Enlace href="/estudio">LEER ENTREVISTA</Enlace></p>
+			<p class="leer"><EnlaceGuia href="/estudio" lado="derecha">LEER ENTREVISTA</EnlaceGuia></p>
 		</div>
 	</div>
 </section>
@@ -57,6 +57,7 @@ const fragmento =
 	}
 
 	.pregunta {
+		color: var(--color-secundario);
 		font-size: var(--pie-foto);
 		line-height: var(--pie-foto-alto);
 	}

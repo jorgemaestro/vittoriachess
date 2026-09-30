@@ -1,0 +1,175 @@
+---
+// Enlace con línea guía — ver docs/definicion.md (Componentes: Enlace con línea guía).
+// Una línea de 1 px, a la altura del subrayado, va desde un borde de la pantalla hasta
+// 16 px antes del enlace. Al entrar en pantalla crece desde el borde, se detiene y
+// desaparece empezando por su origen (el extremo del borde avanza hasta el enlace). En móvil sale siempre de la derecha. El largo se mide con
+// JavaScript: sin JS o con movimiento reducido no hay línea.
+import Enlace from './Enlace.astro';
+
+interface Props {
+	href: string;
+	/** Borde del que sale la línea en escritorio. */
+	lado: 'izquierda' | 'derecha';
+	/** Espera antes de dibujar la línea, en ms. */
+	retraso?: number;
+	/** true: el texto del enlace también sube desde una máscara al aparecer. */
+	subir?: boolean;
+}
+
+const { href, lado, retraso = 0, subir = false } = Astro.props;
+---
+
+<span class:list={['guiado', { subir }]} data-guia={lado} style={`--retraso: ${retraso}ms`}>
+	<span class="guia" aria-hidden="true"></span>
+	{
+		subir ? (
+			<span class="mascara">
+				<span class="contenido">
+					<Enlace href={href}>
+						<slot />
+					</Enlace>
+				</span>
+			</span>
+		) : (
+			<Enlace href={href}>
+				<slot />
+			</Enlace>
+		)
+	}
+</span>
+
+<script>
+	const guiados = document.querySelectorAll<HTMLElement>('[data-guia]');
+	const movil = matchMedia('(max-width: 809px)');
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const SEPARACION = 16;
+
+	// Lado real (en móvil, derecha) y largo hasta el borde de la pantalla.
+	const medir = () => {
+		const ancho = document.documentElement.clientWidth;
+		guiados.forEach((el) => {
+			const lado = movil.matches ? 'derecha' : el.dataset.guia;
+			const caja = el.getBoundingClientRect();
+			const largo = lado === 'izquierda' ? caja.left - SEPARACION : ancho - caja.right - SEPARACION;
+			el.dataset.ladoActual = lado;
+			el.style.setProperty('--largo', `${Math.max(0, largo)}px`);
+		});
+	};
+
+	if (guiados.length && !sinMovimiento && 'IntersectionObserver' in window) {
+		medir();
+		addEventListener('resize', medir);
+		document.fonts?.ready.then(medir); // el ancho del texto cambia al cargar la fuente
+
+		guiados.forEach((el) => el.classList.add('preparado'));
+		const observador = new IntersectionObserver(
+			(entradas) => {
+				entradas.forEach((e) => {
+					if (e.isIntersecting) {
+						e.target.classList.add('visible');
+						observador.unobserve(e.target);
+					}
+				});
+			},
+			{ rootMargin: '0px 0px -15% 0px' },
+		);
+		guiados.forEach((el) => observador.observe(el));
+	}
+</script>
+
+<style>
+	.guiado {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Borde, no relleno: grosor exacto de 1 px en cualquier pantalla. */
+	.guia {
+		position: absolute;
+		bottom: 0;
+		width: var(--largo, 0);
+		border-top: var(--linea) solid currentColor;
+		pointer-events: none;
+	}
+
+	[data-lado-actual='izquierda'] .guia {
+		right: calc(100% + 16px);
+	}
+
+	[data-lado-actual='derecha'] .guia {
+		left: calc(100% + 16px);
+	}
+
+	/* Ciclo con recorte: se descubre desde el borde hasta el enlace, se detiene y se tapa
+	   empezando por el borde, de modo que la línea se pierde en el enlace. */
+	.preparado[data-lado-actual='izquierda'] .guia {
+		clip-path: inset(-1px 100% -1px 0);
+	}
+
+	.preparado[data-lado-actual='derecha'] .guia {
+		clip-path: inset(-1px 0 -1px 100%);
+	}
+
+	.preparado.visible[data-lado-actual='izquierda'] .guia {
+		animation: guia-desde-izquierda 2.65s var(--retraso) both;
+	}
+
+	.preparado.visible[data-lado-actual='derecha'] .guia {
+		animation: guia-desde-derecha 2.65s var(--retraso) both;
+	}
+
+	@keyframes guia-desde-izquierda {
+		0% {
+			clip-path: inset(-1px 100% -1px 0);
+			animation-timing-function: var(--ease);
+		}
+		45%,
+		55% {
+			clip-path: inset(-1px 0 -1px 0);
+		}
+		55% {
+			animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+		}
+		100% {
+			clip-path: inset(-1px 0 -1px 100%);
+		}
+	}
+
+	@keyframes guia-desde-derecha {
+		0% {
+			clip-path: inset(-1px 0 -1px 100%);
+			animation-timing-function: var(--ease);
+		}
+		45%,
+		55% {
+			clip-path: inset(-1px 0 -1px 0);
+		}
+		55% {
+			animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+		}
+		100% {
+			clip-path: inset(-1px 100% -1px 0);
+		}
+	}
+
+	/* Texto que sube desde una máscara (como el manifiesto). */
+	.mascara {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.contenido {
+		display: block;
+		transition: transform 1.2s var(--ease) 160ms;
+	}
+
+	.preparado.subir .contenido {
+		transform: translateY(110%);
+	}
+
+	.preparado.subir.visible .contenido {
+		transform: none;
+	}
+</style>
