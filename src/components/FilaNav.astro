@@ -1,0 +1,67 @@
+---
+// Fila común de la barra y de la línea 1 del pie: logotipo · enlaces · ES / EN.
+// Devuelve los tres bloques sueltos; quien la usa decide la disposición (flex).
+// Por debajo de 810 px: en el pie solo queda el logotipo; en la barra, sin JavaScript,
+// enlaces e idioma pasan a una fila pequeña, y con JavaScript los sustituye el icono.
+import Enlace from './Enlace.astro';
+import Logo from './Logo.astro';
+import { enlaces, type Pagina } from './navegacion';
+
+interface Props {
+	etiqueta: string;
+	actual?: Pagina;
+	pie?: boolean;
+}
+
+const { etiqueta, actual, pie = false } = Astro.props;
+---
+
+<Logo href="/" />
+<nav class:list={['centro', { pie }]} aria-label={etiqueta}>
+	{enlaces.map(([ruta, texto], i) => (
+		<>
+			<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
+			{i < enlaces.length - 1 && ', '}
+		</>
+	))}
+</nav>
+<div class:list={['idioma', { pie }]}>
+	<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+</div>
+
+<style>
+	.centro {
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+		white-space: nowrap;
+	}
+
+	.idioma {
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+		white-space: nowrap;
+	}
+
+	@media (max-width: 809px) {
+		/* Barra sin JavaScript: enlaces y ES / EN en una fila pequeña bajo el logotipo. */
+		.centro,
+		.idioma {
+			font-size: var(--nav-lateral);
+			line-height: var(--nav-lateral-alto);
+		}
+
+		.centro {
+			order: 1;
+			width: 100%;
+			margin-top: 8px;
+			white-space: normal;
+		}
+
+		/* Barra con JavaScript (los sustituye el icono de menú) y pie: solo el logotipo. */
+		:global(.js) .centro,
+		:global(.js) .idioma,
+		.pie {
+			display: none;
+		}
+	}
+</style>

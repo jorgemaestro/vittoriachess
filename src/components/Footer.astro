@@ -1,0 +1,85 @@
+---
+// Pie — ver docs/definicion.md (Componentes: Pie).
+// Dos líneas sin fondo: la 1 igual que la barra; la 2 (pie de foto) 32 px debajo y a
+// 20 px del borde inferior. En móvil: línea 1 solo logotipo; línea 2 en tres filas.
+import Enlace from './Enlace.astro';
+import FilaNav from './FilaNav.astro';
+import type { Pagina } from './navegacion';
+
+type Legal = 'aviso-legal' | 'privacidad' | 'cookies';
+
+interface Props {
+	actual?: Pagina | Legal;
+}
+
+const { actual } = Astro.props;
+
+// Año de la publicación; el script lo cambia al año en curso en el navegador.
+const anio = new Date().getFullYear();
+
+const legales: [Legal, string][] = [
+	['aviso-legal', 'AVISO LEGAL'],
+	['privacidad', 'PRIVACIDAD'],
+	['cookies', 'COOKIES'],
+];
+---
+
+<footer class="pie">
+	<div class="fila">
+		<FilaNav etiqueta="Pie" actual={actual as Pagina} pie />
+	</div>
+	<p class="legal">
+		<span class="grupo">©<span data-anio>{anio}</span> VITTORIA CHESS</span><span class="sep"> · </span><span class="grupo"
+			><Enlace href="mailto:jorge@vittoriachess.com">EMAIL</Enlace> · <Enlace
+				href="https://www.instagram.com/vittoria_chess/"
+				target="_blank"
+				rel="noopener">INSTAGRAM</Enlace
+			></span
+		><span class="sep"> · </span><span class="grupo"
+			>{legales.map(([ruta, texto], i) => (
+				<>
+					<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
+					{i < legales.length - 1 && ' · '}
+				</>
+			))}</span
+		>
+	</p>
+</footer>
+
+<script>
+	document.querySelectorAll('[data-anio]').forEach((el) => {
+		el.textContent = String(new Date().getFullYear());
+	});
+</script>
+
+<style>
+	.pie {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+		margin-top: 120px;
+		padding: 0 var(--margen) calc(var(--margen) + env(safe-area-inset-bottom, 0px));
+	}
+
+	.fila {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+
+	.legal {
+		margin: 0;
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	@media (max-width: 809px) {
+		.grupo {
+			display: block;
+		}
+
+		.sep {
+			display: none;
+		}
+	}
+</style>

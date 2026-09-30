@@ -38,7 +38,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra. También se cierra con Escape y al pasar a más de 810 px. Mientras está abierto, la barra queda encima en tono oscuro y no se oculta. Sin JavaScript no hay icono ni panel: la barra móvil muestra los enlaces y ES / EN en una fila a 14 px bajo el logotipo.
 
-**Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©2026 VITTORIA CHESS · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas.
+**Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©AÑO VITTORIA CHESS (el año en curso, se actualiza solo) · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas: ©AÑO VITTORIA CHESS / EMAIL · INSTAGRAM / AVISO LEGAL · PRIVACIDAD · COOKIES. EMAIL abre el correo a jorge@vittoriachess.com; INSTAGRAM lleva a @vittoria_chess (instagram.com/vittoria_chess) en una pestaña nueva.
 
 **Cursor.** Cuadrado blanco de 16 × 16 px, sin bordes, mix-blend-mode: difference (muestra el negativo de lo que tiene detrás). Sigue al ratón con suavizado (factor 0,25), mismo tamaño siempre. Cursor de texto normal dentro de campos de formulario. Oculto en dispositivos táctiles.
 
@@ -46,7 +46,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Páginas
 
-Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista · /contacto. En inglés, las mismas bajo /en/.
+Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, las mismas bajo /en/.
 
 ### Home (de arriba abajo)
 
@@ -108,4 +108,4 @@ ES por defecto; EN en /en/... con textos traducidos a mano.
 
 ## Pendientes de contenido
 
-Llamada a contacto · entrevista y fragmento de la home · email del formulario · email e Instagram del pie · logotipo en SVG · fotos y vídeo definitivos.
+Llamada a contacto · entrevista y fragmento de la home · email del formulario · logotipo en SVG · fotos y vídeo definitivos.

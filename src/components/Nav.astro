@@ -4,12 +4,10 @@
 // sobre una zona marcada con data-nav-claro (el vídeo de la home); oscuro en el resto.
 // Sin JavaScript queda siempre visible y en el tono inicial; en móvil muestra los enlaces
 // en una fila pequeña en lugar del icono de menú.
-import Enlace from './Enlace.astro';
-import Logo from './Logo.astro';
+import FilaNav from './FilaNav.astro';
 import MenuIcono from './MenuIcono.astro';
 import MenuMovil from './MenuMovil.astro';
-
-type Pagina = 'obras' | 'las-piezas' | 'entrevista' | 'contacto';
+import { enlaces, type Pagina } from './navegacion';
 
 interface Props {
 	actual?: Pagina;
@@ -17,28 +15,10 @@ interface Props {
 }
 
 const { actual, claro = false } = Astro.props;
-
-const enlaces: [Pagina, string][] = [
-	['obras', 'OBRAS'],
-	['las-piezas', 'LAS PIEZAS'],
-	['entrevista', 'ENTREVISTA'],
-	['contacto', 'CONTACTO'],
-];
 ---
 
 <header class:list={['nav', { claro }]} data-nav>
-	<Logo href="/" />
-	<nav class="centro" aria-label="Principal">
-		{enlaces.map(([ruta, texto], i) => (
-			<>
-				<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
-				{i < enlaces.length - 1 && ', '}
-			</>
-		))}
-	</nav>
-	<div class="idioma">
-		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
-	</div>
+	<FilaNav etiqueta="Principal" actual={actual} />
 	<div class="menu">
 		<MenuIcono controla="menu-movil" />
 	</div>
@@ -123,40 +103,15 @@ const enlaces: [Pagina, string][] = [
 		transform: translateY(calc(-100% - var(--margen) - env(safe-area-inset-top, 0px)));
 	}
 
-	.centro {
-		font-size: var(--nav-central);
-		line-height: var(--nav-central-alto);
-		white-space: nowrap;
-	}
-
-	.idioma {
-		font-size: var(--nav-lateral);
-		line-height: var(--nav-lateral-alto);
-		white-space: nowrap;
-	}
-
 	/* El icono de menú solo existe por debajo de 810 px. */
 	.menu {
 		display: none;
 	}
 
 	@media (max-width: 809px) {
-		/* Sin JavaScript: enlaces y ES / EN en una fila pequeña bajo el logotipo. */
+		/* Sin JavaScript: la fila de enlaces baja bajo el logotipo (ver FilaNav). */
 		.nav {
 			flex-wrap: wrap;
-		}
-
-		.centro,
-		.idioma {
-			font-size: var(--nav-lateral);
-			line-height: var(--nav-lateral-alto);
-		}
-
-		.centro {
-			order: 1;
-			width: 100%;
-			margin-top: 8px;
-			white-space: normal;
 		}
 
 		/* Con JavaScript: logotipo e icono de menú. El icono se centra con la línea del
@@ -164,11 +119,6 @@ const enlaces: [Pagina, string][] = [
 		   (el área táctil sobresale). */
 		:global(.js) .nav {
 			align-items: flex-start;
-		}
-
-		:global(.js) .centro,
-		:global(.js) .idioma {
-			display: none;
 		}
 
 		:global(.js) .menu {

@@ -6,6 +6,7 @@ import Enlace from '../components/Enlace.astro';
 import Logo from '../components/Logo.astro';
 import Nav from '../components/Nav.astro';
 import MenuIcono from '../components/MenuIcono.astro';
+import Footer from '../components/Footer.astro';
 
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
@@ -159,6 +160,7 @@ const estilos = [
 		<p class="nota">ZONA OSCURA DE PRUEBA · SUSTITUYE AL VÍDEO · SUBE UN POCO PARA VER LA BARRA EN CLARO</p>
 	</div>
 	<div class="tras-zona"></div>
+	<Footer />
 </Base>
 
 <script>
@@ -304,7 +306,7 @@ const estilos = [
 	}
 
 	.tras-zona {
-		height: 100vh;
+		height: 50vh;
 	}
 
 	/* Curva */
