@@ -1,0 +1,88 @@
+---
+// Obras — ver docs/definicion.md (Páginas: Obras).
+// Catálogo de 8 obras en zigzag, sin enlaces. Posiciones de la tabla pasadas a vw.
+// Pie de cada obra a 4 px, en una columna: nombre / tipo / medidas. Llamada a contacto
+// 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Foto from '../components/Foto.astro';
+import LlamadaContacto from '../components/LlamadaContacto.astro';
+import { obras } from '../data/obras';
+
+const vw = (px: number) => `${((px / 1440) * 100).toFixed(3)}vw`;
+const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
+---
+
+<Base title="Obras — Vittoria Chess">
+	<Nav actual="obras" />
+	<main>
+		<h1 class="solo-lectores">Obras</h1>
+		<ul class="catalogo" style={`--alto: ${vw(fondo)}`}>
+			{
+				obras.map((o) => (
+					<li
+						class="obra"
+						style={`--x: ${vw(o.izquierda)}; --y: ${vw(o.arriba)}; --ancho: ${vw(o.ancho)}`}
+					>
+						<Foto
+							nombre={`obras/obra-${String(o.numero).padStart(2, '0')}`}
+							alt={`[PENDIENTE: descripción de la obra ${o.numero}]`}
+							proporcion={o.ancho / o.alto}
+							sizes={`(max-width: 809px) calc(100vw - 40px), ${vw(o.ancho)}`}
+						/>
+						<p class="pie">
+							<span>{o.nombre}</span>
+							<span>{o.tipo}</span>
+							<span>{o.medidas}</span>
+						</p>
+					</li>
+				))
+			}
+		</ul>
+		<LlamadaContacto />
+	</main>
+	<Footer />
+</Base>
+
+<style>
+	/* Lienzo de 1440: cada obra en su sitio; el alto cubre la última obra y su pie
+	   (4 px + tres líneas de 17 px). */
+	.catalogo {
+		position: relative;
+		height: calc(var(--alto) + 55px);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.obra {
+		position: absolute;
+		left: var(--x);
+		top: var(--y);
+		width: var(--ancho);
+	}
+
+	.pie {
+		display: flex;
+		flex-direction: column;
+		margin: 4px 0 0;
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	@media (max-width: 809px) {
+		.catalogo {
+			display: flex;
+			flex-direction: column;
+			gap: 64px;
+			height: auto;
+			padding: 120px var(--margen) 0;
+		}
+
+		.obra {
+			position: static;
+			width: auto;
+		}
+	}
+</style>

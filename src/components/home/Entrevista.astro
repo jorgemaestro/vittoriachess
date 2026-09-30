@@ -2,8 +2,9 @@
 // Home · Acceso a Entrevista — ver docs/definicion.md (Páginas: Home, punto 6).
 // Sin título. Foto 512 × 683 a 96 px del borde; a la derecha (columna de 744 px) pregunta,
 // fragmento y LEER ENTREVISTA. Móvil: foto a todo el ancho y texto debajo.
-// Foto provisional: caja gris hasta la Fase 6.
+// Foto: src/assets/entrevista/home (caja gris mientras no esté).
 import Enlace from '../Enlace.astro';
+import Foto from '../Foto.astro';
 
 const pregunta = '[PENDIENTE: PREGUNTA]';
 const fragmento = '[PENDIENTE: fragmento de la entrevista]';
@@ -11,7 +12,14 @@ const fragmento = '[PENDIENTE: fragmento de la entrevista]';
 
 <section class="entrevista" aria-label="Entrevista">
 	<div class="cuerpo">
-		<div class="foto" role="img" aria-label="[PENDIENTE: foto de la entrevista]"></div>
+		<div class="foto">
+			<Foto
+				nombre="entrevista/home"
+				alt="[PENDIENTE: descripción de la foto de la entrevista]"
+				proporcion={512 / 683}
+				sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
+			/>
+		</div>
 		<div class="texto">
 			<p class="pregunta">{pregunta}</p>
 			<p class="fragmento">{fragmento}</p>
@@ -39,8 +47,6 @@ const fragmento = '[PENDIENTE: fragmento de la entrevista]';
 		flex: none;
 		width: 35.556vw;
 		margin-left: 6.667vw;
-		aspect-ratio: 512 / 683;
-		background: var(--color-provisional);
 	}
 
 	/* Columna de 744 px: 744 − (96 + 512) = 136 px de separación. Máx. 480 px. */

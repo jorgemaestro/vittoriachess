@@ -68,7 +68,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
 
 ### Obras
 
-Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahora). OBRAS subrayado en la barra. Pie de cada obra a 4 px de la imagen, 10 / 17 px, tres columnas: nombre (176 px) · tipo (140 px) · medidas en cm.
+Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahora). OBRAS subrayado en la barra. Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
 
 | Obra | Izquierda (px) | Arriba (px) | Imagen (px) | Formato |
 | --- | --- | --- | --- | --- |
@@ -103,6 +103,19 @@ Pendiente: opciones de SOY y email de recepción.
 ### Legales
 
 Aviso legal, privacidad (debe nombrar a Formspree como encargado del tratamiento) y cookies.
+
+## Fotos y vídeos: nombres de archivo
+
+Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; basta con copiarla con ese nombre para que aparezca en su sitio. Mientras falte, se ve la caja gris provisional. Formatos: .jpg, .png o .webp, con el original a buena resolución (al menos el doble de su tamaño en pantalla; unos 1600 px de lado largo). Astro la recorta a la proporción de su hueco y la optimiza.
+
+| Dónde | Carpeta y nombre |
+| --- | --- |
+| Obras (8, en el orden de la tabla) | src/assets/obras/obra-01 … obra-08 |
+| Las piezas | src/assets/piezas/rey, dama, alfil, caballo, torre, peon |
+| Entrevista, acceso de la home | src/assets/entrevista/home |
+| Entrevista, bloques de la página | src/assets/entrevista/bloque-01 … bloque-06 |
+
+Vídeos (Cloudflare R2, no van al repositorio): video-principal-horizontal.mp4, video-principal-vertical.mp4, video-principal-poster.jpg; video-obras-horizontal.mp4, video-obras-vertical.mp4, video-obras-poster.jpg.
 
 ## Idiomas
 
