@@ -2,7 +2,8 @@
 // Estudio — ver docs/definicion.md (Páginas: Estudio). Contiene la entrevista.
 // Se lee de principio a fin haciendo scroll. Seis bloques alternos (foto a la izquierda en
 // el primero): foto 512 × 683 a 96 px de su borde y, al otro lado, columna de texto de
-// hasta 600 px. Preguntas en negrita y respuestas en regular, 24 / 32 px. 200 px entre
+// hasta 600 px. Preguntas en estilo Llamada, 40 / 48 px (suben desde una máscara al
+// aparecer), y respuestas en regular, 24 / 32 px, entre comillas. 200 px entre
 // bloques; el primero a 201 px. Después, la trayectoria y la llamada a contacto.
 // Móvil: foto arriba y texto debajo; 120 px entre bloques.
 import Base from '../layouts/Base.astro';
@@ -18,7 +19,7 @@ import { bloques } from '../data/entrevista';
 	<Nav actual="estudio" />
 	<main>
 		<h1 class="solo-lectores">Estudio</h1>
-		<div class="entrevista">
+		<div class="entrevista" data-entrevista>
 			{
 				bloques.map((preguntas, i) => (
 					<section class:list={['bloque', { derecha: i % 2 === 1 }]}>
@@ -33,8 +34,20 @@ import { bloques } from '../data/entrevista';
 						<div class="texto">
 							{preguntas.map((p) => (
 								<div class="qa">
-									<h2 class="pregunta">{p.pregunta}</h2>
-									<p class="respuesta">{p.respuesta}</p>
+									<h2 class="pregunta">
+										<span class="mascara">
+											<span class="contenido">
+												<span class="marca" aria-hidden="true">P</span>
+												{p.pregunta}
+											</span>
+										</span>
+									</h2>
+									<p class="respuesta">
+										<span class="comilla abre" aria-hidden="true">“</span>{p.respuesta}<span
+											class="comilla cierra"
+											aria-hidden="true">”</span
+										>
+									</p>
 								</div>
 							))}
 						</div>
@@ -47,6 +60,30 @@ import { bloques } from '../data/entrevista';
 	</main>
 	<Footer />
 </Base>
+
+<script>
+	// Las preguntas solo se esconden si este script arranca: sin JS se ven directamente.
+	const entrevista = document.querySelector<HTMLElement>('[data-entrevista]');
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (entrevista && !sinMovimiento && 'IntersectionObserver' in window) {
+		entrevista.classList.add('preparado');
+		const observador = new IntersectionObserver(
+			(entradas) => {
+				entradas.forEach((e) => {
+					if (e.isIntersecting) {
+						e.target.classList.add('visible');
+						observador.unobserve(e.target);
+					}
+				});
+			},
+			{ rootMargin: '0px 0px -10% 0px' },
+		);
+		entrevista
+			.querySelectorAll('.pregunta .mascara, .respuesta')
+			.forEach((el) => observador.observe(el));
+	}
+</script>
 
 <style>
 	.entrevista {
@@ -83,14 +120,89 @@ import { bloques } from '../data/entrevista';
 		margin-top: 48px;
 	}
 
+	/* Preguntas en estilo Llamada (40 / 48 px, regular). */
 	.pregunta {
 		margin: 0;
-		font-size: inherit;
-		font-weight: var(--peso-negrita);
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Cada pregunta sube desde su máscara al entrar en pantalla (como el manifiesto). */
+	/* Recorta solo arriba y abajo (la animación es vertical): la P colgada no se corta. */
+	.mascara {
+		display: block;
+		clip-path: inset(0 -100vw);
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.contenido {
+		display: block;
+		transition: transform 1.2s var(--ease);
+	}
+
+	.preparado .contenido {
+		transform: translateY(110%);
+	}
+
+	.preparado .visible .contenido {
+		transform: none;
+	}
+
+	/* La P y la comilla de apertura cuelgan en el margen izquierdo: el texto queda
+	   alineado en su columna. */
+	.pregunta .contenido,
+	.respuesta {
+		position: relative;
+	}
+
+	.marca,
+	.comilla {
+		color: var(--color-secundario);
+		font-weight: var(--peso-regular);
+	}
+
+	.marca,
+	.abre {
+		position: absolute;
+	}
+
+	.marca {
+		right: calc(100% + 16px);
+	}
+
+	/* Puntuación colgada: la comilla queda fuera de la columna pero pegada al texto. */
+	.abre {
+		right: 100%;
+	}
+
+	/* Comillas animadas: la de apertura sube al aparecer la respuesta; la de cierre, 0,5 s
+	   después. Solo se esconden si el script arranca. */
+	.comilla {
+		display: inline-block;
+		transition:
+			opacity 1.2s var(--ease),
+			transform 1.2s var(--ease);
+	}
+
+	.cierra {
+		transition-delay: 0.5s;
+	}
+
+	.preparado .respuesta .comilla {
+		opacity: 0;
+		transform: translateY(0.4em);
+	}
+
+	.preparado .respuesta.visible .comilla {
+		opacity: 1;
+		transform: none;
 	}
 
 	.respuesta {
-		margin: 16px 0 0;
+		margin: 24px 0 0;
 		font-weight: var(--peso-regular);
 	}
 
@@ -109,6 +221,16 @@ import { bloques } from '../data/entrevista';
 		.foto,
 		.texto {
 			width: 100%;
+		}
+
+		/* En móvil no hay margen: la P y la comilla de apertura van delante del texto. */
+		.marca,
+		.abre {
+			position: static;
+		}
+
+		.marca {
+			margin-right: 0.35em;
 		}
 	}
 </style>
