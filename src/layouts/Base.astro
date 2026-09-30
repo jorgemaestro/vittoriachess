@@ -1,0 +1,45 @@
+---
+// Plantilla común de todas las páginas: cabecera, tokens, fuentes y estilos base.
+import '../styles/tokens.css';
+import '../styles/fuentes.css';
+
+interface Props {
+	title?: string;
+	lang?: string;
+	noindex?: boolean;
+}
+
+const { title = 'Vittoria Chess', lang = 'es', noindex = false } = Astro.props;
+---
+
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	html,
+	body {
+		margin: 0;
+		min-height: 100%;
+		background: var(--color-fondo);
+		color: var(--color-tinta);
+		font-family: var(--fuente);
+		font-weight: var(--peso-medio);
+		-webkit-font-smoothing: antialiased;
+	}
+
+	::selection {
+		background: var(--color-seleccion);
+	}
+</style>

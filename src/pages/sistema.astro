@@ -1,0 +1,284 @@
+---
+// Página interna: muestra el sistema de diseño (docs/definicion.md, Sistema base).
+// Sin enlaces desde la web y fuera de Google. En la Fase 9 se decide si se publica.
+import Base from '../layouts/Base.astro';
+
+const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
+const usos = [
+	['color-fondo', 'FONDO'],
+	['color-tinta', 'TINTA (PROVISIONAL)'],
+	['color-carga', 'CARGA (PROVISIONAL)'],
+	['color-claro', 'CLARO (PROVISIONAL)'],
+	['color-provisional', 'CAJAS DE FOTO (PROVISIONAL)'],
+	['color-seleccion', 'SELECCIÓN (PROVISIONAL)'],
+];
+const estilos = [
+	['nav-central', 'NAV CENTRAL', '24 / 27,5 PX · 500', 'OBRAS, LAS PIEZAS, ENTREVISTA, CONTACTO'],
+	['nav-lateral', 'NAV LATERAL', '14 / 17,5 PX · 500', 'ES / EN · REY, DAMA, ALFIL, CABALLO, TORRE, PEÓN'],
+	['pie-foto', 'PIE DE FOTO', '10 / 17 PX · 500', '©2026 VITTORIA CHESS · AVISO LEGAL · PRIVACIDAD · COOKIES'],
+	['respuesta', 'RESPUESTA ENTREVISTA', '24 / 32 PX · 500', '[PENDIENTE: fragmento de la entrevista]'],
+];
+---
+
+<Base title="Sistema — Vittoria Chess" noindex>
+	<main class="sis">
+		<header class="bloque">
+			<p class="logo">Vittoria Chess</p>
+			<p class="nota">SISTEMA DE DISEÑO · PÁGINA INTERNA</p>
+		</header>
+
+		<section class="bloque">
+			<h2 class="titulo">COLORES DE MARCA</h2>
+			<ul class="muestras">
+				{marca.map((c) => (
+					<li>
+						<span class="muestra" style={`background: var(--${c})`}></span>
+						<span class="nota">{c.toUpperCase()}</span>
+						<span class="nota valor" data-var={`--${c}`}>--{c}</span>
+					</li>
+				))}
+			</ul>
+
+			<h2 class="titulo">COLORES DE USO</h2>
+			<ul class="muestras">
+				{usos.map(([v, nombre]) => (
+					<li>
+						<span class="muestra" style={`background: var(--${v})`}></span>
+						<span class="nota">{nombre}</span>
+						<span class="nota valor" data-var={`--${v}`}>--{v}</span>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">TIPOGRAFÍAS</h2>
+			<div class="fila">
+				<p class="nota">INTER TIGHT 400 · SUSTITUTA DE SUISSE INT'L</p>
+				<p class="ejemplo peso-regular">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789<br />abcdefghijklmnñopqrstuvwxyz áéíóú ¿?¡!</p>
+			</div>
+			<div class="fila">
+				<p class="nota">INTER TIGHT 500</p>
+				<p class="ejemplo">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789<br />abcdefghijklmnñopqrstuvwxyz áéíóú ¿?¡!</p>
+			</div>
+			<div class="fila">
+				<p class="nota">CINZEL 500 · LOGOTIPO · 21 PX EN BARRA Y PIE</p>
+				<p class="logo">Vittoria Chess</p>
+			</div>
+			<div class="fila">
+				<p class="nota">CINZEL 500 · LOGOTIPO · 44 PX EN LA CARGA</p>
+				<p class="logo logo-carga">Vittoria Chess</p>
+			</div>
+		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">ESCALA TIPOGRÁFICA</h2>
+			<div class="fila">
+				<p class="nota">MANIFIESTO · 80 / 88 PX (5,556 / 6,111 VW) · 400 · -0,02 EM</p>
+				<p class="manifiesto">
+					El cuadrado. El origen<br />
+					La geometría. La ley<br />
+					<span class="sangria">Seis piezas. Seis almas</span>
+				</p>
+			</div>
+			{estilos.map(([v, nombre, medida, texto]) => (
+				<div class="fila">
+					<p class="nota">{nombre} · {medida}</p>
+					<p style={`font-size: var(--${v}); line-height: var(--${v}-alto)`}>{texto}</p>
+				</div>
+			))}
+		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">MEDIDAS</h2>
+			<div class="fila">
+				<p class="nota">MARGEN · 20 PX</p>
+				<div class="regla"><span class="medida-margen"></span></div>
+			</div>
+			<div class="fila">
+				<p class="nota">LÍNEA · 1,34 PX</p>
+				<div class="medida-linea"></div>
+			</div>
+			<div class="fila">
+				<p class="nota">AIRE ENTRE SECCIONES · 240 PX (160 PX EN MÓVIL)</p>
+				<div class="medida-aire"></div>
+			</div>
+		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">CURVA</h2>
+			<div class="fila">
+				<p class="nota">CUBIC-BEZIER(0.23, 1, 0.32, 1) · 1000 MS · PASA EL RATÓN O TOCA LA BARRA</p>
+				<div class="pista" tabindex="0"><span class="bola"></span></div>
+			</div>
+		</section>
+	</main>
+</Base>
+
+<script>
+	// Añade el valor real de cada color leyendo tokens.css. Sin JS se ve el nombre de la variable.
+	const raiz = getComputedStyle(document.documentElement);
+	document.querySelectorAll<HTMLElement>('.valor').forEach((el) => {
+		el.textContent = raiz.getPropertyValue(el.dataset.var!).trim().toUpperCase();
+	});
+</script>
+
+<style>
+	.sis {
+		padding: var(--margen);
+	}
+
+	p,
+	h2 {
+		margin: 0;
+	}
+
+	.bloque + .bloque {
+		margin-top: var(--aire);
+	}
+
+	.titulo {
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+		margin-bottom: 40px;
+	}
+
+	.muestras + .titulo {
+		margin-top: 80px;
+	}
+
+	.nota {
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.fila + .fila {
+		margin-top: 48px;
+	}
+
+	.fila > .nota {
+		margin-bottom: 8px;
+	}
+
+	/* Colores */
+	.muestras {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+		gap: var(--margen);
+	}
+
+	.muestras li {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.muestra {
+		display: block;
+		aspect-ratio: 3 / 4;
+		margin-bottom: 8px;
+		outline: 1px solid var(--color-provisional);
+		outline-offset: -1px;
+	}
+
+	/* Tipografías */
+	.ejemplo {
+		font-size: var(--nav-central);
+		line-height: var(--respuesta-alto);
+	}
+
+	.peso-regular {
+		font-weight: var(--peso-regular);
+	}
+
+	.logo {
+		font-family: var(--fuente-logo);
+		font-weight: var(--peso-medio);
+		font-size: 21px;
+		line-height: 1;
+		letter-spacing: 0.12em;
+	}
+
+	.logo-carga {
+		font-size: 44px;
+	}
+
+	header .logo {
+		margin-bottom: 8px;
+	}
+
+	/* Escala */
+	.manifiesto {
+		font-weight: var(--peso-regular);
+		font-size: var(--manifiesto);
+		line-height: var(--manifiesto-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.sangria {
+		padding-left: 24.653vw; /* 355 px */
+	}
+
+	/* Medidas */
+	.regla {
+		height: 40px;
+		background: var(--color-provisional);
+	}
+
+	.medida-margen {
+		display: block;
+		width: var(--margen);
+		height: 100%;
+		background: var(--color-tinta);
+	}
+
+	.medida-linea {
+		height: var(--linea);
+		background: var(--color-tinta);
+	}
+
+	.medida-aire {
+		width: 40px;
+		height: var(--aire);
+		background: var(--color-provisional);
+	}
+
+	/* Curva */
+	.pista {
+		position: relative;
+		height: 40px;
+		border-bottom: var(--linea) solid var(--color-tinta);
+		outline: none;
+		container-type: inline-size;
+	}
+
+	.bola {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 40px;
+		height: 40px;
+		background: var(--color-tinta);
+		transition: transform 1000ms var(--ease);
+	}
+
+	.pista:hover .bola,
+	.pista:focus .bola {
+		transform: translateX(calc(100cqw - 40px));
+	}
+
+	@media (max-width: 809px) {
+		.muestras {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bola {
+			transition: none;
+		}
+	}
+</style>
