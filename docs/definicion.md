@@ -28,15 +28,15 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Componentes
 
-**Logotipo (provisional).** Texto "Vittoria Chess" en Cinzel 500, espaciado 0,12 em. 21 px en barra y pie (18 px en tablet y móvil), 44 px en la carga (30 px en móvil). Se sustituirá por el SVG del logotipo del estuche, manteniendo la altura.
+**Logotipo (provisional).** Texto "Vittoria Chess" en Cinzel 500, espaciado 0,12 em. 21 px en barra y pie (18 px en tablet y móvil), 44 px en la carga (30 px en móvil). Se sustituirá por el SVG del logotipo del estuche, manteniendo la altura. Firma debajo del logotipo, siempre con él (barra, pie y carga): BY JORGE MAESTRO en Inter Tight 500, 10 / 17 px (estilo pie de foto), mismo color; alineada a la izquierda en barra y pie, centrada en la carga.
 
-**Enlace.** Subrayado de 1,34 px del color del texto. Al pasar el ratón entra desde la izquierda en 1000 ms; al salir, sale por la derecha en 1200 ms (nunca vuelve por la izquierda). Enlace activo: subrayado fijo, sin reacción.
+**Enlace.** Subrayado de 1 px del color del texto (decidido el 30/09/2026: línea fina y de grosor constante en cualquier pantalla; antes 1,34 px). Al pasar el ratón entra desde la izquierda en 1000 ms; al salir, sale por la derecha en 1200 ms (nunca vuelve por la izquierda). Enlace activo: subrayado fijo, sin reacción.
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS, LAS PIEZAS, ENTREVISTA, CONTACTO (separados por ", ") · ES / EN. Se oculta al bajar (sube 60 px, 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS, LAS PIEZAS, ENTREVISTA, CONTACTO (separados por ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
 
-**Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1,34 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
+**Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
-**Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra.
+**Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra. También se cierra con Escape y al pasar a más de 810 px. Mientras está abierto, la barra queda encima en tono oscuro y no se oculta. Sin JavaScript no hay icono ni panel: la barra móvil muestra los enlaces y ES / EN en una fila a 14 px bajo el logotipo.
 
 **Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©2026 VITTORIA CHESS · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas.
 

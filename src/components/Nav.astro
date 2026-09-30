@@ -2,10 +2,12 @@
 // Barra de navegación — ver docs/definicion.md (Componentes: Barra de navegación).
 // Fija, sin fondo. Se oculta al bajar y reaparece al subir. Tono claro mientras está
 // sobre una zona marcada con data-nav-claro (el vídeo de la home); oscuro en el resto.
-// Sin JavaScript queda siempre visible y en el tono inicial.
+// Sin JavaScript queda siempre visible y en el tono inicial; en móvil muestra los enlaces
+// en una fila pequeña en lugar del icono de menú.
 import Enlace from './Enlace.astro';
 import Logo from './Logo.astro';
 import MenuIcono from './MenuIcono.astro';
+import MenuMovil from './MenuMovil.astro';
 
 type Pagina = 'obras' | 'las-piezas' | 'entrevista' | 'contacto';
 
@@ -38,9 +40,10 @@ const enlaces: [Pagina, string][] = [
 		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
 	</div>
 	<div class="menu">
-		<MenuIcono />
+		<MenuIcono controla="menu-movil" />
 	</div>
 </header>
+<MenuMovil enlaces={enlaces} actual={actual} />
 
 <script>
 	const nav = document.querySelector<HTMLElement>('[data-nav]');
@@ -68,6 +71,13 @@ const enlaces: [Pagina, string][] = [
 			});
 			nav.classList.toggle('claro', sobreOscuro);
 		};
+
+		// Con el menú móvil abierto: tono oscuro y siempre visible.
+		nav.addEventListener('menu:cambio', (e) => {
+			const { abierto } = (e as CustomEvent<{ abierto: boolean }>).detail;
+			nav.classList.toggle('menu-abierto', abierto);
+			nav.classList.remove('oculta');
+		});
 
 		window.addEventListener(
 			'scroll',
@@ -103,9 +113,14 @@ const enlaces: [Pagina, string][] = [
 		color: var(--color-claro);
 	}
 
+	.nav.menu-abierto {
+		color: var(--color-tinta);
+	}
+
 	/* Se oculta al bajar; vuelve si se llega a ella con el teclado. */
 	.nav.oculta:not(:focus-within) {
-		transform: translateY(-60px);
+		/* Sube su propia altura más el margen superior: sale entera de la pantalla. */
+		transform: translateY(calc(-100% - var(--margen) - env(safe-area-inset-top, 0px)));
 	}
 
 	.centro {
@@ -125,21 +140,40 @@ const enlaces: [Pagina, string][] = [
 		display: none;
 	}
 
-	/* Menos de 810 px: logotipo e icono de menú. El icono se centra con el logotipo y
-	   su dibujo queda alineado con el margen derecho (el área táctil sobresale). */
 	@media (max-width: 809px) {
+		/* Sin JavaScript: enlaces y ES / EN en una fila pequeña bajo el logotipo. */
+		.nav {
+			flex-wrap: wrap;
+		}
+
 		.centro,
 		.idioma {
+			font-size: var(--nav-lateral);
+			line-height: var(--nav-lateral-alto);
+		}
+
+		.centro {
+			order: 1;
+			width: 100%;
+			margin-top: 8px;
+			white-space: normal;
+		}
+
+		/* Con JavaScript: logotipo e icono de menú. El icono se centra con la línea del
+		   logotipo (no con la firma) y su dibujo queda alineado con el margen derecho
+		   (el área táctil sobresale). */
+		:global(.js) .nav {
+			align-items: flex-start;
+		}
+
+		:global(.js) .centro,
+		:global(.js) .idioma {
 			display: none;
 		}
 
-		.nav {
-			align-items: center;
-		}
-
-		.menu {
+		:global(.js) .menu {
 			display: block;
-			margin: -11px -8px -11px 0;
+			margin: calc(var(--logo) / 2 - 20px) -8px 0 0;
 		}
 	}
 

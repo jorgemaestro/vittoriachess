@@ -1,6 +1,7 @@
 ---
 // Logotipo provisional — ver docs/definicion.md (Componentes: Logotipo).
 // Texto en Cinzel hasta tener el SVG del estuche, que mantendrá la misma altura.
+// Siempre con la firma debajo: BY JORGE MAESTRO (estilo pie de foto).
 interface Props {
 	href?: string;
 	carga?: boolean;
@@ -10,22 +11,41 @@ const { href, carga = false } = Astro.props;
 const Etiqueta = href ? 'a' : 'span';
 ---
 
-<Etiqueta href={href} class:list={['logo', { carga }]}>Vittoria Chess</Etiqueta>
+<Etiqueta href={href} class:list={['logo', { carga }]}>
+	<span class="nombre">Vittoria Chess</span>
+	<span class="firma">BY JORGE MAESTRO</span>
+</Etiqueta>
 
 <style>
 	.logo {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.nombre {
 		display: block;
 		font-family: var(--fuente-logo);
 		font-weight: var(--peso-medio);
 		font-size: var(--logo);
 		line-height: 1;
 		letter-spacing: var(--logo-espaciado);
-		white-space: nowrap;
-		color: inherit;
-		text-decoration: none;
+	}
+
+	.firma {
+		display: block;
+		font-family: var(--fuente);
+		font-weight: var(--peso-medio);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
 	}
 
 	.carga {
+		text-align: center;
+	}
+
+	.carga .nombre {
 		font-size: var(--logo-carga);
 	}
 </style>

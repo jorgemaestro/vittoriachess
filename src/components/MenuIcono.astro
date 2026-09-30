@@ -51,9 +51,9 @@ const { controla } = Astro.props;
 		top: 50%;
 		left: 8px;
 		width: 24px;
-		height: var(--linea);
+		/* Borde en lugar de relleno: grosor constante en cualquier pantalla (ver Enlace). */
+		border-top: var(--linea) solid currentColor;
 		margin-top: calc(var(--linea) / -2);
-		background: currentColor;
 		/* Cerrar: primero deshace el giro, después se separan. */
 		transition:
 			rotate 0.35s var(--ease),

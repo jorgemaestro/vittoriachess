@@ -33,17 +33,22 @@ const { href, activo = false, class: clase, ...resto } = Astro.props;
 		right: 0;
 		bottom: 0;
 		height: var(--linea);
-		overflow: hidden;
+		/* Recorta solo a los lados: arriba y abajo nunca corta el trazo. */
+		clip-path: inset(-2px 0);
 		pointer-events: none;
 	}
 
-	/* Dos trazos: ::before entra por la izquierda; ::after sale por la derecha. */
+	/* Dos trazos: ::before entra por la izquierda; ::after sale por la derecha.
+	   Se dibujan como borde (no como relleno) porque el navegador ajusta los bordes a
+	   píxeles enteros: el grosor es el mismo en cualquier pantalla y escala. */
 	.subrayado::before,
 	.subrayado::after {
 		content: '';
 		position: absolute;
-		inset: 0;
-		background: currentColor;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-top: var(--linea) solid currentColor;
 	}
 
 	.subrayado::before {

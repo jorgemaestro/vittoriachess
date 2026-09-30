@@ -23,7 +23,7 @@
   /* Medidas */
   --margen: 20px;
   --aire: 240px;                 /* entre secciones */
-  --linea: 1.34px;               /* grosor de subrayados */
+  --linea: 1px;                  /* grosor de subrayados e icono de menú */
 
   /* Movimiento */
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
@@ -46,6 +46,8 @@
   --manifiesto-espaciado: -0.02em;
   --respuesta: 24px;
   --respuesta-alto: 32px;
+  --menu-movil: 40px;
+  --menu-movil-alto: 48px;
 
   /* Logotipo provisional (Cinzel) */
   --logo: 21px;                  /* barra y pie */

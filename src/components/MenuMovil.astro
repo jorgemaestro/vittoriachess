@@ -1,0 +1,114 @@
+---
+// Menú móvil — ver docs/definicion.md (Componentes: Menú móvil).
+// Panel a pantalla completa que entra con fundido de 0,4 s. Lo abre y cierra el icono de
+// menú (aria-controls="menu-movil"); también se cierra al tocar un enlace, con Escape y al
+// pasar a más de 810 px. Cerrado queda invisible y fuera del tabulador.
+import Enlace from './Enlace.astro';
+
+interface Props {
+	enlaces: [string, string][];
+	actual?: string;
+}
+
+const { enlaces, actual } = Astro.props;
+---
+
+<div class="menu-movil" id="menu-movil" data-menu-movil>
+	<nav aria-label="Menú">
+		<ul>
+			{enlaces.map(([ruta, texto]) => (
+				<li><Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace></li>
+			))}
+		</ul>
+	</nav>
+	<div class="idioma">
+		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+	</div>
+</div>
+
+<script>
+	const panel = document.querySelector<HTMLElement>('[data-menu-movil]');
+	const boton = document.querySelector<HTMLButtonElement>('[aria-controls="menu-movil"]');
+
+	if (panel && boton) {
+		const abierto = () => boton.getAttribute('aria-expanded') === 'true';
+
+		// El icono guarda el estado: cerrar desde fuera es pulsarlo.
+		const cerrar = () => {
+			if (abierto()) boton.click();
+		};
+
+		boton.addEventListener('menu:cambio', (e) => {
+			const { abierto } = (e as CustomEvent<{ abierto: boolean }>).detail;
+			panel.classList.toggle('abierto', abierto);
+			document.documentElement.classList.toggle('menu-abierto', abierto);
+			if (abierto) panel.querySelector('a')?.focus({ preventScroll: true });
+		});
+
+		panel.addEventListener('click', (e) => {
+			if ((e.target as Element).closest('a')) cerrar();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && abierto()) {
+				cerrar();
+				boton.focus();
+			}
+		});
+
+		matchMedia('(min-width: 810px)').addEventListener('change', (e) => {
+			if (e.matches) cerrar();
+		});
+	}
+</script>
+
+<style>
+	.menu-movil {
+		position: fixed;
+		inset: 0;
+		z-index: 49;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: calc(120px + env(safe-area-inset-top, 0px)) var(--margen)
+			calc(var(--margen) + env(safe-area-inset-bottom, 0px));
+		background: var(--color-fondo);
+		color: var(--color-tinta);
+		opacity: 0;
+		visibility: hidden;
+		transition:
+			opacity 0.4s var(--ease),
+			visibility 0s linear 0.4s;
+	}
+
+	.menu-movil.abierto {
+		opacity: 1;
+		visibility: visible;
+		transition: opacity 0.4s var(--ease);
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: var(--menu-movil);
+		line-height: var(--menu-movil-alto);
+	}
+
+	.idioma {
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+	}
+
+	/* Bloquea el scroll de la página mientras está abierto. */
+	:global(html.menu-abierto) {
+		overflow: hidden;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.menu-movil,
+		.menu-movil.abierto {
+			transition: none;
+		}
+	}
+</style>
