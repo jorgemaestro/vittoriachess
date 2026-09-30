@@ -7,6 +7,7 @@ import Logo from '../components/Logo.astro';
 import Nav from '../components/Nav.astro';
 import MenuIcono from '../components/MenuIcono.astro';
 import Footer from '../components/Footer.astro';
+import Carga from '../components/Carga.astro';
 
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
@@ -154,6 +155,14 @@ const estilos = [
 		</section>
 
 		<section class="bloque">
+			<h2 class="titulo">PANTALLA DE CARGA</h2>
+			<div class="fila">
+				<p class="nota">SOLO EN LA HOME, UNA VEZ POR VISITA. 1,5 S VISIBLE Y FUNDIDO DE 0,8 S. UN CLIC LA SALTA.</p>
+				<button class="boton-prueba" type="button" data-ver-carga>VER PANTALLA DE CARGA</button>
+			</div>
+		</section>
+
+		<section class="bloque">
 			<h2 class="titulo">BARRA DE NAVEGACIÓN</h2>
 			<p class="nota">ARRIBA, FIJA. SE OCULTA AL BAJAR Y REAPARECE AL SUBIR. SOBRE LA ZONA OSCURA DE ABAJO PASA A TONO CLARO (COMO SOBRE EL VÍDEO DE LA HOME).</p>
 		</section>
@@ -172,9 +181,18 @@ const estilos = [
 	</div>
 	<div class="tras-zona"></div>
 	<Footer />
+	<Carga automatica={false} />
 </Base>
 
 <script>
+	// Reproduce la pantalla de carga (en la web solo sale en la home, una vez por visita).
+	document.querySelector('[data-ver-carga]')?.addEventListener('click', () => {
+		const raiz = document.documentElement;
+		raiz.classList.remove('con-carga');
+		void raiz.offsetWidth; // reinicia la animación
+		raiz.classList.add('con-carga');
+	});
+
 	// Añade el valor real de cada color leyendo tokens.css. Sin JS se ve el nombre de la variable.
 	const raiz = getComputedStyle(document.documentElement);
 	document.querySelectorAll<HTMLElement>('.valor').forEach((el) => {
@@ -322,6 +340,19 @@ const estilos = [
 		line-height: var(--respuesta-alto);
 		outline: none;
 		border-radius: 0;
+	}
+
+	/* Pantalla de carga: botón de prueba */
+	.boton-prueba {
+		padding: 0;
+		border: 0;
+		border-bottom: var(--linea) solid currentColor;
+		background: none;
+		color: inherit;
+		font: inherit;
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+		cursor: pointer;
 	}
 
 	/* Barra */

@@ -1,0 +1,94 @@
+---
+// Pantalla de carga — ver docs/definicion.md (Componentes: Pantalla de carga).
+// Solo en la home y una vez por visita. Fondo negro y logotipo en blanco: visible 1,5 s y
+// fundido de 0,8 s. Un clic la salta. Los tiempos los lleva el CSS: si el JavaScript falla,
+// desaparece igual. Sin JavaScript no aparece.
+import Logo from './Logo.astro';
+
+interface Props {
+	/** false: no sale sola (se usa en /sistema para reproducirla con un botón). */
+	automatica?: boolean;
+}
+
+const { automatica = true } = Astro.props;
+---
+
+{
+	automatica && (
+		<script is:inline>
+			try {
+				if (!sessionStorage.getItem('vittoria-carga')) {
+					document.documentElement.classList.add('con-carga');
+					sessionStorage.setItem('vittoria-carga', '1');
+				}
+			} catch (e) {}
+		</script>
+	)
+}
+
+<div class="carga" aria-hidden="true" data-carga>
+	<Logo carga />
+</div>
+
+<script>
+	const carga = document.querySelector<HTMLElement>('[data-carga]');
+
+	if (carga) {
+		// Mientras se desvanece no bloquea los clics.
+		carga.addEventListener('animationstart', () => carga.classList.add('saliendo'));
+		carga.addEventListener('animationend', () => {
+			document.documentElement.classList.remove('con-carga');
+			carga.classList.remove('saliendo', 'saltar');
+		});
+		carga.addEventListener('click', () => carga.classList.add('saltar'));
+	}
+</script>
+
+<style>
+	.carga {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 0 var(--margen);
+		background: var(--color-carga);
+		color: var(--color-claro);
+	}
+
+	:global(html.con-carga) .carga {
+		display: flex;
+		animation: desvanecer 0.8s var(--ease) 1.5s forwards;
+	}
+
+	/* Un clic: el fundido empieza en ese momento (otra animación, para que arranque de cero). */
+	:global(html.con-carga) .carga.saltar {
+		animation: saltar 0.8s var(--ease) forwards;
+	}
+
+	.carga.saliendo {
+		pointer-events: none;
+	}
+
+	@keyframes desvanecer {
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	@keyframes saltar {
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(html.con-carga) .carga,
+		:global(html.con-carga) .carga.saltar {
+			animation-duration: 0.01s;
+		}
+	}
+</style>
