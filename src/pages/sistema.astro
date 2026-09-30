@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import Enlace from '../components/Enlace.astro';
 import Logo from '../components/Logo.astro';
 import Nav from '../components/Nav.astro';
+import MenuIcono from '../components/MenuIcono.astro';
 
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
@@ -144,6 +145,14 @@ const estilos = [
 			<h2 class="titulo">BARRA DE NAVEGACIÓN</h2>
 			<p class="nota">ARRIBA, FIJA. SE OCULTA AL BAJAR Y REAPARECE AL SUBIR. SOBRE LA ZONA OSCURA DE ABAJO PASA A TONO CLARO (COMO SOBRE EL VÍDEO DE LA HOME).</p>
 		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">ICONO DE MENÚ</h2>
+			<div class="fila">
+				<p class="nota">EN LA BARRA SOLO POR DEBAJO DE 810 PX. AQUÍ, SUELTO PARA PROBARLO A CUALQUIER ANCHO. PULSA PARA ABRIR Y CERRAR.</p>
+				<div class="icono-prueba"><MenuIcono /></div>
+			</div>
+		</section>
 	</main>
 
 	<div class="zona-oscura" data-nav-claro>
@@ -276,6 +285,12 @@ const estilos = [
 	.tam-lateral {
 		font-size: var(--nav-lateral);
 		line-height: var(--nav-lateral-alto);
+	}
+
+	/* Icono de menú: el marco muestra el área táctil de 40 × 40 px */
+	.icono-prueba {
+		display: inline-block;
+		outline: 1px solid var(--color-provisional);
 	}
 
 	/* Barra */

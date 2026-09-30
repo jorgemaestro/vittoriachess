@@ -5,6 +5,7 @@
 // Sin JavaScript queda siempre visible y en el tono inicial.
 import Enlace from './Enlace.astro';
 import Logo from './Logo.astro';
+import MenuIcono from './MenuIcono.astro';
 
 type Pagina = 'obras' | 'las-piezas' | 'entrevista' | 'contacto';
 
@@ -35,6 +36,9 @@ const enlaces: [Pagina, string][] = [
 	</nav>
 	<div class="idioma">
 		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+	</div>
+	<div class="menu">
+		<MenuIcono />
 	</div>
 </header>
 
@@ -116,11 +120,26 @@ const enlaces: [Pagina, string][] = [
 		white-space: nowrap;
 	}
 
-	/* Menos de 810 px: solo el logotipo (el icono de menú llega con MenuIcono). */
+	/* El icono de menú solo existe por debajo de 810 px. */
+	.menu {
+		display: none;
+	}
+
+	/* Menos de 810 px: logotipo e icono de menú. El icono se centra con el logotipo y
+	   su dibujo queda alineado con el margen derecho (el área táctil sobresale). */
 	@media (max-width: 809px) {
 		.centro,
 		.idioma {
 			display: none;
+		}
+
+		.nav {
+			align-items: center;
+		}
+
+		.menu {
+			display: block;
+			margin: -11px -8px -11px 0;
 		}
 	}
 
