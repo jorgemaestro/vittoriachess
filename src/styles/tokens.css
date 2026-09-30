@@ -1,5 +1,6 @@
 /* Tokens de diseño — ver docs/definicion.md (Sistema base).
-   Para cambiar un color de toda la web, se cambia aquí y en ningún otro sitio. */
+   Para cambiar un color, medida o tipo de toda la web, se cambia aquí y en ningún otro sitio.
+   Los componentes usan solo las variables de uso, nunca los nombres de la paleta. */
 
 :root {
   /* Paleta de marca */
@@ -11,7 +12,55 @@
   --bronze: #B18F5A;
   --bronze-d: #765A32;
 
-  /* Usos: los componentes solo usan estas variables */
+  /* Colores de uso */
   --color-fondo: var(--plaster);
-  --color-tinta: #2B2B2B; /* provisional, pendiente de asignar color de marca */
+  --color-tinta: #2B2B2B;        /* provisional, pendiente de color de marca */
+  --color-carga: #000000;        /* provisional: fondo de la pantalla de carga */
+  --color-claro: #FFFFFF;        /* provisional: cursor, barra sobre vídeo, logotipo en la carga */
+  --color-provisional: #D9D9D9;  /* provisional: cajas en lugar de fotos */
+  --color-seleccion: #E2E2E2;    /* provisional: texto seleccionado */
+
+  /* Medidas */
+  --margen: 20px;
+  --aire: 240px;                 /* entre secciones */
+  --linea: 1.34px;               /* grosor de subrayados */
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Tipografías. Al llegar Suisse Int'l, se cambia solo --fuente. */
+  --fuente: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --fuente-logo: "Cinzel", Georgia, serif;
+  --peso-regular: 400;
+  --peso-medio: 500;
+
+  /* Escala tipográfica (tamaño / interlineado a 1440 px) */
+  --nav-central: 24px;
+  --nav-central-alto: 27.5px;
+  --nav-lateral: 14px;
+  --nav-lateral-alto: 17.5px;
+  --pie-foto: 10px;
+  --pie-foto-alto: 17px;
+  --manifiesto: 5.556vw;         /* 80 px */
+  --manifiesto-alto: 6.111vw;    /* 88 px */
+  --manifiesto-espaciado: -0.02em;
+  --respuesta: 24px;
+  --respuesta-alto: 32px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  :root {
+    --nav-central: 18px;
+    --nav-central-alto: 22px;
+  }
+}
+
+/* Móvil (corte principal, menú móvil) */
+@media (max-width: 809px) {
+  :root {
+    --aire: 160px;
+    --manifiesto: 36px;
+    --manifiesto-alto: 40px;
+  }
 }

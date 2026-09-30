@@ -29,8 +29,9 @@ Web de Vittoria Chess en Astro. Sustituye a la web actual en Wix.
   sin librerías en <script>.
 - CSS propio. Colores, margen, curva y escala tipográfica solo como variables de
   src/styles/tokens.css. Nunca valores de color sueltos en los componentes.
-- Lienzo de 1440 px. Las medidas del documento en px se pasan a vw así: px / 1440 × 100
-  (20 px = 1,389 vw). Corte principal a 810 px (menú móvil).
+- Lienzo de 1440 px. Las posiciones de la composición (imágenes, zigzag, sangrías) y el
+  manifiesto se pasan a vw así: px / 1440 × 100 (434 px = 30,139 vw). El margen, los textos y
+  los grosores de línea van en px fijos, como en el prototipo. Corte principal a 810 px (menú móvil).
 - Curva de todas las animaciones: var(--ease) = cubic-bezier(0.23, 1, 0.32, 1).
 - Respetar prefers-reduced-motion: si el visitante lo pide, las animaciones se reducen o
   se quitan (el contenido aparece directamente).

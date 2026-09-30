@@ -6,8 +6,9 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 
 ## Sistema base
 
-- Lienzo de diseño: 1440 px. Las composiciones escalan en vw como la referencia.
-- Margen único: 20 px (1,389 vw).
+- Lienzo de diseño: 1440 px. Las composiciones (posiciones de imágenes, zigzag de Obras, sangrías y el manifiesto) escalan en vw: px / 1440 × 100.
+- El margen, los tamaños de texto (salvo el manifiesto) y los grosores de línea van en px fijos, como en el prototipo aprobado (decidido el 30/09/2026).
+- Margen único: 20 px.
 - Paleta de marca (recibida el 30/09/2026): ONYX #17130F · GRAPHITE #48443F · ASH #989188 · BONE #F2EDE4 · PLASTER #F7F5F1 · BRONZE #B18F5A · BRONZE-D #765A32. Un solo mundo de color, sin modo oscuro. Todos los colores se definen como variables en src/styles/tokens.css para cambiarlos en un solo sitio. Los componentes usan siempre las variables de uso (fondo, tinta…), nunca los nombres de la paleta directamente.
 - Asignación de usos: Fondo → PLASTER (propuesta; sustituye a #F5F5F5). Pendiente de decidir: tinta, negro de la carga, blanco del cursor y de la nav sobre vídeo, gris provisional de imágenes y color de selección.
 - Colores provisionales anteriores, vigentes hasta decidir su sustituto: Tinta #2B2B2B · Negro #000000 · Blanco #FFFFFF · Provisional #D9D9D9 · Selección #E2E2E2.
@@ -35,7 +36,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1,34 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
-**Menú móvil.** Panel a pantalla completa, fondo #F5F5F5, entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra.
+**Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra.
 
 **Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©2026 VITTORIA CHESS · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas.
 
