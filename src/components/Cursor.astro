@@ -1,0 +1,124 @@
+---
+// Cursor — ver docs/definicion.md (Componentes: Cursor).
+// Cuadrado de 16 px en negativo (mix-blend-mode: difference) que sigue al ratón con
+// suavizado 0,25; sobre enlaces y botones crece a 24 px. Solo con ratón y JavaScript:
+// en pantallas táctiles o sin JS el visitante conserva su cursor de siempre.
+---
+
+<div class="cursor" aria-hidden="true" data-cursor><span class="cuadro"></span></div>
+
+<script>
+	const cursor = document.querySelector<HTMLElement>('[data-cursor]');
+	const conRaton = matchMedia('(hover: hover) and (pointer: fine)');
+
+	if (cursor && conRaton.matches) {
+		const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)');
+		const SUAVIZADO = 0.25;
+		const destino = { x: 0, y: 0 };
+		const pos = { x: 0, y: 0 };
+		let animando = false;
+
+		document.documentElement.classList.add('cursor-propio');
+
+		const pintar = () => {
+			cursor.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+		};
+
+		const paso = () => {
+			pos.x += (destino.x - pos.x) * SUAVIZADO;
+			pos.y += (destino.y - pos.y) * SUAVIZADO;
+			// Se para al llegar para no gastar batería con el ratón quieto.
+			if (Math.abs(destino.x - pos.x) < 0.1 && Math.abs(destino.y - pos.y) < 0.1) {
+				pos.x = destino.x;
+				pos.y = destino.y;
+				animando = false;
+			} else {
+				requestAnimationFrame(paso);
+			}
+			pintar();
+		};
+
+		document.addEventListener('pointermove', (e) => {
+			destino.x = e.clientX;
+			destino.y = e.clientY;
+			// Al aparecer (o sin suavizado) salta directo, sin cruzar la pantalla.
+			if (!cursor.classList.contains('visible') || sinMovimiento.matches) {
+				pos.x = destino.x;
+				pos.y = destino.y;
+				pintar();
+				cursor.classList.add('visible');
+			} else if (!animando) {
+				animando = true;
+				requestAnimationFrame(paso);
+			}
+		});
+
+		// Fuera de la ventana, desaparece.
+		document.documentElement.addEventListener('pointerleave', () => {
+			cursor.classList.remove('visible');
+		});
+
+		// Crece sobre enlaces y botones; se esconde sobre campos de texto.
+		document.addEventListener('pointerover', (e) => {
+			const objetivo = e.target as Element;
+			cursor.classList.toggle('grande', !!objetivo.closest('a, button, [role="button"]'));
+			cursor.classList.toggle(
+				'en-campo',
+				!!objetivo.closest('input, textarea, select, [contenteditable="true"]'),
+			);
+		});
+	}
+</script>
+
+<style>
+	.cursor {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1000;
+		pointer-events: none;
+		mix-blend-mode: difference;
+		opacity: 0;
+		/* El cuadro se centra en la punta del ratón. */
+		width: 0;
+		height: 0;
+	}
+
+	.cursor.visible {
+		opacity: 1;
+	}
+
+	.cursor.en-campo {
+		opacity: 0;
+	}
+
+	.cuadro {
+		position: absolute;
+		top: -8px;
+		left: -8px;
+		width: 16px;
+		height: 16px;
+		background: var(--color-claro);
+		transition: transform 0.4s var(--ease);
+	}
+
+	.grande .cuadro {
+		transform: scale(1.5); /* 24 px */
+	}
+
+	/* Con cursor propio se oculta la flecha del sistema, salvo en campos de texto. */
+	:global(html.cursor-propio),
+	:global(html.cursor-propio *) {
+		cursor: none;
+	}
+
+	:global(html.cursor-propio :is(input, textarea, select, [contenteditable='true'])) {
+		cursor: auto;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cuadro {
+			transition: none;
+		}
+	}
+</style>

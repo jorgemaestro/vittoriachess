@@ -2,6 +2,7 @@
 // Plantilla común de todas las páginas: cabecera, tokens, fuentes y estilos base.
 import '../styles/tokens.css';
 import '../styles/fuentes.css';
+import Cursor from '../components/Cursor.astro';
 
 interface Props {
 	title?: string;
@@ -26,6 +27,7 @@ const { title = 'Vittoria Chess', lang = 'es', noindex = false } = Astro.props;
 	</head>
 	<body>
 		<slot />
+		<Cursor />
 	</body>
 </html>
 
