@@ -1,0 +1,93 @@
+---
+// Enlace con subrayado — ver docs/definicion.md (Componentes: Enlace).
+// Al pasar el ratón el subrayado entra por la izquierda (1000 ms); al salir, sale por la
+// derecha (1200 ms) y nunca vuelve por la izquierda. Activo: subrayado fijo, sin reacción.
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+	href: string;
+	activo?: boolean;
+}
+
+const { href, activo = false, class: clase, ...resto } = Astro.props;
+---
+
+<a
+	href={href}
+	class:list={['enlace', clase]}
+	aria-current={activo ? 'page' : undefined}
+	{...resto}
+><slot /><span class="subrayado" aria-hidden="true"></span></a>
+
+<style>
+	.enlace {
+		position: relative;
+		display: inline-block;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.subrayado {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: var(--linea);
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	/* Dos trazos: ::before entra por la izquierda; ::after sale por la derecha. */
+	.subrayado::before,
+	.subrayado::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: currentColor;
+	}
+
+	.subrayado::before {
+		transform: translateX(-101%);
+	}
+
+	.subrayado::after {
+		transform: translateX(101%);
+		transition: transform 1200ms var(--ease);
+	}
+
+	.enlace:hover .subrayado::before,
+	.enlace:focus-visible .subrayado::before {
+		transform: translateX(0);
+		transition: transform 1000ms var(--ease);
+	}
+
+	.enlace:hover .subrayado::after,
+	.enlace:focus-visible .subrayado::after {
+		transform: translateX(0);
+		opacity: 0;
+		transition: none;
+	}
+
+	/* Activo: subrayado fijo, sin reacción */
+	.enlace[aria-current] .subrayado::before {
+		transform: translateX(0);
+		transition: none;
+	}
+
+	.enlace[aria-current] .subrayado::after {
+		display: none;
+	}
+
+	.enlace:focus-visible {
+		outline: none;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.subrayado::before,
+		.subrayado::after,
+		.enlace:hover .subrayado::before,
+		.enlace:focus-visible .subrayado::before {
+			transition: none;
+		}
+	}
+</style>

@@ -2,6 +2,7 @@
 // Página interna: muestra el sistema de diseño (docs/definicion.md, Sistema base).
 // Sin enlaces desde la web y fuera de Google. En la Fase 9 se decide si se publica.
 import Base from '../layouts/Base.astro';
+import Enlace from '../components/Enlace.astro';
 
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
@@ -110,6 +111,30 @@ const estilos = [
 			<div class="fila">
 				<p class="nota">CUBIC-BEZIER(0.23, 1, 0.32, 1) · 1000 MS · PASA EL RATÓN O TOCA LA BARRA</p>
 				<div class="pista" tabindex="0"><span class="bola"></span></div>
+			</div>
+		</section>
+
+		<section class="bloque" id="enlace">
+			<h2 class="titulo">ENLACE</h2>
+			<div class="fila">
+				<p class="nota">NAV CENTRAL · ENTRA POR LA IZQUIERDA EN 1000 MS, SALE POR LA DERECHA EN 1200 MS</p>
+				<p class="tam-central">
+					<Enlace href="#enlace">OBRAS</Enlace>, <Enlace href="#enlace">LAS PIEZAS</Enlace>, <Enlace href="#enlace">ENTREVISTA</Enlace>, <Enlace href="#enlace">CONTACTO</Enlace>
+				</p>
+			</div>
+			<div class="fila">
+				<p class="nota">ACTIVO · SUBRAYADO FIJO, SIN REACCIÓN</p>
+				<p class="tam-central">
+					<Enlace href="#enlace" activo>OBRAS</Enlace>, <Enlace href="#enlace">LAS PIEZAS</Enlace>
+				</p>
+			</div>
+			<div class="fila">
+				<p class="nota">NAV LATERAL</p>
+				<p class="tam-lateral"><Enlace href="#enlace" activo>ES</Enlace> / <Enlace href="#enlace">EN</Enlace></p>
+			</div>
+			<div class="fila">
+				<p class="nota">PIE DE FOTO</p>
+				<p class="nota"><Enlace href="#enlace">AVISO LEGAL</Enlace> · <Enlace href="#enlace">PRIVACIDAD</Enlace> · <Enlace href="#enlace">COOKIES</Enlace></p>
 			</div>
 		</section>
 	</main>
@@ -244,6 +269,17 @@ const estilos = [
 		width: 40px;
 		height: var(--aire);
 		background: var(--color-provisional);
+	}
+
+	/* Enlace */
+	.tam-central {
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.tam-lateral {
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
 	}
 
 	/* Curva */
