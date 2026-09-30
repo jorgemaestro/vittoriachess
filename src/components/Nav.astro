@@ -1,0 +1,132 @@
+---
+// Barra de navegación — ver docs/definicion.md (Componentes: Barra de navegación).
+// Fija, sin fondo. Se oculta al bajar y reaparece al subir. Tono claro mientras está
+// sobre una zona marcada con data-nav-claro (el vídeo de la home); oscuro en el resto.
+// Sin JavaScript queda siempre visible y en el tono inicial.
+import Enlace from './Enlace.astro';
+import Logo from './Logo.astro';
+
+type Pagina = 'obras' | 'las-piezas' | 'entrevista' | 'contacto';
+
+interface Props {
+	actual?: Pagina;
+	claro?: boolean;
+}
+
+const { actual, claro = false } = Astro.props;
+
+const enlaces: [Pagina, string][] = [
+	['obras', 'OBRAS'],
+	['las-piezas', 'LAS PIEZAS'],
+	['entrevista', 'ENTREVISTA'],
+	['contacto', 'CONTACTO'],
+];
+---
+
+<header class:list={['nav', { claro }]} data-nav>
+	<Logo href="/" />
+	<nav class="centro" aria-label="Principal">
+		{enlaces.map(([ruta, texto], i) => (
+			<>
+				<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
+				{i < enlaces.length - 1 && ', '}
+			</>
+		))}
+	</nav>
+	<div class="idioma">
+		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+	</div>
+</header>
+
+<script>
+	const nav = document.querySelector<HTMLElement>('[data-nav]');
+
+	if (nav) {
+		const zonasClaras = document.querySelectorAll<HTMLElement>('[data-nav-claro]');
+		let ultimaY = window.scrollY;
+		let pendiente = false;
+
+		const actualizar = () => {
+			pendiente = false;
+			const y = window.scrollY;
+
+			// Se oculta al bajar (pasados 80 px) y reaparece al subir.
+			if (y > ultimaY && y > 80) nav.classList.add('oculta');
+			else if (y < ultimaY) nav.classList.remove('oculta');
+			ultimaY = y;
+
+			// Claro mientras el centro de la barra está sobre una zona oscura.
+			const caja = nav.getBoundingClientRect();
+			const centro = caja.top + caja.height / 2;
+			const sobreOscuro = [...zonasClaras].some((zona) => {
+				const r = zona.getBoundingClientRect();
+				return r.top <= centro && r.bottom >= centro;
+			});
+			nav.classList.toggle('claro', sobreOscuro);
+		};
+
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!pendiente) {
+					pendiente = true;
+					requestAnimationFrame(actualizar);
+				}
+			},
+			{ passive: true },
+		);
+		actualizar();
+	}
+</script>
+
+<style>
+	.nav {
+		position: fixed;
+		z-index: 50;
+		top: calc(var(--margen) + env(safe-area-inset-top, 0px));
+		left: var(--margen);
+		right: var(--margen);
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		color: var(--color-tinta);
+		transition:
+			transform 0.6s var(--ease),
+			color 0.6s var(--ease);
+	}
+
+	.nav.claro {
+		color: var(--color-claro);
+	}
+
+	/* Se oculta al bajar; vuelve si se llega a ella con el teclado. */
+	.nav.oculta:not(:focus-within) {
+		transform: translateY(-60px);
+	}
+
+	.centro {
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+		white-space: nowrap;
+	}
+
+	.idioma {
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+		white-space: nowrap;
+	}
+
+	/* Menos de 810 px: solo el logotipo (el icono de menú llega con MenuIcono). */
+	@media (max-width: 809px) {
+		.centro,
+		.idioma {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.nav {
+			transition: none;
+		}
+	}
+</style>

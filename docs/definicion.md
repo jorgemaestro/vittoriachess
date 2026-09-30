@@ -46,6 +46,8 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Páginas
 
+Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista · /contacto. En inglés, las mismas bajo /en/.
+
 ### Home (de arriba abajo)
 
 1. Pantalla de carga.

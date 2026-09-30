@@ -46,6 +46,11 @@
   --manifiesto-espaciado: -0.02em;
   --respuesta: 24px;
   --respuesta-alto: 32px;
+
+  /* Logotipo provisional (Cinzel) */
+  --logo: 21px;                  /* barra y pie */
+  --logo-carga: 44px;            /* pantalla de carga */
+  --logo-espaciado: 0.12em;
 }
 
 /* Tablet */
@@ -53,12 +58,14 @@
   :root {
     --nav-central: 18px;
     --nav-central-alto: 22px;
+    --logo: 18px;
   }
 }
 
 /* Móvil (corte principal, menú móvil) */
 @media (max-width: 809px) {
   :root {
+    --logo-carga: 30px;
     --aire: 160px;
     --manifiesto: 36px;
     --manifiesto-alto: 40px;

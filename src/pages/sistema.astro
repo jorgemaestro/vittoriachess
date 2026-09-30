@@ -3,6 +3,8 @@
 // Sin enlaces desde la web y fuera de Google. En la Fase 9 se decide si se publica.
 import Base from '../layouts/Base.astro';
 import Enlace from '../components/Enlace.astro';
+import Logo from '../components/Logo.astro';
+import Nav from '../components/Nav.astro';
 
 const marca = ['onyx', 'graphite', 'ash', 'bone', 'plaster', 'bronze', 'bronze-d'];
 const usos = [
@@ -22,9 +24,9 @@ const estilos = [
 ---
 
 <Base title="Sistema — Vittoria Chess" noindex>
+	<Nav />
 	<main class="sis">
 		<header class="bloque">
-			<p class="logo">Vittoria Chess</p>
 			<p class="nota">SISTEMA DE DISEÑO · PÁGINA INTERNA</p>
 		</header>
 
@@ -63,12 +65,12 @@ const estilos = [
 				<p class="ejemplo">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789<br />abcdefghijklmnñopqrstuvwxyz áéíóú ¿?¡!</p>
 			</div>
 			<div class="fila">
-				<p class="nota">CINZEL 500 · LOGOTIPO · 21 PX EN BARRA Y PIE</p>
-				<p class="logo">Vittoria Chess</p>
+				<p class="nota">CINZEL 500 · LOGOTIPO · 21 PX EN BARRA Y PIE (18 PX POR DEBAJO DE 1100 PX)</p>
+				<Logo />
 			</div>
 			<div class="fila">
-				<p class="nota">CINZEL 500 · LOGOTIPO · 44 PX EN LA CARGA</p>
-				<p class="logo logo-carga">Vittoria Chess</p>
+				<p class="nota">CINZEL 500 · LOGOTIPO · 44 PX EN LA CARGA (30 PX EN MÓVIL)</p>
+				<Logo carga />
 			</div>
 		</section>
 
@@ -137,7 +139,17 @@ const estilos = [
 				<p class="nota"><Enlace href="#enlace">AVISO LEGAL</Enlace> · <Enlace href="#enlace">PRIVACIDAD</Enlace> · <Enlace href="#enlace">COOKIES</Enlace></p>
 			</div>
 		</section>
+
+		<section class="bloque">
+			<h2 class="titulo">BARRA DE NAVEGACIÓN</h2>
+			<p class="nota">ARRIBA, FIJA. SE OCULTA AL BAJAR Y REAPARECE AL SUBIR. SOBRE LA ZONA OSCURA DE ABAJO PASA A TONO CLARO (COMO SOBRE EL VÍDEO DE LA HOME).</p>
+		</section>
 	</main>
+
+	<div class="zona-oscura" data-nav-claro>
+		<p class="nota">ZONA OSCURA DE PRUEBA · SUSTITUYE AL VÍDEO · SUBE UN POCO PARA VER LA BARRA EN CLARO</p>
+	</div>
+	<div class="tras-zona"></div>
 </Base>
 
 <script>
@@ -150,7 +162,7 @@ const estilos = [
 
 <style>
 	.sis {
-		padding: var(--margen);
+		padding: 120px var(--margen) var(--aire);
 	}
 
 	p,
@@ -219,22 +231,6 @@ const estilos = [
 		font-weight: var(--peso-regular);
 	}
 
-	.logo {
-		font-family: var(--fuente-logo);
-		font-weight: var(--peso-medio);
-		font-size: 21px;
-		line-height: 1;
-		letter-spacing: 0.12em;
-	}
-
-	.logo-carga {
-		font-size: 44px;
-	}
-
-	header .logo {
-		margin-bottom: 8px;
-	}
-
 	/* Escala */
 	.manifiesto {
 		font-weight: var(--peso-regular);
@@ -280,6 +276,20 @@ const estilos = [
 	.tam-lateral {
 		font-size: var(--nav-lateral);
 		line-height: var(--nav-lateral-alto);
+	}
+
+	/* Barra */
+	.zona-oscura {
+		height: 100vh;
+		padding: var(--margen);
+		padding-top: 120px;
+		box-sizing: border-box;
+		background: var(--color-carga);
+		color: var(--color-claro);
+	}
+
+	.tras-zona {
+		height: 100vh;
 	}
 
 	/* Curva */

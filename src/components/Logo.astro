@@ -1,0 +1,31 @@
+---
+// Logotipo provisional — ver docs/definicion.md (Componentes: Logotipo).
+// Texto en Cinzel hasta tener el SVG del estuche, que mantendrá la misma altura.
+interface Props {
+	href?: string;
+	carga?: boolean;
+}
+
+const { href, carga = false } = Astro.props;
+const Etiqueta = href ? 'a' : 'span';
+---
+
+<Etiqueta href={href} class:list={['logo', { carga }]}>Vittoria Chess</Etiqueta>
+
+<style>
+	.logo {
+		display: block;
+		font-family: var(--fuente-logo);
+		font-weight: var(--peso-medio);
+		font-size: var(--logo);
+		line-height: 1;
+		letter-spacing: var(--logo-espaciado);
+		white-space: nowrap;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.carga {
+		font-size: var(--logo-carga);
+	}
+</style>
