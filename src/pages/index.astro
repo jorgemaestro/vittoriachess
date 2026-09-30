@@ -7,6 +7,7 @@ import Video from '../components/home/Video.astro';
 import Manifiesto from '../components/home/Manifiesto.astro';
 import Obras from '../components/home/Obras.astro';
 import Entrevista from '../components/home/Entrevista.astro';
+import Contacto from '../components/home/Contacto.astro';
 
 // Vídeos de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
 const videoPrincipal = {
@@ -29,6 +30,7 @@ const videoObras = {
 		<Manifiesto />
 		<Obras {...videoObras} />
 		<Entrevista />
+		<Contacto />
 	</main>
 	<Footer />
 </Base>

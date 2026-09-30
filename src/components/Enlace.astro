@@ -32,9 +32,10 @@ const { href, activo = false, class: clase, ...resto } = Astro.props;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: var(--linea);
-		/* Recorta solo a los lados: arriba y abajo nunca corta el trazo. */
-		clip-path: inset(-2px 0);
+		/* Más alto que el trazo (que va abajo del todo) para que el recorte nunca lo corte;
+		   overflow: hidden además evita que el trazo en espera ensanche la página. */
+		height: calc(var(--linea) + 2px);
+		overflow: hidden;
 		pointer-events: none;
 	}
 
@@ -45,7 +46,7 @@ const { href, activo = false, class: clase, ...resto } = Astro.props;
 	.subrayado::after {
 		content: '';
 		position: absolute;
-		top: 0;
+		bottom: 0;
 		left: 0;
 		right: 0;
 		border-top: var(--linea) solid currentColor;

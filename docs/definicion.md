@@ -23,6 +23,7 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 | Pie de foto | 10 / 17 px, peso 500 | Pies de obra, línea legal, preguntas de entrevista |
 | Manifiesto | 80 / 88 px (5,556 / 6,111 vw), peso 400, -0,02 em | Solo el manifiesto |
 | Respuesta entrevista | 24 / 32 px, peso 500 | Entrevista |
+| Llamada | 40 / 48 px (móvil 28 / 34), peso 400, -0,02 em | Frase de la llamada a contacto de la home |
 
 Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
@@ -60,7 +61,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (REY, DAMA, ALFIL, CABALLO, TORRE, PEÓN), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Debajo, solo el enlace VER OBRAS a /obras, colocado igual que VER PIEZAS: a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
 6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px), 16 px debajo un fragmento (24 / 32 px, máx. 480 px) y 40 px debajo el enlace LEER ENTREVISTA (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
-7. Llamada a contacto alineada a 434 px (texto provisional: CONSULTAS DE COLECCIONISTAS Y GALERÍAS / CONTACTO; pendiente de redefinir).
+7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda.
 8. Pie.
 
 240 px de aire entre secciones (160 px en móvil).
@@ -109,4 +110,4 @@ ES por defecto; EN en /en/... con textos traducidos a mano.
 
 ## Pendientes de contenido
 
-Llamada a contacto · entrevista y fragmento de la home · email del formulario · logotipo en SVG · fotos y vídeo definitivos.
+Entrevista y fragmento de la home · email del formulario · logotipo en SVG · fotos y vídeo definitivos.

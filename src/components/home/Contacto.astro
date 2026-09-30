@@ -1,0 +1,52 @@
+---
+// Home · Llamada a contacto — ver docs/definicion.md (Páginas: Home, punto 7).
+// Texto y CONTACTAR alineados a la derecha con VER PIEZAS y VER OBRAS (terminan a 138 px
+// del borde). En móvil, a la izquierda.
+import Enlace from '../Enlace.astro';
+---
+
+<section class="contacto" aria-label="Contacto">
+	<p class="frase">Información sobre obras, ediciones y proyectos por encargo.</p>
+	<p><Enlace href="/contacto">CONTACTAR</Enlace></p>
+</section>
+
+<style>
+	/* Termina a 138 px del borde derecho (9,583 vw), como VER PIEZAS y VER OBRAS. */
+	.contacto {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 24px;
+		margin-top: var(--aire);
+		padding: 0 calc(var(--margen) + 8.194vw) 0 var(--margen);
+		text-align: right;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	p {
+		margin: 0;
+	}
+
+	/* Frase con peso: estilo Llamada (40 / 48 px, regular), en dos líneas equilibradas. */
+	.frase {
+		max-width: 50vw;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+		text-wrap: balance;
+	}
+
+	@media (max-width: 809px) {
+		.contacto {
+			align-items: flex-start;
+			padding-right: var(--margen);
+			text-align: left;
+		}
+
+		.frase {
+			max-width: none;
+		}
+	}
+</style>

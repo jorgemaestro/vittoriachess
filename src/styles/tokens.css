@@ -47,6 +47,8 @@
   --manifiesto-espaciado: -0.02em;
   --respuesta: 24px;
   --respuesta-alto: 32px;
+  --llamada: 40px;
+  --llamada-alto: 48px;
   --menu-movil: 40px;
   --menu-movil-alto: 48px;
 
@@ -70,6 +72,8 @@
   :root {
     --logo-carga: 30px;
     --aire: 160px;
+    --llamada: 28px;
+    --llamada-alto: 34px;
     --manifiesto: 36px;
     --manifiesto-alto: 40px;
   }
