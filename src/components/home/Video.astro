@@ -1,19 +1,22 @@
 ---
-// Home · Vídeo — ver docs/definicion.md (Páginas: Home, punto 2).
+// Home · Vídeo — ver docs/definicion.md (Páginas: Home, puntos 2 y 5).
+// Se usa dos veces: el vídeo principal y el de Obras.
 // Pantalla completa, sin texto ni sonido, en bucle y automático; versión vertical para
 // móvil y póster mientras carga. La barra va en claro encima (data-nav-claro).
 // Sin vídeo todavía: bloque provisional oscuro con marcador [PENDIENTE].
 interface Props {
+	/** Nombre para lectores de pantalla y para el marcador provisional. */
+	nombre: string;
 	/** Direcciones del vídeo (Cloudflare R2, Fase 6). Sin ellas, bloque provisional. */
 	horizontal?: string;
 	vertical?: string;
 	poster?: string;
 }
 
-const { horizontal, vertical, poster } = Astro.props;
+const { nombre, horizontal, vertical, poster } = Astro.props;
 ---
 
-<section class="video" data-nav-claro aria-label="Vídeo">
+<section class="video" data-nav-claro aria-label={nombre}>
 	{
 		horizontal ? (
 			<video autoplay muted loop playsinline preload="metadata" poster={poster} data-video>
@@ -21,17 +24,18 @@ const { horizontal, vertical, poster } = Astro.props;
 				<source src={horizontal} type="video/mp4" />
 			</video>
 		) : (
-			<p class="pendiente">[PENDIENTE: VÍDEO]</p>
+			<p class="pendiente">[PENDIENTE: {nombre.toUpperCase()}]</p>
 		)
 	}
 </section>
 
 <script>
 	// Con movimiento reducido el vídeo no arranca solo: se queda el póster.
-	const video = document.querySelector<HTMLVideoElement>('[data-video]');
-	if (video && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-		video.removeAttribute('autoplay');
-		video.pause();
+	if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		document.querySelectorAll<HTMLVideoElement>('[data-video]').forEach((video) => {
+			video.removeAttribute('autoplay');
+			video.pause();
+		});
 	}
 </script>
 

@@ -5,9 +5,15 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Video from '../components/home/Video.astro';
 import Manifiesto from '../components/home/Manifiesto.astro';
+import Obras from '../components/home/Obras.astro';
 
-// Vídeo de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
-const video = {
+// Vídeos de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
+const videoPrincipal = {
+	horizontal: undefined,
+	vertical: undefined,
+	poster: undefined,
+};
+const videoObras = {
 	horizontal: undefined,
 	vertical: undefined,
 	poster: undefined,
@@ -18,8 +24,9 @@ const video = {
 	<Carga />
 	<Nav claro />
 	<main>
-		<Video {...video} />
+		<Video nombre="Vídeo principal" {...videoPrincipal} />
 		<Manifiesto />
+		<Obras {...videoObras} />
 	</main>
 	<Footer />
 </Base>
