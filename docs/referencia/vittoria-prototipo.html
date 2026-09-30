@@ -1,0 +1,337 @@
+<title>Vittoria Chess Prototipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Inter+Tight:wght@400;500&display=swap">
+<style>
+/* Layout: galería. Barra fija de tres bloques, vídeo a pantalla completa, accesos con aire de 240px, obras en posiciones absolutas en vw (lienzo 1440). Un solo mundo de color: la marca decide, no el tema del sistema. */
+:root{
+  --bg:#F5F5F5;
+  --ink:#2B2B2B;
+  --black:#000000;
+  --white:#FFFFFF;
+  --ph:#D9D9D9;
+  --ph-dark:#1A1A1A;
+  --font:"Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --m:20px;              /* margen único de la web */
+  --gap:240px;           /* aire entre secciones */
+  --ease:cubic-bezier(.23,1,.32,1);
+  --line:1.34px;
+  color-scheme:light;
+}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+::selection{background:#E2E2E2}
+
+/* ---------- enlace con subrayado: entra por la izquierda, sale por la derecha ---------- */
+.lnk{position:relative;display:inline-block;padding-bottom:1px}
+.lnk .ul{position:absolute;left:0;right:0;bottom:0;height:var(--line);overflow:hidden;pointer-events:none}
+.lnk .ul i{position:absolute;inset:0;background:currentColor}
+.lnk .ul i:first-child{transform:translateX(-102%);opacity:0}
+.lnk .ul i:last-child{transform:translateX(102%);opacity:1;transition:transform 1200ms var(--ease)}
+.lnk:hover .ul i:first-child,.lnk.on .ul i:first-child,.lnk:focus-visible .ul i:first-child{transform:translateX(0);opacity:1;transition:transform 1000ms var(--ease)}
+.lnk:hover .ul i:last-child,.lnk.on .ul i:last-child,.lnk:focus-visible .ul i:last-child{transform:translateX(0);opacity:0;transition:none}
+.lnk.on{pointer-events:none}
+.lnk:focus-visible{outline:none}
+
+/* ---------- logotipo: texto en Cinzel hasta tener el vector ---------- */
+.logo{display:block;font-family:"Cinzel","Trajan Pro",Georgia,serif;font-weight:500;font-size:21px;line-height:1;letter-spacing:.12em;white-space:nowrap;color:currentColor}
+
+/* ---------- barra ---------- */
+.nav{position:fixed;z-index:50;top:calc(var(--m) + env(safe-area-inset-top,0px));left:var(--m);right:var(--m);display:flex;justify-content:space-between;align-items:flex-start;color:var(--ink);transition:transform .6s var(--ease),color .6s var(--ease)}
+.nav.hide{transform:translateY(-60px)}
+.nav.light{color:var(--white)}
+.nav-c{margin-top:1.5px;font-size:24px;line-height:27.5px;display:flex;white-space:nowrap}
+.nav-s{margin-top:2.5px;font-size:14px;line-height:17.5px}
+.lang{display:flex;gap:4px}
+/* icono de menú: dos líneas que se juntan en el centro y después giran hasta formar la cruz */
+.menu-btn{display:none;position:relative;width:40px;height:40px;margin:-12px -8px 0 0;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.menu-btn i{position:absolute;left:8px;width:24px;height:var(--line);background:currentColor;
+  transition:transform .35s var(--ease) .3s, top .3s var(--ease) 0s}
+.menu-btn i:nth-child(1){top:16px}
+.menu-btn i:nth-child(2){top:23px}
+.menu-btn.x i{transition:top .3s var(--ease) 0s, transform .45s var(--ease) .22s}
+.menu-btn.x i:nth-child(1){top:19.5px;transform:rotate(45deg)}
+.menu-btn.x i:nth-child(2){top:19.5px;transform:rotate(-45deg)}
+.menu-btn:not(.x) i{transition:transform .35s var(--ease) 0s, top .3s var(--ease) .25s}
+.menu-btn:focus-visible{outline:1px solid currentColor;outline-offset:2px}
+
+/* ---------- menú móvil ---------- */
+.mm{position:fixed;inset:0;z-index:49;background:var(--bg);color:var(--ink);opacity:0;pointer-events:none;transition:opacity .4s var(--ease);padding:calc(120px + env(safe-area-inset-top,0px)) var(--m) calc(var(--m) + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;justify-content:space-between}
+.mm.open{opacity:1;pointer-events:auto}
+.mm ul{list-style:none;margin:0;padding:0;font-size:40px;line-height:48px}
+.mm .lang{font-size:14px}
+
+/* ---------- carga ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--black);display:flex;align-items:center;justify-content:center;transition:opacity .8s var(--ease)}
+.loader .logo{color:var(--white);font-size:44px;padding:0 var(--m);text-align:center}
+.loader.out{opacity:0;pointer-events:none}
+
+/* ---------- vídeo ---------- */
+.hero{position:relative;height:100vh;height:100svh;background:var(--ph-dark);overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .tag{position:absolute;left:var(--m);bottom:var(--m);font-size:10px;line-height:17px;color:rgba(255,255,255,.4)}
+
+/* ---------- secciones ---------- */
+main{padding-bottom:120px}
+.sec{padding-top:var(--gap)}
+.sec-t{padding:0 var(--m);font-size:24px;line-height:27.5px}
+.sec-body{margin-top:40px}
+.cap{font-size:10px;line-height:17px}
+.ph{background:var(--ph);display:block;width:100%}
+
+/* manifiesto: texto grande al estilo Waka (80/88 a 1440, peso 400, -2 %), escala con el ancho */
+#piezas{padding-top:10.069vw}
+.manifesto{display:block;padding:0 var(--m);font-weight:400;font-size:5.5556vw;line-height:6.1111vw;letter-spacing:-.02em;text-wrap:balance}
+.manifesto>span{display:block;overflow:hidden}
+.manifesto .mf-in{padding-left:24.653vw}
+.mf-l{display:inline-block;transform:translate3d(0,102%,0);transition:transform 1.2s var(--ease)}
+.manifesto.in .mf-l{transform:none}
+.manifesto.in>span:nth-child(2) .mf-l{transition-delay:.08s}
+.manifesto.in>span:nth-child(3) .mf-l{transition-delay:.16s}
+.no-js .mf-l{transform:none}
+.pieces-body{margin-top:10.069vw}
+.pieces-body .more{display:inline-block;margin:40px 0 0 30.139vw}
+
+/* piezas en fila */
+.pieces{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;padding:0 var(--m);list-style:none;margin:0}
+.pieces a{display:block}
+.pieces .ph{aspect-ratio:3/4}
+.pieces .cap{margin-top:12px;font-size:14px;line-height:17.5px}
+
+/* obras en zigzag (medidas a 1440 en vw) */
+.works{position:relative;height:calc(1958 / 1440 * 100vw + 40px)}
+.work{position:absolute}
+.work .ph{height:100%}
+.w1{left:9.618vw;top:0;width:35.556vw}
+.w1 .ph{aspect-ratio:512/696}
+.w2{left:54.792vw;top:36.458vw;width:41.111vw}
+.w2 .ph{aspect-ratio:592/473}
+.w3{left:30.139vw;top:82.292vw;width:39.722vw}
+.w3 .ph{aspect-ratio:572/773}
+.work .cap{display:flex;margin-top:4px;white-space:nowrap}
+.work .cap span:nth-child(1){width:12.222vw;flex:none}
+.work .cap span:nth-child(2){width:9.722vw;flex:none}
+.more{margin-left:30.139vw;font-size:24px;line-height:27.5px}
+
+/* contacto */
+.call{padding-top:var(--gap);margin-left:30.139vw;font-size:24px;line-height:27.5px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;padding-right:var(--m)}
+
+/* pie */
+.foot{padding:0 var(--m) calc(var(--m) + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:32px}
+.foot-row{display:flex;justify-content:space-between;align-items:flex-start}
+.foot-l{font-size:10px;line-height:17px}
+.foot-l .grp{display:flex;gap:6px}
+
+/* ---------- cursor en negativo ---------- */
+.cur{position:fixed;left:0;top:0;width:16px;height:16px;margin:-8px 0 0 -8px;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:200;opacity:0;transition:opacity .2s linear;will-change:transform}
+.cur.on{opacity:1}
+@media (hover:hover) and (pointer:fine){html.has-cur,html.has-cur a,html.has-cur button{cursor:none}}
+@media (hover:none),(pointer:coarse){.cur{display:none}}
+
+/* ---------- tablet ---------- */
+@media (max-width:1100px){
+  .nav-c{font-size:18px;line-height:22px}
+  .logo{font-size:18px}
+}
+/* ---------- móvil ---------- */
+@media (max-width:809px){
+  :root{--gap:160px}
+  .loader .logo{font-size:30px}
+  .nav-c,.nav .lang{display:none}
+  .menu-btn{display:block;position:relative;z-index:51}
+  .pieces{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}
+  .works{height:auto;display:flex;flex-direction:column;gap:64px;padding:0 var(--m)}
+  .work{position:static;width:100% !important}
+  .work .cap{flex-direction:column;white-space:normal}
+  .work .cap span{width:auto !important}
+  .more{margin:40px var(--m) 0}
+  #piezas{padding-top:120px}
+  .manifesto{font-size:36px;line-height:40px}
+  .manifesto .mf-in{padding-left:0}
+  .pieces-body{margin-top:80px}
+  .pieces-body .more{margin:40px var(--m) 0}
+  .call{margin-left:0;padding-left:var(--m);font-size:20px;line-height:24px}
+  .foot-row.r1 .nav-c,.foot-row.r1 .lang{display:none}
+  .foot-row.r2{flex-direction:column;gap:6px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0s !important}
+}
+</style>
+
+<div class="loader" id="loader" aria-hidden="true"><span class="logo">Vittoria Chess</span></div>
+
+<header class="nav light" id="nav">
+  <a href="#top" aria-label="Vittoria Chess, inicio"><span class="logo">Vittoria Chess</span></a>
+  <nav class="nav-c" aria-label="Principal">
+    <a class="lnk" href="#obras">OBRAS<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+    <a class="lnk" href="#piezas">LAS PIEZAS<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+    <a class="lnk" href="#entrevista">ENTREVISTA<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+    <a class="lnk" href="#contacto">CONTACTO<span class="ul"><i></i><i></i></span></a>
+  </nav>
+  <div class="nav-s lang">
+    <a class="lnk on" href="#top">ES<span class="ul"><i></i><i></i></span></a><span>/</span><a class="lnk" href="#top">EN<span class="ul"><i></i><i></i></span></a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mm" aria-label="Abrir menú"><i></i><i></i></button>
+</header>
+
+<div class="mm" id="mm" aria-hidden="true">
+  <ul>
+    <li><a class="lnk" href="#obras">OBRAS<span class="ul"><i></i><i></i></span></a></li>
+    <li><a class="lnk" href="#piezas">LAS PIEZAS<span class="ul"><i></i><i></i></span></a></li>
+    <li><a class="lnk" href="#entrevista">ENTREVISTA<span class="ul"><i></i><i></i></span></a></li>
+    <li><a class="lnk" href="#contacto">CONTACTO<span class="ul"><i></i><i></i></span></a></li>
+  </ul>
+  <div class="lang"><a class="lnk on" href="#top">ES<span class="ul"><i></i><i></i></span></a><span>/</span><a class="lnk" href="#top">EN<span class="ul"><i></i><i></i></span></a></div>
+</div>
+
+<main id="top">
+  <section class="hero" id="hero" aria-label="Vídeo">
+    <canvas id="haze"></canvas>
+    <span class="tag">VÍDEO PROVISIONAL · PLANOS ABSTRACTOS DE LAS PIEZAS</span>
+  </section>
+
+  <section class="sec" id="piezas">
+    <a class="manifesto" href="#piezas" aria-label="El cuadrado. El origen. La geometría. La ley. Seis piezas. Seis almas. Ir a Las piezas">
+      <span><span class="mf-l">El cuadrado. El origen</span></span>
+      <span><span class="mf-l">La geometría. La ley</span></span>
+      <span class="mf-in"><span class="mf-l">Seis piezas. Seis almas</span></span>
+    </a>
+    <div class="sec-body pieces-body">
+      <ul class="pieces">
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">REY</div></a></li>
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">DAMA</div></a></li>
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">ALFIL</div></a></li>
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">CABALLO</div></a></li>
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">TORRE</div></a></li>
+        <li><a href="#piezas"><span class="ph"></span><div class="cap">PEÓN</div></a></li>
+      </ul>
+      <a class="lnk more" href="#piezas">VER LAS PIEZAS<span class="ul"><i></i><i></i></span></a>
+    </div>
+  </section>
+
+  <section class="sec" id="obras">
+    <h2 class="sec-t" style="margin:0;font:inherit;font-size:24px;line-height:27.5px"><a class="lnk" href="#obras">OBRAS<span class="ul"><i></i><i></i></span></a></h2>
+    <div class="sec-body works">
+      <figure class="work w1" style="margin:0"><span class="ph"></span><figcaption class="cap"><span>TABLERO VERTICAL</span><span>TABLERO DE PARED</span><span>60 × 60 × 4 CM</span></figcaption></figure>
+      <figure class="work w2" style="margin:0"><span class="ph"></span><figcaption class="cap"><span>OBRA 002</span><span>TIPO</span><span>MEDIDAS CM</span></figcaption></figure>
+      <figure class="work w3" style="margin:0"><span class="ph"></span><figcaption class="cap"><span>OBRA 003</span><span>TIPO</span><span>MEDIDAS CM</span></figcaption></figure>
+    </div>
+    <a class="lnk more" href="#obras">VER LAS 8 OBRAS<span class="ul"><i></i><i></i></span></a>
+  </section>
+
+  <section class="call" id="contacto">
+    <span>CONSULTAS DE COLECCIONISTAS Y GALERÍAS</span>
+    <a class="lnk" href="#contacto">CONTACTO<span class="ul"><i></i><i></i></span></a>
+  </section>
+</main>
+
+<footer class="foot" id="entrevista">
+  <div class="foot-row r1">
+    <a href="#top" aria-label="Vittoria Chess, inicio"><span class="logo">Vittoria Chess</span></a>
+    <nav class="nav-c" aria-label="Pie">
+      <a class="lnk" href="#obras">OBRAS<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+      <a class="lnk" href="#piezas">LAS PIEZAS<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+      <a class="lnk" href="#entrevista">ENTREVISTA<span class="ul"><i></i><i></i></span></a><span>,&nbsp;</span>
+      <a class="lnk" href="#contacto">CONTACTO<span class="ul"><i></i><i></i></span></a>
+    </nav>
+    <div class="nav-s lang"><a class="lnk on" href="#top">ES<span class="ul"><i></i><i></i></span></a><span>/</span><a class="lnk" href="#top">EN<span class="ul"><i></i><i></i></span></a></div>
+  </div>
+  <div class="foot-row r2 foot-l">
+    <span>©2026 VITTORIA CHESS</span>
+    <span class="grp"><a class="lnk" href="#top">EMAIL<span class="ul"><i></i><i></i></span></a><span>·</span><a class="lnk" href="#top">INSTAGRAM<span class="ul"><i></i><i></i></span></a></span>
+    <span class="grp"><a class="lnk" href="#top">AVISO LEGAL<span class="ul"><i></i><i></i></span></a><span>·</span><a class="lnk" href="#top">PRIVACIDAD<span class="ul"><i></i><i></i></span></a><span>·</span><a class="lnk" href="#top">COOKIES<span class="ul"><i></i><i></i></span></a></span>
+  </div>
+</footer>
+
+<div class="cur" id="cur" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* manifiesto: las líneas suben desde su máscara al entrar en pantalla */
+  var mf = document.querySelector('.manifesto');
+  if (reduce || !('IntersectionObserver' in window)) { mf.classList.add('in'); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { mf.classList.add('in'); io.disconnect(); } });
+    }, {threshold:.3});
+    io.observe(mf);
+    setTimeout(function(){ mf.classList.add('in'); }, 4000); /* respaldo: nunca queda oculto */
+  }
+
+  /* pantalla de carga: 1,5 s y fundido; un clic la salta */
+  var loader = document.getElementById('loader');
+  function hideLoader(){ loader.classList.add('out'); }
+  setTimeout(hideLoader, reduce ? 0 : 1500);
+  loader.addEventListener('click', hideLoader);
+
+  /* barra: se oculta al bajar, vuelve al subir; clara sobre el vídeo */
+  var nav = document.getElementById('nav'), hero = document.getElementById('hero');
+  var lastY = window.scrollY, menuOpen = false;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    if (!menuOpen) {
+      if (y > lastY && y > 80) nav.classList.add('hide');
+      else if (y < lastY) nav.classList.remove('hide');
+    }
+    nav.classList.toggle('light', !menuOpen && hero.getBoundingClientRect().bottom > 40);
+    lastY = y;
+  }, {passive:true});
+
+  /* menú móvil */
+  var btn = document.getElementById('menuBtn'), mm = document.getElementById('mm');
+  function setMenu(open){
+    menuOpen = open;
+    mm.classList.toggle('open', open);
+    mm.setAttribute('aria-hidden', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
+    btn.classList.toggle('x', open);
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    document.body.style.overflow = open ? 'hidden' : '';
+    nav.classList.remove('hide');
+    nav.classList.toggle('light', !open && hero.getBoundingClientRect().bottom > 40);
+  }
+  btn.addEventListener('click', function(){ setMenu(!menuOpen); });
+  mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+
+  /* cursor: cuadrado blanco en modo diferencia, con suavizado 0.25 */
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fine) {
+    document.documentElement.classList.add('has-cur');
+    var cur = document.getElementById('cur'), tx = 0, ty = 0, cx = 0, cy = 0, started = false;
+    window.addEventListener('mousemove', function(e){
+      tx = e.clientX; ty = e.clientY;
+      if (!started) { cx = tx; cy = ty; started = true; }
+      cur.classList.add('on');
+    });
+    document.addEventListener('mouseleave', function(){ cur.classList.remove('on'); });
+    (function loop(){
+      var k = reduce ? 1 : 0.25;
+      cx += (tx - cx) * k; cy += (ty - cy) * k;
+      cur.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* marcador del vídeo: luz lenta sobre metal, para probar el cursor sobre imagen */
+  var c = document.getElementById('haze'), g = c.getContext('2d'), t = 0;
+  function size(){ var r = c.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); c.width = r.width * d; c.height = r.height * d; }
+  size(); window.addEventListener('resize', size);
+  (function draw(){
+    var w = c.width, h = c.height;
+    g.fillStyle = '#111'; g.fillRect(0, 0, w, h);
+    var x = w * (0.55 + 0.12 * Math.sin(t * 0.35)), y = h * (0.5 + 0.08 * Math.cos(t * 0.27));
+    var gr = g.createRadialGradient(x, y, 0, x, y, Math.max(w, h) * 0.45);
+    gr.addColorStop(0, 'rgba(150,146,138,0.55)'); gr.addColorStop(0.35, 'rgba(70,68,64,0.35)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(220,215,205,0.10)'; g.lineWidth = Math.max(1, w / 900);
+    g.beginPath(); g.arc(w * 0.62, h * 0.52, Math.min(w, h) * (0.28 + 0.01 * Math.sin(t * 0.5)), 0, Math.PI * 2); g.stroke();
+    g.beginPath(); g.moveTo(w * 0.18, h * 0.86); g.lineTo(w * 0.62, h * 0.18); g.stroke();
+    if (!reduce) { t += 0.016; requestAnimationFrame(draw); }
+  })();
+})();
+</script>

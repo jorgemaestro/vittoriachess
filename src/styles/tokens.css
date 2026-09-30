@@ -1,0 +1,17 @@
+/* Tokens de diseño — ver docs/definicion.md (Sistema base).
+   Para cambiar un color de toda la web, se cambia aquí y en ningún otro sitio. */
+
+:root {
+  /* Paleta de marca */
+  --onyx: #17130F;
+  --graphite: #48443F;
+  --ash: #989188;
+  --bone: #F2EDE4;
+  --plaster: #F7F5F1;
+  --bronze: #B18F5A;
+  --bronze-d: #765A32;
+
+  /* Usos: los componentes solo usan estas variables */
+  --color-fondo: var(--plaster);
+  --color-tinta: #2B2B2B; /* provisional, pendiente de asignar color de marca */
+}
