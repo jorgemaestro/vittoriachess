@@ -1,0 +1,84 @@
+---
+// Política de privacidad — ver docs/definicion.md (Páginas: Legales). Nombra a Formspree
+// como encargado del tratamiento. Borrador: los [REVISAR] los confirma el titular.
+import Legal from '../layouts/Legal.astro';
+import { titular, actualizado } from '../data/titular';
+---
+
+<Legal titulo="POLÍTICA DE PRIVACIDAD" pagina="privacidad" actualizado={actualizado}>
+	<section>
+		<h2>RESPONSABLE DEL TRATAMIENTO</h2>
+		<ul>
+			<li>Responsable: {titular.nombre}</li>
+			<li>NIF: {titular.nif}</li>
+			<li>Domicilio: {titular.domicilio}</li>
+			<li>Email: <a href={`mailto:${titular.email}`}>{titular.email}</a></li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>QUÉ DATOS SE RECOGEN</h2>
+		<p>
+			Solo los que se escriben en el formulario de contacto: nombre, apellidos, teléfono, email y
+			el mensaje. Apellidos y teléfono son opcionales. Esta web no usa cookies de seguimiento ni
+			herramientas de analítica (ver la política de cookies).
+		</p>
+	</section>
+
+	<section>
+		<h2>PARA QUÉ SE USAN</h2>
+		<p>
+			Para responder a la consulta y, si la hay, mantener la conversación sobre obras, ediciones
+			o encargos. No se envían boletines ni publicidad, y no se toman decisiones automatizadas.
+		</p>
+	</section>
+
+	<section>
+		<h2>BASE LEGAL</h2>
+		<p>
+			El consentimiento de quien envía el formulario y, cuando la consulta se refiere a una obra
+			o a un encargo, la aplicación de medidas previas a un posible contrato (artículo 6.1 a y b
+			del Reglamento General de Protección de Datos).
+		</p>
+	</section>
+
+	<section>
+		<h2>CUÁNTO TIEMPO SE GUARDAN</h2>
+		<p>
+			El tiempo necesario para atender la consulta y su seguimiento. Después se conservan
+			bloqueados solo durante los plazos que exija la ley. [REVISAR: indicar un plazo concreto si
+			se prefiere, por ejemplo dos años desde el último contacto.]
+		</p>
+	</section>
+
+	<section>
+		<h2>QUIÉN MÁS TRATA LOS DATOS</h2>
+		<p>No se ceden a terceros salvo obligación legal. Intervienen, como encargados del tratamiento:</p>
+		<ul>
+			<li>Formspree, Inc. (Estados Unidos): recibe el formulario y lo reenvía por email.</li>
+			<li>Google (Google Workspace): gestiona el correo del titular.</li>
+			<li>Cloudflare, Inc. (Estados Unidos): aloja la web y puede tratar datos técnicos, como la dirección IP.</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>TRANSFERENCIAS INTERNACIONALES</h2>
+		<p>
+			Formspree y Cloudflare pueden tratar datos en Estados Unidos. Estas transferencias se
+			amparan en el Marco de Privacidad de Datos UE-EE. UU. o, en su defecto, en las cláusulas
+			contractuales tipo aprobadas por la Comisión Europea. [REVISAR: confirmar la garantía que
+			ofrece cada proveedor al contratarlo.]
+		</p>
+	</section>
+
+	<section>
+		<h2>TUS DERECHOS</h2>
+		<p>
+			Puedes pedir el acceso, la rectificación o la supresión de tus datos, oponerte a su
+			tratamiento, limitarlo, pedir su portabilidad y retirar tu consentimiento en cualquier
+			momento, escribiendo a <a href={`mailto:${titular.email}`}>{titular.email}</a>. Si
+			consideras que no se han respetado tus derechos, puedes reclamar ante la Agencia Española de
+			Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).
+		</p>
+	</section>
+</Legal>

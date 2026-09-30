@@ -1,0 +1,69 @@
+---
+// Aviso legal — ver docs/definicion.md (Páginas: Legales). Borrador: los [REVISAR] los
+// confirma el titular antes de publicar.
+import Legal from '../layouts/Legal.astro';
+import { titular, actualizado } from '../data/titular';
+---
+
+<Legal titulo="AVISO LEGAL" pagina="aviso-legal" actualizado={actualizado}>
+	<section>
+		<h2>TITULAR DE LA WEB</h2>
+		<p>
+			En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y de
+			comercio electrónico (LSSI-CE), se informa de que esta web ({titular.web}) pertenece a:
+		</p>
+		<ul>
+			<li>Titular: {titular.nombre}</li>
+			<li>NIF: {titular.nif}</li>
+			<li>Domicilio: {titular.domicilio}</li>
+			<li>Email: <a href={`mailto:${titular.email}`}>{titular.email}</a></li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>OBJETO</h2>
+		<p>
+			Esta web presenta la obra y las piezas de ajedrez de Vittoria Chess y ofrece un medio de
+			contacto para consultas sobre obras, ediciones y proyectos por encargo. Desde la web no se
+			realizan ventas. [REVISAR: si en el futuro se vende desde la web, habrá que añadir
+			condiciones de venta.]
+		</p>
+	</section>
+
+	<section>
+		<h2>PROPIEDAD INTELECTUAL E INDUSTRIAL</h2>
+		<p>
+			El diseño de las piezas, las obras, las fotografías, los vídeos, los textos, el logotipo y
+			el nombre Vittoria Chess, así como el diseño de esta web, pertenecen a su titular o se usan
+			con autorización. Queda prohibida su reproducción, distribución, comunicación pública o
+			transformación, total o parcial, sin permiso expreso y por escrito. [REVISAR: si la marca
+			Vittoria Chess está registrada, indicar el registro.]
+		</p>
+	</section>
+
+	<section>
+		<h2>USO DE LA WEB</h2>
+		<p>
+			Quien visita la web se compromete a usarla conforme a la ley y a este aviso. El titular no
+			se hace responsable del mal uso de sus contenidos ni de los daños que pudieran derivarse de
+			interrupciones o errores técnicos ajenos a su control.
+		</p>
+	</section>
+
+	<section>
+		<h2>ENLACES A OTRAS WEBS</h2>
+		<p>
+			La web contiene enlaces a sitios de terceros, como Instagram. El titular no controla sus
+			contenidos ni sus políticas, y no es responsable de ellos.
+		</p>
+	</section>
+
+	<section>
+		<h2>LEGISLACIÓN Y JURISDICCIÓN</h2>
+		<p>
+			Este aviso se rige por la legislación española. Para cualquier controversia, las partes se
+			someten a los juzgados y tribunales que correspondan conforme a la ley; si quien visita la
+			web es consumidor, los de su domicilio.
+		</p>
+	</section>
+</Legal>

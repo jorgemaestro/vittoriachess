@@ -24,6 +24,7 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 | Manifiesto | 80 / 88 px (5,556 / 6,111 vw), peso 400, -0,02 em | Solo el manifiesto |
 | Respuesta entrevista | 24 / 32 px, peso 500 | Entrevista |
 | Llamada | 40 / 48 px (móvil 28 / 34), peso 400, -0,02 em | Frase de la llamada a contacto de la home |
+| Legal | 14 / 22 px, peso 400 | Texto de las páginas legales |
 
 Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
@@ -61,7 +62,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio ·
    Seis piezas. Seis almas
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
-5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Debajo, solo el enlace VER OBRAS a /obras, a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
+5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Al pulsar el vídeo se va a /obras (solo con ratón o dedo; para teclado y lectores de pantalla el enlace es VER OBRAS, sin duplicarlo). Debajo, solo el enlace VER OBRAS a /obras, a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
 6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px: "¿CÓMO ENTRÓ EL AJEDREZ EN TU VIDA?"), 16 px debajo un fragmento (24 / 32 px, máx. 480 px: "No recuerdo ganar ni perder. Recuerdo mirar las piezas. Desde entonces las vi como personajes.") y 40 px debajo el enlace LEER ENTREVISTA, que lleva a /estudio (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda. Animación (decidida el 30/09/2026): la frase, partida en sus dos líneas ("Información sobre obras, ediciones" / "y proyectos por encargo."), sube línea a línea desde una máscara como el manifiesto (1,2 s, 80 ms entre líneas), y después CONTACTAR. CONTACTAR lleva línea guía desde la izquierda (ver Enlace con línea guía). Sin JavaScript o con movimiento reducido: todo visible. Es la misma llamada en home, Obras, Las piezas y Estudio.
 8. Pie.
@@ -112,7 +113,11 @@ Pendiente: email de recepción (Fase 7).
 
 ### Legales
 
-Aviso legal, privacidad (debe nombrar a Formspree como encargado del tratamiento) y cookies.
+Aviso legal (/aviso-legal), privacidad (/privacidad) y cookies (/cookies). Misma composición que Contacto: columna a 434 px, 572 px de ancho, desde 201 px (móvil: a todo el ancho desde 120 px). Título a 24 px; 40 px debajo el texto en estilo Legal (14 / 22 px); apartados con título en mayúsculas (14 px, peso 500) y 32 px entre apartados. Fecha de actualización al final, en gris secundario.
+Titular (datos recibidos el 30/09/2026): Jorge Maestro Aguilera, NIF 70417960X, C/ Miguel López de Legazpi 3 Bis, portal 3, 1.º D, 28660 Boadilla del Monte (Madrid). Contacto: jorge@vittoriachess.com.
+Privacidad: responsable, datos del formulario de contacto, finalidad (responder), base legal (consentimiento y medidas precontractuales), conservación, encargados (Formspree para el formulario, Cloudflare para el alojamiento, Google Workspace para el correo), transferencias internacionales, derechos y reclamación ante la AEPD.
+Cookies: la web no usa cookies propias ni de terceros para analítica o publicidad; solo guarda en el navegador (sessionStorage) una marca técnica para no repetir la pantalla de carga en la misma visita. Por eso no hay banner de cookies.
+Textos redactados como borrador: los puntos marcados [REVISAR] los confirma el titular (o un profesional) antes de publicar.
 
 ## Fotos y vídeos: nombres de archivo
 

@@ -13,13 +13,23 @@ interface Props {
 ---
 
 <section class="obras">
-	<Video nombre="Vídeo obras" {...Astro.props} />
+	<!-- El vídeo también lleva a Obras, solo con ratón o dedo: para teclado y lectores de
+	     pantalla el enlace es VER OBRAS (así no se repite). -->
+	<a class="video-enlace" href="/obras" tabindex="-1" aria-hidden="true">
+		<Video nombre="Vídeo obras" {...Astro.props} />
+	</a>
 	<p class="ver"><EnlaceGuia href="/obras" lado="izquierda">VER OBRAS</EnlaceGuia></p>
 </section>
 
 <style>
 	.obras {
 		margin-top: var(--aire);
+	}
+
+	.video-enlace {
+		display: block;
+		color: inherit;
+		text-decoration: none;
 	}
 
 	/* Termina a 138 px del borde derecho (9,583 vw), como CONTACTAR. */

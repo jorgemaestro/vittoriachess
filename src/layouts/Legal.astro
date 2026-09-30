@@ -1,0 +1,88 @@
+---
+// Plantilla de las páginas legales — ver docs/definicion.md (Páginas: Legales).
+// Misma columna que Contacto (434 px, 572 px de ancho, desde 201 px). Título a 24 px y
+// texto en estilo Legal; cada apartado es un <section> con su <h2>.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	titulo: string;
+	pagina: 'aviso-legal' | 'privacidad' | 'cookies';
+	actualizado: string;
+}
+
+const { titulo, pagina, actualizado } = Astro.props;
+---
+
+<Base title={`${titulo.charAt(0)}${titulo.slice(1).toLowerCase()} — Vittoria Chess`}>
+	<Nav />
+	<main class="legal">
+		<h1 class="titulo">{titulo}</h1>
+		<div class="texto">
+			<slot />
+		</div>
+		<p class="actualizado">ÚLTIMA ACTUALIZACIÓN: {actualizado}</p>
+	</main>
+	<Footer actual={pagina} />
+</Base>
+
+<style>
+	/* Columna a 434 px (30,139 vw), 572 px de ancho (39,722 vw), desde 201 px. */
+	.legal {
+		width: 39.722vw;
+		padding: 201px 0 0 30.139vw;
+	}
+
+	.titulo {
+		margin: 0;
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.texto {
+		margin-top: 40px;
+		font-weight: var(--peso-regular);
+		font-size: var(--legal);
+		line-height: var(--legal-alto);
+	}
+
+	.texto :global(section + section) {
+		margin-top: 32px;
+	}
+
+	.texto :global(h2) {
+		margin: 0 0 8px;
+		font-weight: var(--peso-medio);
+		font-size: var(--legal);
+		line-height: var(--legal-alto);
+	}
+
+	.texto :global(p),
+	.texto :global(ul) {
+		margin: 0 0 8px;
+	}
+
+	.texto :global(ul) {
+		padding-left: 1.2em;
+	}
+
+	.texto :global(a) {
+		color: inherit;
+	}
+
+	.actualizado {
+		margin: 48px 0 0;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	@media (max-width: 809px) {
+		.legal {
+			width: auto;
+			padding: 120px var(--margen) 0;
+		}
+	}
+</style>
