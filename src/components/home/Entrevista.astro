@@ -1,0 +1,85 @@
+---
+// Home · Acceso a Entrevista — ver docs/definicion.md (Páginas: Home, punto 6).
+// Sin título. Foto 512 × 683 a 96 px del borde; a la derecha (columna de 744 px) pregunta,
+// fragmento y LEER ENTREVISTA. Móvil: foto a todo el ancho y texto debajo.
+// Foto provisional: caja gris hasta la Fase 6.
+import Enlace from '../Enlace.astro';
+
+const pregunta = '[PENDIENTE: PREGUNTA]';
+const fragmento = '[PENDIENTE: fragmento de la entrevista]';
+---
+
+<section class="entrevista" aria-label="Entrevista">
+	<div class="cuerpo">
+		<div class="foto" role="img" aria-label="[PENDIENTE: foto de la entrevista]"></div>
+		<div class="texto">
+			<p class="pregunta">{pregunta}</p>
+			<p class="fragmento">{fragmento}</p>
+			<p class="leer"><Enlace href="/entrevista">LEER ENTREVISTA</Enlace></p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.entrevista {
+		margin-top: var(--aire);
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.cuerpo {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	/* 512 × 683 a 96 px del borde. */
+	.foto {
+		flex: none;
+		width: 35.556vw;
+		margin-left: 6.667vw;
+		aspect-ratio: 512 / 683;
+		background: var(--color-provisional);
+	}
+
+	/* Columna de 744 px: 744 − (96 + 512) = 136 px de separación. Máx. 480 px. */
+	.texto {
+		margin-left: 9.444vw;
+		max-width: 33.333vw;
+	}
+
+	.pregunta {
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.fragmento {
+		margin-top: 16px;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.leer {
+		margin-top: 40px;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	@media (max-width: 809px) {
+		.cuerpo {
+			flex-direction: column;
+			padding: 0 var(--margen);
+		}
+
+		.foto {
+			width: 100%;
+			margin-left: 0;
+		}
+
+		.texto {
+			margin: 24px 0 0;
+			max-width: none;
+		}
+	}
+</style>
