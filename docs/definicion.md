@@ -56,8 +56,8 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio ·
 1. Pantalla de carga.
 2. Vídeo a pantalla completa (100 % × 100 vh, cover), sin texto, sin sonido, en bucle, reproducción automática. Planos abstractos, muy de cerca, casi misteriosos, de las piezas. Versión vertical aparte para móvil. Póster mientras carga. Con movimiento reducido no arranca solo (queda el póster). Mientras no haya vídeo: bloque en provisional oscuro con el marcador [PENDIENTE: VÍDEO].
 3. Manifiesto, 10 vw bajo el vídeo. No es un enlace (decidido el 30/09/2026). Las tres líneas alineadas a la izquierda, sin sangría (decidido el 30/09/2026; antes, tercera línea sangrada 24,65 vw). Las líneas suben desde una máscara al entrar en pantalla, 1,2 s y 80 ms entre líneas (nunca quedan ocultas sin JavaScript):
-   El cuadrado. El origen
-   La geometría. La ley
+   El cuadrado, el origen
+   La geometría, la ley
    Seis piezas. Seis almas
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
@@ -101,10 +101,14 @@ Entradas: 2026 — PRENSA · EL MUNDO; CAMPAÑA · OTZ Lab; EXPOSICIÓN · COAM,
 
 ### Contacto
 
-Solo un formulario, a 434 px de la izquierda, 572 px de ancho, 201 px de arriba. Campos sin caja, línea inferior de 1 px, 40 px entre campos; etiqueta 10 px, texto escrito 24 px.
-NOMBRE* · EMAIL* · PAÍS · SOY* (COLECCIONISTA, GALERÍA, PRENSA, OTRO) · MENSAJE* · casilla ACEPTO LA POLÍTICA DE PRIVACIDAD* (enlace a /privacidad).
-ENVIAR a 24 px con subrayado. Tras enviar: MENSAJE RECIBIDO. Envío a Formspree.
-Pendiente: opciones de SOY y email de recepción.
+Redefinida el 30/09/2026. Todo en una columna a 434 px de la izquierda, 572 px de ancho, empezando a 201 px de arriba:
+1. Palabra CONTACTO (24 px).
+2. 16 px debajo, frase en estilo Llamada (40 / 48 px, regular): "Escríbenos. Te responderemos personalmente."
+3. 80 px debajo, el formulario. Campos sin caja, línea inferior de 1 px que pasa a 1,6 px mientras se escribe en el campo (decidido el 30/09/2026), 40 px entre campos; etiqueta 10 px, texto escrito 24 px. NOMBRE* · APELLIDOS · TELÉFONO · EMAIL* · MENSAJE* (texto largo). Si falta un obligatorio o el email no es válido, aviso a 10 px bajo el campo.
+4. 48 px debajo, ENVIAR, igual que el resto de enlaces de acción de la web (24 px, subrayado animado y línea guía desde la izquierda). 16 px debajo, a 10 px y en gris secundario: "AL ENVIAR ACEPTAS LA POLÍTICA DE PRIVACIDAD", con enlace a /privacidad (sustituye a la casilla; a confirmar con los textos legales).
+Tras enviar: el formulario da paso a MENSAJE RECIBIDO. Envío a Formspree en la Fase 7; hasta entonces no se manda nada.
+Móvil: la columna a todo el ancho, con los márgenes, empezando a 120 px.
+Pendiente: email de recepción (Fase 7).
 
 ### Legales
 

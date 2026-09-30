@@ -27,6 +27,7 @@
   --margen: 20px;
   --aire: 240px;                 /* entre secciones */
   --linea: 1px;                  /* grosor de subrayados e icono de menú */
+  --linea-foco: 1.6px;           /* línea de un campo del formulario mientras se escribe */
 
   /* Movimiento */
   --ease: cubic-bezier(0.23, 1, 0.32, 1);

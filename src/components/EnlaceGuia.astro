@@ -7,7 +7,8 @@
 import Enlace from './Enlace.astro';
 
 interface Props {
-	href: string;
+	/** Sin href, el enlace es un botón de envío (ENVIAR del formulario). */
+	href?: string;
 	/** Borde del que sale la línea en escritorio. */
 	lado: 'izquierda' | 'derecha';
 	/** Espera antes de dibujar la línea, en ms. */
