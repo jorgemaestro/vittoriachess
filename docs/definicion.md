@@ -33,7 +33,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Enlace.** Subrayado de 1 px del color del texto (decidido el 30/09/2026: línea fina y de grosor constante en cualquier pantalla; antes 1,34 px). Al pasar el ratón entra desde la izquierda en 1000 ms; al salir, sale por la derecha en 1200 ms (nunca vuelve por la izquierda). Enlace activo: subrayado fijo, sin reacción.
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS, LAS PIEZAS, ENTREVISTA, CONTACTO (separados por ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ENTREVISTA · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
@@ -68,7 +68,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
 
 ### Obras
 
-Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahora). OBRAS subrayado en la barra. Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
+Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahora). OBRAS subrayado en la barra. Fotos en blanco y negro; al pasar el ratón por una obra, su foto vuelve a su color original en 0,6 s (var(--ease)). En pantallas táctiles, siempre en color; con movimiento reducido, el cambio es inmediato (decidido el 30/09/2026). Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
 
 | Obra | Izquierda (px) | Arriba (px) | Imagen (px) | Formato |
 | --- | --- | --- | --- | --- |
@@ -123,4 +123,4 @@ ES por defecto; EN en /en/... con textos traducidos a mano.
 
 ## Pendientes de contenido
 
-Entrevista y fragmento de la home · email del formulario · logotipo en SVG · fotos y vídeo definitivos.
+Entrevista y fragmento de la home · email del formulario · sección Press (publicaciones / colaboraciones), aplazada el 30/09/2026: falta definir formato y contenido · logotipo en SVG · fotos y vídeo definitivos.

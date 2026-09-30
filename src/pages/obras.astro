@@ -3,6 +3,7 @@
 // Catálogo de 8 obras en zigzag, sin enlaces. Posiciones de la tabla pasadas a vw.
 // Pie de cada obra a 4 px, en una columna: nombre / tipo / medidas. Llamada a contacto
 // 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras.
+// Con ratón: fotos en blanco y negro que vuelven a su color al pasar por encima.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -61,6 +62,25 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 		left: var(--x);
 		top: var(--y);
 		width: var(--ancho);
+	}
+
+	/* Solo con ratón: en blanco y negro, y en color al pasar por la obra. En pantallas
+	   táctiles no hay "pasar por encima", así que se ven siempre en color. */
+	@media (hover: hover) and (pointer: fine) {
+		.obra :global(.foto) {
+			filter: grayscale(1);
+			transition: filter 0.6s var(--ease);
+		}
+
+		.obra:hover :global(.foto) {
+			filter: grayscale(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.obra :global(.foto) {
+			transition: none;
+		}
 	}
 
 	.pie {

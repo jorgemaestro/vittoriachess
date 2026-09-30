@@ -21,7 +21,7 @@ const { etiqueta, actual, pie = false } = Astro.props;
 	{enlaces.map(([ruta, texto], i) => (
 		<>
 			<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
-			{i < enlaces.length - 1 && ', '}
+			{i < enlaces.length - 1 && ' · '}
 		</>
 	))}
 </nav>
