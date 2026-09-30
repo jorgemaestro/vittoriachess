@@ -11,7 +11,7 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 - Margen único: 20 px.
 - Paleta de marca (recibida el 30/09/2026): ONYX #17130F · GRAPHITE #48443F · ASH #989188 · BONE #F2EDE4 · PLASTER #F7F5F1 · BRONZE #B18F5A · BRONZE-D #765A32. Un solo mundo de color, sin modo oscuro. Todos los colores se definen como variables en src/styles/tokens.css para cambiarlos en un solo sitio. Los componentes usan siempre las variables de uso (fondo, tinta…), nunca los nombres de la paleta directamente.
 - Asignación de usos: Fondo → PLASTER (propuesta; sustituye a #F5F5F5). Pendiente de decidir: tinta, negro de la carga, blanco del cursor y de la nav sobre vídeo, gris provisional de imágenes y color de selección.
-- Colores provisionales anteriores, vigentes hasta decidir su sustituto: Tinta #2B2B2B · Negro #000000 · Blanco #FFFFFF · Provisional #D9D9D9 · Selección #E2E2E2.
+- Colores provisionales anteriores, vigentes hasta decidir su sustituto: Tinta #2B2B2B · Negro #000000 · Blanco #FFFFFF · Provisional #D9D9D9 · Provisional oscuro #1A1A1A (en lugar del vídeo mientras no exista) · Selección #E2E2E2.
 - Curva de todas las animaciones: cubic-bezier(0.23, 1, 0.32, 1).
 - Tipografías: Suisse Int'l (Swiss Typefaces) para todo el texto, pesos Regular (400) y Medium (500); Cinzel 500 solo para el logotipo provisional. Ambas alojadas en el proyecto (src/fonts/), nunca desde un servicio externo.
 - Suisse Int'l es una fuente comercial: hace falta la licencia web y los archivos .woff2 (Regular y Medium). Hasta tenerlos, se usa Inter Tight como sustituta con las mismas medidas, y el cambio se hace en una sola línea de tokens.css.
@@ -51,7 +51,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /entrevista
 ### Home (de arriba abajo)
 
 1. Pantalla de carga.
-2. Vídeo a pantalla completa (100 % × 100 vh, cover), sin texto, sin sonido, en bucle, reproducción automática. Planos abstractos, muy de cerca, casi misteriosos, de las piezas. Versión vertical aparte para móvil. Póster mientras carga.
+2. Vídeo a pantalla completa (100 % × 100 vh, cover), sin texto, sin sonido, en bucle, reproducción automática. Planos abstractos, muy de cerca, casi misteriosos, de las piezas. Versión vertical aparte para móvil. Póster mientras carga. Con movimiento reducido no arranca solo (queda el póster). Mientras no haya vídeo: bloque en provisional oscuro con el marcador [PENDIENTE: VÍDEO].
 3. Manifiesto, 10 vw bajo el vídeo, enlazado a Las piezas. Tercera línea sangrada 24,65 vw. Las líneas suben desde una máscara al entrar en pantalla (nunca quedan ocultas sin JavaScript):
    El cuadrado. El origen
    La geometría. La ley

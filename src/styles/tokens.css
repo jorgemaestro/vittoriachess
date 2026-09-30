@@ -18,6 +18,7 @@
   --color-carga: #000000;        /* provisional: fondo de la pantalla de carga */
   --color-claro: #FFFFFF;        /* provisional: cursor, barra sobre vídeo, logotipo en la carga */
   --color-provisional: #D9D9D9;  /* provisional: cajas en lugar de fotos */
+  --color-provisional-oscuro: #1A1A1A; /* provisional: en lugar del vídeo */
   --color-seleccion: #E2E2E2;    /* provisional: texto seleccionado */
 
   /* Medidas */

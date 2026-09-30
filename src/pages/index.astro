@@ -1,8 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import Carga from '../components/Carga.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Video from '../components/home/Video.astro';
+
+// Vídeo de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
+const video = {
+	horizontal: undefined,
+	vertical: undefined,
+	poster: undefined,
+};
 ---
 
 <Base>
 	<Carga />
+	<Nav claro />
+	<main>
+		<Video {...video} />
+	</main>
+	<Footer />
 </Base>

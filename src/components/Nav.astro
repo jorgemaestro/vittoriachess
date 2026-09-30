@@ -42,9 +42,9 @@ const { actual, claro = false } = Astro.props;
 			else if (y < ultimaY) nav.classList.remove('oculta');
 			ultimaY = y;
 
-			// Claro mientras el centro de la barra está sobre una zona oscura.
-			const caja = nav.getBoundingClientRect();
-			const centro = caja.top + caja.height / 2;
+			// Claro mientras el centro de la barra está sobre una zona oscura. Se mide su sitio
+			// fijo (offsetTop), no el animado: si está saliendo o entrando, cuenta donde acaba.
+			const centro = nav.offsetTop + nav.offsetHeight / 2;
 			const sobreOscuro = [...zonasClaras].some((zona) => {
 				const r = zona.getBoundingClientRect();
 				return r.top <= centro && r.bottom >= centro;
