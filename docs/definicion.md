@@ -112,7 +112,7 @@ Entradas: 2026 — PRENSA · EL MUNDO; CAMPAÑA · OTZ Lab; EXPOSICIÓN · COAM,
 
 Redefinida el 30/09/2026. Todo en una columna a 434 px de la izquierda, 572 px de ancho, empezando a 201 px de arriba:
 1. Palabra CONTACTO (24 px).
-2. 16 px debajo, frase en estilo Llamada (40 / 48 px, regular): "Escríbenos. Te responderemos personalmente."
+2. 16 px debajo, frase en estilo Llamada (40 / 48 px, regular): "Para consultas, proyectos y colaboraciones." y, 16 px debajo, con menor jerarquía (estilo Lectura, 16 / 24 px, gris secundario): "Cada solicitud se atiende de forma individual." (textos del 02/10/2026; antes "Escríbenos. Te responderemos personalmente.")
 3. 80 px debajo, el formulario. Campos sin caja, línea inferior de 1 px que pasa a 1,6 px mientras se escribe en el campo (decidido el 30/09/2026), 40 px entre campos; etiqueta 10 px, texto escrito 24 px. NOMBRE* · APELLIDOS · TELÉFONO · EMAIL* · MENSAJE* (texto largo). Si falta un obligatorio o el email no es válido, aviso a 10 px bajo el campo.
 4. 48 px debajo, ENVIAR, igual que el resto de enlaces de acción de la web (24 px, subrayado animado y línea guía desde la izquierda). 16 px debajo, a 10 px y en gris secundario: "AL ENVIAR ACEPTAS LA POLÍTICA DE PRIVACIDAD", con enlace a /privacidad (sustituye a la casilla; a confirmar con los textos legales).
 Tras enviar: el formulario da paso a MENSAJE RECIBIDO. Envío a Formspree en la Fase 7; hasta entonces no se manda nada.

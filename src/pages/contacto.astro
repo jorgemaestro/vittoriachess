@@ -1,7 +1,7 @@
 ---
 // Contacto — ver docs/definicion.md (Páginas: Contacto).
 // Columna a 434 px, 572 px de ancho, desde 201 px: palabra CONTACTO, frase en estilo
-// Llamada y formulario (campos sin caja, línea inferior de 1 px). ENVIAR con línea guía.
+// Llamada, apunte en pequeño y formulario (campos sin caja, línea inferior de 1 px). ENVIAR con línea guía.
 // Envío real a Formspree en la Fase 7: por ahora se validan los campos y se muestra
 // MENSAJE RECIBIDO sin mandar nada.
 import Base from '../layouts/Base.astro';
@@ -22,7 +22,8 @@ const campos = [
 	<Nav actual="contacto" />
 	<main class="contacto">
 		<h1 class="palabra">CONTACTO</h1>
-		<p class="frase">Escríbenos. Te responderemos personalmente.</p>
+		<p class="frase">Para consultas, proyectos y colaboraciones.</p>
+		<p class="apunte">Cada solicitud se atiende de forma individual.</p>
 
 		<!-- Fase 7: action = dirección de Formspree. method="post" para que los datos nunca
 		     vayan en la dirección de la página. -->
@@ -128,6 +129,15 @@ const campos = [
 		font-size: var(--llamada);
 		line-height: var(--llamada-alto);
 		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Segunda frase, con menor jerarquía. */
+	.apunte {
+		margin: 16px 0 0;
+		color: var(--color-secundario);
+		font-weight: var(--peso-regular);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
 	}
 
 	.formulario {
