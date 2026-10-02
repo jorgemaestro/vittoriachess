@@ -166,7 +166,10 @@ const en: Textos = {
 		enviar: 'SEND',
 		aceptas: 'BY SENDING YOU ACCEPT THE',
 		politica: 'PRIVACY POLICY',
-		recibido: 'MESSAGE RECEIVED',
+		gracias: 'Thank you.',
+		recibido: 'Message received.',
+		fallo: 'THE MESSAGE COULD NOT BE SENT. PLEASE TRY AGAIN OR WRITE TO',
+		asunto: 'Vittoria Chess — message from',
 	},
 
 	noEncontrada: {
@@ -271,7 +274,7 @@ const en: Textos = {
 						'The data is not shared with third parties unless required by law. The following act as data processors:',
 					],
 					lista: [
-						'Formspree, Inc. (United States): receives the form and forwards it by email.',
+						'Web3Forms: receives the form and forwards it by email. [TO REVIEW: legal name and country of the provider.]',
 						'Google (Google Workspace): handles the owner’s email.',
 						'Cloudflare, Inc. (United States): hosts the website and may process technical data, such as the IP address.',
 					],
@@ -279,7 +282,7 @@ const en: Textos = {
 				{
 					titulo: 'INTERNATIONAL TRANSFERS',
 					parrafos: [
-						'Formspree and Cloudflare may process data in the United States. These transfers are covered by the EU–US Data Privacy Framework or, failing that, by the standard contractual clauses approved by the European Commission. [TO REVIEW: confirm the safeguard offered by each provider when it is contracted.]',
+						'Web3Forms and Cloudflare may process data in the United States. These transfers are covered by the EU–US Data Privacy Framework or, failing that, by the standard contractual clauses approved by the European Commission. [TO REVIEW: confirm the safeguard offered by each provider when it is contracted.]',
 					],
 				},
 				{
@@ -309,7 +312,7 @@ const en: Textos = {
 				{
 					titulo: 'THIRD-PARTY SERVICES',
 					parrafos: [
-						'When the contact form is sent, the data goes to Formspree (see the privacy policy). The links to Instagram lead to its website, which applies its own cookie policy. [TO REVIEW: confirm, when Formspree is activated in Phase 7, that it adds no cookies or third-party anti-spam checks to this website.]',
+						'When the contact form is sent, the data goes to Web3Forms (see the privacy policy). The links to Instagram lead to its website, which applies its own cookie policy. [TO REVIEW: confirm, when Web3Forms is activated in Phase 7, that it adds no cookies or third-party anti-spam checks to this website.]',
 					],
 				},
 				{

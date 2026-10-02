@@ -3,17 +3,18 @@
 // Columna a 434 px, 572 px de ancho, desde 201 px: palabra CONTACTO, frase en estilo
 // Llamada, apunte en pequeño y formulario (campos sin caja, línea inferior de 1 px).
 // ENVIAR con línea guía.
-// Envío real a Formspree en la Fase 7: por ahora se validan los campos y se muestra
-// MENSAJE RECIBIDO sin mandar nada.
+// El envío va a Web3Forms sin salir de la página; si falla, el formulario se queda con lo
+// escrito y un aviso. Sin JavaScript se envía igualmente (página de confirmación de Web3Forms).
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
 import { obras } from '../data/obras';
+import { titular, formulario } from '../data/titular';
 import { usar } from '../i18n';
 
-const { t, r } = usar(Astro);
+const { t, r, idioma } = usar(Astro);
 const c = t.contacto;
 
 // Para empezar el mensaje con el nombre de la obra al llegar desde su página (?obra=slug).
@@ -37,16 +38,24 @@ const campos = [
 		<p class="frase">{c.frase}</p>
 		<p class="apunte">{c.apunte}</p>
 
-		<!-- Fase 7: action = dirección de Formspree. method="post" para que los datos nunca
-		     vayan en la dirección de la página. -->
 		<form
 			class="formulario"
+			action={formulario.destino}
 			method="post"
 			novalidate
 			data-formulario
 			data-consultas={JSON.stringify(consultas)}
 			data-avisos={JSON.stringify(c.avisos)}
+			data-asunto={c.asunto}
 		>
+			<input type="hidden" name="access_key" value={formulario.clave} />
+			<input type="hidden" name="subject" value={`${c.asunto} ${titular.web}`} />
+			<input type="hidden" name="from_name" value="Vittoria Chess" />
+			<input type="hidden" name="idioma" value={idioma.toUpperCase()} />
+			<!-- Solo para el envío sin JavaScript (Fase 10: página propia de confirmación). -->
+			<input type="hidden" name="redirect" value="https://web3forms.com/success" />
+			<!-- Campo trampa: invisible para las personas; si un robot lo marca, no se envía. -->
+			<input class="trampa" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
 			{
 				campos.map((campo) => (
 					<div class="campo">
@@ -75,10 +84,18 @@ const campos = [
 				<p class="privacidad">
 					{c.aceptas} <Enlace href={r.privacidad}>{c.politica}</Enlace>
 				</p>
+				<p class="aviso fallo" role="alert" hidden data-fallo>
+					{c.fallo} <Enlace href={`mailto:${titular.email}`}>{titular.email.toUpperCase()}</Enlace>
+				</p>
 			</div>
 		</form>
 
-		<p class="recibido" tabindex="-1" hidden data-recibido>{c.recibido}</p>
+		<!-- Tras enviar, la página se queda solo con esto. -->
+		<div class="recibido" tabindex="-1" hidden data-recibido>
+			<p class="frase">{c.gracias}</p>
+			<p class="apunte">{c.recibido}</p>
+			<p class="volver"><EnlaceGuia href={r.inicio} lado="izquierda">{t.noEncontrada.volver}</EnlaceGuia></p>
+		</div>
 	</main>
 	<Footer actual="contacto" />
 </Base>
@@ -86,6 +103,7 @@ const campos = [
 <script>
 	const formulario = document.querySelector<HTMLFormElement>('[data-formulario]');
 	const recibido = document.querySelector<HTMLElement>('[data-recibido]');
+	const fallo = document.querySelector<HTMLElement>('[data-fallo]');
 
 	// Los textos de los avisos vienen en el idioma de la página (data-avisos).
 	const textos: Record<string, string> = JSON.parse(formulario?.dataset.avisos ?? '{}');
@@ -106,7 +124,8 @@ const campos = [
 	};
 
 	if (formulario && recibido) {
-		const campos = [...formulario.querySelectorAll<HTMLInputElement>('input, textarea')];
+		const campos = [...formulario.querySelectorAll<HTMLInputElement>('.campo input, .campo textarea')];
+		const boton = formulario.querySelector<HTMLButtonElement>('button[type="submit"]');
 
 		// Al llegar desde la página de una obra (?obra=slug), el mensaje empieza con su nombre.
 		const obra = new URLSearchParams(location.search).get('obra');
@@ -123,17 +142,39 @@ const campos = [
 			}),
 		);
 
-		formulario.addEventListener('submit', (e) => {
+		formulario.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			const errores = campos.filter((campo) => !comprobar(campo));
 			if (errores.length) {
 				errores[0].focus();
 				return;
 			}
-			// Fase 7: aquí se enviará a Formspree. Por ahora solo se muestra la confirmación.
-			formulario.hidden = true;
-			recibido.hidden = false;
-			recibido.focus();
+			// Envío a Web3Forms sin salir de la página. El asunto lleva el nombre del visitante.
+			const datos = Object.fromEntries(new FormData(formulario)) as Record<string, string>;
+			delete datos.redirect;
+			datos.subject = `${formulario.dataset.asunto} ${`${datos.nombre} ${datos.apellidos}`.trim()}`;
+			if (boton) boton.disabled = true;
+			if (fallo) fallo.hidden = true;
+			try {
+				const respuesta = await fetch(formulario.action, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+					body: JSON.stringify(datos),
+				});
+				const resultado = await respuesta.json();
+				if (!respuesta.ok || !resultado.success) throw new Error(resultado.message);
+				recibido.parentElement?.classList.add('enviado');
+				recibido.hidden = false;
+				scrollTo(0, 0);
+				// La línea guía de VOLVER se mide ahora que ya está en pantalla.
+				dispatchEvent(new Event('resize'));
+				recibido.focus({ preventScroll: true });
+			} catch {
+				// Lo escrito se conserva; se avisa y se ofrece el email.
+				if (fallo) fallo.hidden = false;
+			} finally {
+				if (boton) boton.disabled = false;
+			}
 		});
 	}
 </script>
@@ -235,7 +276,16 @@ const campos = [
 		line-height: var(--pie-foto-alto);
 	}
 
-	.aviso:empty {
+	.aviso:empty,
+	.aviso[hidden] {
+		display: none;
+	}
+
+	.fallo {
+		margin-top: 16px;
+	}
+
+	.trampa {
 		display: none;
 	}
 
@@ -252,17 +302,38 @@ const campos = [
 		line-height: var(--pie-foto-alto);
 	}
 
+	/* Tras enviar: la página se queda vacía, solo con el agradecimiento, y ocupa al menos
+	   la pantalla para que el pie no suba. */
+	.contacto.enviado {
+		min-height: calc(100svh - 201px);
+	}
+
+	.contacto.enviado > :not(.recibido) {
+		display: none;
+	}
+
 	.recibido {
-		margin: 80px 0 0;
+		outline: none;
+	}
+
+	.recibido .frase {
+		margin-top: 0;
+	}
+
+	.volver {
+		margin: 48px 0 0;
 		font-size: var(--nav-central);
 		line-height: var(--nav-central-alto);
-		outline: none;
 	}
 
 	@media (max-width: 809px) {
 		.contacto {
 			width: auto;
 			padding: 120px var(--margen) 0;
+		}
+
+		.contacto.enviado {
+			min-height: calc(100svh - 120px);
 		}
 	}
 </style>

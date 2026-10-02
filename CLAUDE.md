@@ -38,7 +38,7 @@ Web de Vittoria Chess en Astro. Sustituye a la web actual en Wix.
   se quitan (el contenido aparece directamente).
 - Fuentes alojadas en src/fonts/ (Suisse Int'l, o Inter Tight como sustituta hasta tener
   la licencia; Cinzel solo para el logotipo). Nada cargado desde Google Fonts, CDNs ni otros
-  servicios externos. El único servicio externo previsto es Formspree (Fase 7).
+  servicios externos. El único servicio externo previsto es Web3Forms (Fase 7).
 - El texto de interfaz se escribe en MAYÚSCULAS en el propio texto, no con text-transform.
 - Mejora progresiva: todo el contenido tiene que verse sin JavaScript. Las animaciones de
   entrada nunca dejan texto oculto si el JS falla.

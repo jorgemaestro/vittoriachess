@@ -168,7 +168,10 @@ const es = {
 		enviar: 'ENVIAR',
 		aceptas: 'AL ENVIAR ACEPTAS LA',
 		politica: 'POLÍTICA DE PRIVACIDAD',
-		recibido: 'MENSAJE RECIBIDO',
+		gracias: 'Muchas gracias.',
+		recibido: 'Mensaje recibido.',
+		fallo: 'NO SE HA PODIDO ENVIAR. INTÉNTALO DE NUEVO O ESCRIBE A',
+		asunto: 'Vittoria Chess — mensaje de',
 	},
 
 	noEncontrada: {
@@ -273,7 +276,7 @@ const es = {
 						'No se ceden a terceros salvo obligación legal. Intervienen, como encargados del tratamiento:',
 					],
 					lista: [
-						'Formspree, Inc. (Estados Unidos): recibe el formulario y lo reenvía por email.',
+						'Web3Forms: recibe el formulario y lo reenvía por email. [REVISAR: razón social y país del proveedor.]',
 						'Google (Google Workspace): gestiona el correo del titular.',
 						'Cloudflare, Inc. (Estados Unidos): aloja la web y puede tratar datos técnicos, como la dirección IP.',
 					],
@@ -281,7 +284,7 @@ const es = {
 				{
 					titulo: 'TRANSFERENCIAS INTERNACIONALES',
 					parrafos: [
-						'Formspree y Cloudflare pueden tratar datos en Estados Unidos. Estas transferencias se amparan en el Marco de Privacidad de Datos UE-EE. UU. o, en su defecto, en las cláusulas contractuales tipo aprobadas por la Comisión Europea. [REVISAR: confirmar la garantía que ofrece cada proveedor al contratarlo.]',
+						'Web3Forms y Cloudflare pueden tratar datos en Estados Unidos. Estas transferencias se amparan en el Marco de Privacidad de Datos UE-EE. UU. o, en su defecto, en las cláusulas contractuales tipo aprobadas por la Comisión Europea. [REVISAR: confirmar la garantía que ofrece cada proveedor al contratarlo.]',
 					],
 				},
 				{
@@ -310,7 +313,7 @@ const es = {
 				{
 					titulo: 'SERVICIOS DE TERCEROS',
 					parrafos: [
-						'Al enviar el formulario de contacto, los datos se envían a Formspree (ver la política de privacidad). Los enlaces a Instagram llevan a su web, que aplica su propia política de cookies. [REVISAR: confirmar al activar Formspree en la Fase 7 que no añade cookies ni comprobaciones antispam de terceros en esta web.]',
+						'Al enviar el formulario de contacto, los datos se envían a Web3Forms (ver la política de privacidad). Los enlaces a Instagram llevan a su web, que aplica su propia política de cookies. [REVISAR: confirmar al activar Web3Forms en la Fase 7 que no añade cookies ni comprobaciones antispam de terceros en esta web.]',
 					],
 				},
 				{

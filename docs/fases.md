@@ -54,7 +54,7 @@ Archivos de src/content/ con nombres, tipos y medidas reales; fotos originales e
 
 ## Fase 7 — Formulario
 
-Conexión con Formspree y prueba de envío real.
+Conexión con Web3Forms (plan gratuito; sustituye a Formspree, decidido el 02/10/2026) y prueba de envío real.
 
 ## Fase 8 — Inglés
 
