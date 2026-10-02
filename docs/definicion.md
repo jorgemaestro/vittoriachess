@@ -37,7 +37,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Enlace con línea guía** (decidido el 30/09/2026). Para que se note que hay un enlace: una línea de 1 px, a la altura de su subrayado, va desde un borde de la pantalla hasta 16 px antes del enlace. Al entrar en pantalla hace un ciclo completo (decidido el 30/09/2026): crece desde el borde hasta el enlace (1,2 s, var(--ease)), se detiene un instante (0,25 s) y desaparece empezando por su origen, como el subrayado de la barra al salir: el extremo del borde avanza hacia el enlace hasta que la línea se pierde en él, con una aceleración y frenada suaves (1,2 s). Ocurre una sola vez. Lado: VER PIEZAS desde la derecha, VER OBRAS desde la izquierda, LEER ENTREVISTA desde la derecha, CONTACTAR desde la izquierda. En móvil (enlaces a la izquierda) siempre desde la derecha. Sin JavaScript o con movimiento reducido no hay línea (es decoración).
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Se pinta en negativo sobre lo que tiene debajo (mix-blend-mode: difference, como el cursor; decidido el 02/10/2026): sobre el fondo claro se ve en el color de tinta, y sobre una foto o zona oscura se aclara sola, de modo que nunca se pierde. Para ello usa el color --color-negativo (#D9D9D9, que sobre el fondo #F5F5F5 da exactamente la tinta #1C1C1C). Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
@@ -99,7 +99,16 @@ Llamada a contacto 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras
 
 ### Las piezas
 
-Página en tono oscuro (ver Sistema base). Seis figuras del peón al rey, en este orden: PEÓN, CABALLO, ALFIL, TORRE, REINA, REY (decidido el 30/09/2026; REINA en lugar de DAMA). Alternan derecha e izquierda empezando por la derecha (peón a la derecha, rey a la izquierda). Imágenes 600 × 800 (3:4) con el mismo fondo y encuadre. Pie: solo el nombre de la pieza en estilo Llamada (40 / 48 px, peso 400; móvil 28 / 34), 12 px bajo la imagen. Sin enlaces. Izquierda a 96 px, derecha a 744 px, la primera a 201 px de arriba y 560 px de paso vertical. Llamada a contacto 240 px bajo el rey. Móvil: una columna, 80 px entre piezas.
+Página con el fondo claro del resto de la web (en prueba desde el 02/10/2026; antes en tono oscuro, que sigue definido en Sistema base por si se recupera). Seis figuras del peón al rey, en este orden: PEÓN, CABALLO, ALFIL, TORRE, REINA, REY (decidido el 30/09/2026; REINA en lugar de DAMA). Composición orgánica (en prueba desde el 02/10/2026; antes, seis figuras iguales de 600 × 800 alternando a 96 y 744 px con 560 px de paso): imágenes 3:4 de anchos distintos, en posiciones irregulares como el catálogo de Obras, y dos de ellas llegan al borde de la pantalla (ver tabla). Mismo fondo y encuadre en todas. Pie: solo el nombre de la pieza a 24 / 32 px, peso 400 (reducido el 02/10/2026; antes en estilo Llamada, 40 / 48 px), 12 px bajo la imagen, también en móvil. En la imagen pegada al borde izquierdo, el nombre se separa 20 px del borde (el margen). Sin enlaces. Llamada a contacto 240 px bajo el rey. Móvil: una columna, 80 px entre piezas.
+
+| Pieza | Izquierda (px) | Arriba (px) | Imagen (px) | Nota |
+| --- | --- | --- | --- | --- |
+| Peón | 868 | 201 | 572 × 763 | Llega al borde derecho |
+| Caballo | 138 | 640 | 420 × 560 | |
+| Alfil | 494 | 1440 | 512 × 683 | |
+| Torre | 0 | 2300 | 480 × 640 | Llega al borde izquierdo |
+| Reina | 790 | 2620 | 512 × 683 | |
+| Rey | 290 | 3560 | 620 × 827 | |
 Solo se llega desde LAS PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (decidido el 30/09/2026).
 
 ### Estudio
@@ -154,7 +163,7 @@ Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; b
 | Entrevista, acceso de la home | src/assets/entrevista/home |
 | Entrevista, bloques de la página | src/assets/entrevista/bloque-01 … bloque-06 |
 
-Vídeos (Cloudflare R2, no van al repositorio): video-principal-horizontal.mp4, video-principal-vertical.mp4, video-principal-poster.jpg; video-obras-horizontal.mp4, video-obras-vertical.mp4, video-obras-poster.jpg.
+Vídeos (no van al repositorio; hasta publicar se copian en public/video/, excluida de GitHub, y al publicar pasan a Cloudflare R2; el vertical y el póster son opcionales): video-principal-horizontal.mp4, video-principal-vertical.mp4, video-principal-poster.jpg; video-obras-horizontal.mp4, video-obras-vertical.mp4, video-obras-poster.jpg.
 
 ## Idiomas
 

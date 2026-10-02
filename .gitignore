@@ -24,6 +24,10 @@ pnpm-debug.log*
 .idea/
 .env.*
 
+# Vídeos: no van al repositorio (al publicar, a Cloudflare R2)
+public/video/*
+!public/video/LEEME.md
+
 # Windows / Google Drive
 desktop.ini
 Thumbs.db

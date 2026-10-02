@@ -19,6 +19,7 @@
   --color-secundario: #707070;   /* textos pequeños: tipos, pies de obra, preguntas de 10 px */
   --color-carga: #000000;        /* fondo de la pantalla de carga */
   --color-claro: #FFFFFF;        /* cursor, barra sobre vídeo, logotipo en la carga */
+  --color-negativo: #D9D9D9;     /* barra en negativo: sobre el fondo da la tinta (F5 − D9 = 1C) */
   --color-provisional: #DADADA;  /* cajas en lugar de fotos */
   --color-provisional-oscuro: #1A1A1A; /* en lugar del vídeo */
   --color-seleccion: #E2E2E2;    /* texto seleccionado */
@@ -71,6 +72,7 @@
 [data-tono="oscuro"] {
   --color-fondo: #141414;
   --color-tinta: #F5F5F5;
+  --color-negativo: #FFFFFF;
   --color-secundario: #8C8C8C;
   --color-provisional: #3A3A3A;
   --color-seleccion: #3A3A3A;

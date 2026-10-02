@@ -8,21 +8,14 @@ import Manifiesto from '../components/home/Manifiesto.astro';
 import Obras from '../components/home/Obras.astro';
 import Entrevista from '../components/home/Entrevista.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
+import { video } from '../data/videos';
 import { usar } from '../i18n';
 
 const { t } = usar(Astro);
 
-// Vídeos de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
-const videoPrincipal = {
-	horizontal: undefined,
-	vertical: undefined,
-	poster: undefined,
-};
-const videoObras = {
-	horizontal: undefined,
-	vertical: undefined,
-	poster: undefined,
-};
+// Vídeos de la home: por nombre de archivo (src/data/videos.ts). Sin archivo = bloque provisional.
+const videoPrincipal = video('principal');
+const videoObras = video('obras');
 ---
 
 <Base>
