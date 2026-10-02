@@ -32,7 +32,8 @@ Web de Vittoria Chess en Astro. Sustituye a la web actual en Wix.
 - Lienzo de 1440 px. Las posiciones de la composición (imágenes, zigzag, sangrías) y el
   manifiesto se pasan a vw así: px / 1440 × 100 (434 px = 30,139 vw). El margen, los textos y
   los grosores de línea van en px fijos, como en el prototipo. Corte principal a 810 px (menú móvil).
-- Curva de todas las animaciones: var(--ease) = cubic-bezier(0.23, 1, 0.32, 1).
+- Curva de todas las animaciones: var(--ease) = cubic-bezier(0.23, 1, 0.32, 1). Única excepción:
+  el cursor al crecer sobre un enlace usa var(--ease-golpe), con rebote.
 - Respetar prefers-reduced-motion: si el visitante lo pide, las animaciones se reducen o
   se quitan (el contenido aparece directamente).
 - Fuentes alojadas en src/fonts/ (Suisse Int'l, o Inter Tight como sustituta hasta tener

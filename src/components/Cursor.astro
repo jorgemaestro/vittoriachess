@@ -1,8 +1,8 @@
 ---
 // Cursor — ver docs/definicion.md (Componentes: Cursor).
 // Cuadrado de 16 px en negativo (mix-blend-mode: difference) que sigue al ratón con
-// suavizado 0,25; sobre enlaces y botones crece a 24 px. Solo con ratón y JavaScript:
-// en pantallas táctiles o sin JS el visitante conserva su cursor de siempre.
+// suavizado 0,25; sobre enlaces y botones crece a 28 px con un golpe. Solo con ratón y
+// JavaScript: en pantallas táctiles o sin JS el visitante conserva su cursor de siempre.
 ---
 
 <div class="cursor" aria-hidden="true" data-cursor><span class="cuadro"></span></div>
@@ -99,11 +99,14 @@
 		width: 16px;
 		height: 16px;
 		background: var(--color-claro);
-		transition: transform 0.4s var(--ease);
+		/* Al salir del enlace vuelve a 16 px rápido y sin rebote. */
+		transition: transform 0.2s var(--ease);
 	}
 
+	/* Sobre un enlace: crece a 28 px con un golpe (se pasa un poco y se asienta). */
 	.grande .cuadro {
-		transform: scale(1.5); /* 24 px */
+		transform: scale(1.75);
+		transition: transform 0.25s var(--ease-golpe);
 	}
 
 	/* Con cursor propio se oculta la flecha del sistema, salvo en campos de texto. */
