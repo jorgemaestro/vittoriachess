@@ -1,12 +1,14 @@
 ---
 // Home · Manifiesto — ver docs/definicion.md (Páginas: Home, punto 3).
 // Tres líneas 10 vw bajo el vídeo, a la izquierda; VER PIEZAS centrado entre el final del
-// manifiesto y el margen derecho, en la línea de la tercera (debajo en móvil). Al entrar en pantalla, cada línea sube desde una
-// máscara. El texto solo se esconde si el script de la animación arranca: sin JavaScript
-// o si falla, se ve directamente.
+// manifiesto y el margen derecho, en la línea de la tercera (debajo en móvil). Al entrar
+// en pantalla, cada línea sube desde una máscara. El texto solo se esconde si el script de
+// la animación arranca: sin JavaScript o si falla, se ve directamente.
 import EnlaceGuia from '../EnlaceGuia.astro';
+import { usar } from '../../i18n';
 
-const lineas = ['El cuadrado, el origen', 'La geometría, la ley', 'Seis piezas. Seis almas'];
+const { t, r } = usar(Astro);
+const lineas = t.home.manifiesto;
 ---
 
 <section class="manifiesto">
@@ -19,7 +21,7 @@ const lineas = ['El cuadrado, el origen', 'La geometría, la ley', 'Seis piezas.
 			))
 		}
 	</p>
-	<p class="ver"><EnlaceGuia href="/las-piezas" lado="derecha">VER PIEZAS</EnlaceGuia></p>
+	<p class="ver"><EnlaceGuia href={r.piezas} lado="derecha">{t.home.verPiezas}</EnlaceGuia></p>
 </section>
 
 <script>

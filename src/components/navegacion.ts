@@ -1,11 +1,7 @@
-// Enlaces principales de la web — ver docs/definicion.md (Páginas: Direcciones).
-// Los usan la barra, el menú móvil y el pie: se cambian aquí y en ningún otro sitio.
+// Páginas principales de la web, en el orden de la barra — ver docs/definicion.md.
+// Los textos y las direcciones de cada idioma están en src/i18n/.
+import type { ClaveRuta } from '../i18n';
 
-export type Pagina = 'obras' | 'las-piezas' | 'estudio' | 'contacto';
+export type Pagina = Extract<ClaveRuta, 'obras' | 'piezas' | 'estudio' | 'contacto'>;
 
-export const enlaces: [Pagina, string][] = [
-	['obras', 'OBRAS'],
-	['las-piezas', 'LAS PIEZAS'],
-	['estudio', 'ESTUDIO'],
-	['contacto', 'CONTACTO'],
-];
+export const paginas: Pagina[] = ['obras', 'piezas', 'estudio', 'contacto'];

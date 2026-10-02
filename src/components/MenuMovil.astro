@@ -4,25 +4,32 @@
 // menú (aria-controls="menu-movil"); también se cierra al tocar un enlace, con Escape y al
 // pasar a más de 810 px. Cerrado queda invisible y fuera del tabulador.
 import Enlace from './Enlace.astro';
+import { paginas, type Pagina } from './navegacion';
+import { usar } from '../i18n';
 
 interface Props {
-	enlaces: [string, string][];
-	actual?: string;
+	actual?: Pagina;
 }
 
-const { enlaces, actual } = Astro.props;
+const { actual } = Astro.props;
+const { idioma, t, r, enIdioma } = usar(Astro);
 ---
 
 <div class="menu-movil" id="menu-movil" data-menu-movil>
-	<nav aria-label="Menú">
+	<nav aria-label={t.nav.etiquetaMenu}>
 		<ul>
-			{enlaces.map(([ruta, texto]) => (
-				<li><Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace></li>
+			{paginas.map((pagina) => (
+				<li><Enlace href={r[pagina]} activo={actual === pagina}>{t.nav[pagina]}</Enlace></li>
 			))}
 		</ul>
 	</nav>
 	<div class="idioma">
-		<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+		<Enlace href={enIdioma.es} activo={idioma === 'es'} lang="es" hreflang="es">ES</Enlace> / <Enlace
+			href={enIdioma.en}
+			activo={idioma === 'en'}
+			lang="en"
+			hreflang="en">EN</Enlace
+		>
 	</div>
 </div>
 

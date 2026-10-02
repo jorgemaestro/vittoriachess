@@ -5,25 +5,27 @@
 // Foto: src/assets/entrevista/home (caja gris mientras no esté).
 import EnlaceGuia from '../EnlaceGuia.astro';
 import Foto from '../Foto.astro';
+import { usar } from '../../i18n';
 
-const pregunta = 'SI LA REGLA LO DETERMINA TODO, ¿DÓNDE QUEDA EL AUTOR?';
-const fragmento = 'Quizás en el ojo humano. La geometría da la estructura, pero no define.';
+const { t, r } = usar(Astro);
 ---
 
-<section class="entrevista" aria-label="Entrevista">
+<section class="entrevista" aria-label={t.home.entrevistaEtiqueta}>
 	<div class="cuerpo">
 		<div class="foto">
 			<Foto
 				nombre="entrevista/home"
-				alt="[PENDIENTE: descripción de la foto de la entrevista]"
+				alt={`[${t.pendiente}: ${t.home.entrevistaFoto}]`}
 				proporcion={512 / 683}
 				sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
 			/>
 		</div>
 		<div class="texto">
-			<p class="pregunta">{pregunta}</p>
-			<p class="fragmento">{fragmento}</p>
-			<p class="leer"><EnlaceGuia href="/estudio" lado="derecha">LEER ENTREVISTA</EnlaceGuia></p>
+			<p class="pregunta">{t.home.entrevistaPregunta}</p>
+			<p class="fragmento">{t.home.entrevistaFragmento}</p>
+			<p class="leer">
+				<EnlaceGuia href={r.estudio} lado="derecha">{t.home.leerEntrevista}</EnlaceGuia>
+			</p>
 		</div>
 	</div>
 </section>

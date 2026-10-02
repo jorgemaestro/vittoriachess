@@ -3,20 +3,25 @@
 // Dos líneas de 24 px separadas 7 px en un área de 40 × 40 px. Al abrir se juntan en el
 // centro y después giran ±45° hasta formar una cruz; al cerrar, el movimiento inverso.
 // El estado vive en aria-expanded; el menú móvil escuchará el evento "menu:cambio".
+import { usar } from '../i18n';
+
 interface Props {
 	controla?: string;
 }
 
 const { controla } = Astro.props;
+const { t } = usar(Astro);
 ---
 
 <button
 	class="menu-icono"
 	type="button"
 	aria-expanded="false"
-	aria-label="Abrir menú"
+	aria-label={t.nav.abrirMenu}
 	aria-controls={controla}
 	data-menu-icono
+	data-abrir={t.nav.abrirMenu}
+	data-cerrar={t.nav.cerrarMenu}
 >
 	<span class="raya"></span>
 	<span class="raya"></span>
@@ -27,7 +32,7 @@ const { controla } = Astro.props;
 		boton.addEventListener('click', () => {
 			const abierto = boton.getAttribute('aria-expanded') !== 'true';
 			boton.setAttribute('aria-expanded', String(abierto));
-			boton.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+			boton.setAttribute('aria-label', (abierto ? boton.dataset.cerrar : boton.dataset.abrir) ?? '');
 			boton.dispatchEvent(new CustomEvent('menu:cambio', { bubbles: true, detail: { abierto } }));
 		});
 	});

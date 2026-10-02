@@ -7,7 +7,8 @@
 import FilaNav from './FilaNav.astro';
 import MenuIcono from './MenuIcono.astro';
 import MenuMovil from './MenuMovil.astro';
-import { enlaces, type Pagina } from './navegacion';
+import type { Pagina } from './navegacion';
+import { usar } from '../i18n';
 
 interface Props {
 	actual?: Pagina;
@@ -15,15 +16,16 @@ interface Props {
 }
 
 const { actual, claro = false } = Astro.props;
+const { t } = usar(Astro);
 ---
 
 <header class:list={['nav', { claro }]} data-nav>
-	<FilaNav etiqueta="Principal" actual={actual} />
+	<FilaNav etiqueta={t.nav.etiquetaPrincipal} actual={actual} />
 	<div class="menu">
 		<MenuIcono controla="menu-movil" />
 	</div>
 </header>
-<MenuMovil enlaces={enlaces} actual={actual} />
+<MenuMovil actual={actual} />
 
 <script>
 	const nav = document.querySelector<HTMLElement>('[data-nav]');

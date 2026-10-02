@@ -3,19 +3,20 @@
 import '../styles/tokens.css';
 import '../styles/fuentes.css';
 import Cursor from '../components/Cursor.astro';
+import { usar } from '../i18n';
 
 interface Props {
 	title?: string;
-	lang?: string;
 	noindex?: boolean;
 	/** "oscuro": la página entera en tono oscuro (ver tokens.css). */
 	tono?: 'claro' | 'oscuro';
 }
 
-const { title = 'Vittoria Chess', lang = 'es', noindex = false, tono = 'claro' } = Astro.props;
+const { title = 'Vittoria Chess', noindex = false, tono = 'claro' } = Astro.props;
+const { idioma } = usar(Astro);
 ---
 
-<html lang={lang} data-tono={tono === 'oscuro' ? 'oscuro' : undefined}>
+<html lang={idioma} data-tono={tono === 'oscuro' ? 'oscuro' : undefined}>
 	<head>
 		<meta charset="utf-8" />
 		<!-- Marca que hay JavaScript: sin ella, los componentes muestran su versión sin JS. -->

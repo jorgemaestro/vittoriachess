@@ -4,10 +4,14 @@
 // que se dibuja con el scroll y entradas a 40 px de la línea que suben desde una máscara.
 // Sin JavaScript o con movimiento reducido: todo visible y la línea completa.
 import { trayectoria } from '../data/trayectoria';
+import { usar } from '../i18n';
+
+const { t } = usar(Astro);
+const textos = t.estudio.trayectoria;
 ---
 
 <section class="trayectoria" aria-labelledby="titulo-trayectoria">
-	<h2 class="titulo" id="titulo-trayectoria">TRAYECTORIA</h2>
+	<h2 class="titulo" id="titulo-trayectoria">{textos.titulo}</h2>
 	<div class="linea-tiempo" data-linea-tiempo>
 		<span class="linea" aria-hidden="true"></span>
 		{
@@ -22,7 +26,7 @@ import { trayectoria } from '../data/trayectoria';
 						{entradas.map((e) => (
 							<li class="mascara">
 								<span class="contenido">
-									<span class="tipo">{e.tipo}</span>
+									<span class="tipo">{textos.tipos[e.tipo]}</span>
 									<span class="nombre">{e.nombre}</span>
 								</span>
 							</li>

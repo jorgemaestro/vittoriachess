@@ -6,11 +6,13 @@
 // CONTACTAR sube y su línea guía llega desde la izquierda (EnlaceGuia). El texto solo se
 // esconde si el script arranca: sin JS, todo visible.
 import EnlaceGuia from './EnlaceGuia.astro';
+import { usar } from '../i18n';
 
-const lineas = ['Información sobre obras, ediciones', 'y proyectos por encargo.'];
+const { t, r } = usar(Astro);
+const lineas = t.llamada.lineas;
 ---
 
-<section class="contacto" aria-label="Contacto" data-llamada>
+<section class="contacto" aria-label={t.llamada.etiqueta} data-llamada>
 	<p class="frase">
 		{
 			lineas.map((linea) => (
@@ -21,7 +23,7 @@ const lineas = ['Información sobre obras, ediciones', 'y proyectos por encargo.
 		}
 	</p>
 	<p>
-		<EnlaceGuia href="/contacto" lado="izquierda" retraso={400} subir>CONTACTAR</EnlaceGuia>
+		<EnlaceGuia href={r.contacto} lado="izquierda" retraso={400} subir>{t.llamada.contactar}</EnlaceGuia>
 	</p>
 </section>
 

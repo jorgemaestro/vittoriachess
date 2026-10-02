@@ -51,7 +51,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Páginas
 
-Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, las mismas bajo /en/.
+Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, bajo /en/ y traducidas (ver Idiomas).
 
 ### Home (de arriba abajo)
 
@@ -157,7 +157,26 @@ Vídeos (Cloudflare R2, no van al repositorio): video-principal-horizontal.mp4, 
 
 ## Idiomas
 
-ES por defecto; EN en /en/... con textos traducidos a mano.
+ES por defecto, en la raíz; EN bajo /en/. Decidido el 02/10/2026:
+- Se traduce todo: interfaz, manifiesto, entrevista, trayectoria, contacto, páginas de obra, legales y página no encontrada.
+- Los textos en inglés los redacta Claude a mano (inglés correcto, depurado y legible para cualquiera) y los aprueba Jorge. Nunca traducción automática.
+- Direcciones traducidas:
+
+| Página | Español | Inglés |
+| --- | --- | --- |
+| Home | / | /en/ |
+| Obras | /obras | /en/works |
+| Página de obra | /obras/<obra> | /en/works/<obra> |
+| Las piezas | /las-piezas | /en/the-pieces |
+| Estudio | /estudio | /en/studio |
+| Contacto | /contacto | /en/contact |
+| Aviso legal | /aviso-legal | /en/legal-notice |
+| Privacidad | /privacidad | /en/privacy |
+| Cookies | /cookies | /en/cookies |
+
+- El selector ES / EN de la barra, el menú móvil y el pie lleva a la misma página en el otro idioma; el idioma actual queda subrayado.
+- Todos los textos de cada idioma están en un único archivo (src/i18n/es.ts y src/i18n/en.ts): se corrigen ahí y en ningún otro sitio.
+- La firma del logotipo, BY JORGE MAESTRO, es igual en los dos idiomas. Los nombres de las piezas en inglés: PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING.
 
 ## Pendientes de contenido
 

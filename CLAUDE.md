@@ -44,8 +44,9 @@ Web de Vittoria Chess en Astro. Sustituye a la web actual en Wix.
   entrada nunca dejan texto oculto si el JS falla.
 - Contenido en src/content/, imágenes en src/assets/ (optimizadas con <Image> de Astro).
   El vídeo va en Cloudflare R2, no en el repositorio.
-- Idiomas: ES en la raíz y EN en /en/..., con los textos traducidos a mano. Nunca traducción
-  automática.
+- Idiomas: ES en la raíz y EN en /en/..., con direcciones traducidas. Los textos en inglés los
+  redacta Claude a mano y los aprueba Jorge. Nunca traducción automática. Todos los textos
+  de cada idioma están en src/i18n/es.ts y src/i18n/en.ts.
 
 ## Límites
 - No se copia código, fotos ni textos de la web de referencia (wakawaka / Aristide Benoist).

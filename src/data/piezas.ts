@@ -1,17 +1,8 @@
 // Las seis piezas — ver docs/definicion.md (Páginas: Las piezas).
-// La foto de cada una es src/assets/piezas/<archivo> (ver src/assets/LEEME.md).
+// Orden de la página: del peón al rey. Cada clave es también el nombre de su foto
+// (src/assets/piezas/<clave>, ver src/assets/LEEME.md). El nombre en cada idioma está en
+// src/i18n/ (piezas.nombres).
 
-export interface Pieza {
-	nombre: string;
-	archivo: string;
-}
+export type Pieza = 'peon' | 'caballo' | 'alfil' | 'torre' | 'reina' | 'rey';
 
-// Orden de la página: del peón al rey.
-export const piezas: Pieza[] = [
-	{ nombre: 'PEÓN', archivo: 'peon' },
-	{ nombre: 'CABALLO', archivo: 'caballo' },
-	{ nombre: 'ALFIL', archivo: 'alfil' },
-	{ nombre: 'TORRE', archivo: 'torre' },
-	{ nombre: 'REINA', archivo: 'reina' },
-	{ nombre: 'REY', archivo: 'rey' },
-];
+export const piezas: Pieza[] = ['peon', 'caballo', 'alfil', 'torre', 'reina', 'rey'];

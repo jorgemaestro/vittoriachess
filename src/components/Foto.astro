@@ -5,6 +5,7 @@
 // caja gris provisional con la proporción indicada.
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import { usar } from '../i18n';
 
 interface Props {
 	/** Carpeta y nombre sin extensión, p. ej. "obras/obra-01". */
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const { nombre, alt, proporcion, sizes, natural = false, class: clase } = Astro.props;
+const { t } = usar(Astro);
 
 const fotos = import.meta.glob<{ default: ImageMetadata }>(
 	'/src/assets/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
@@ -43,7 +45,7 @@ const foto = ruta ? (await fotos[ruta]()).default : undefined;
 			class:list={['foto', 'provisional', clase]}
 			style={`aspect-ratio: ${proporcion}`}
 			role="img"
-			aria-label={`[PENDIENTE: ${nombre}] ${alt}`}
+			aria-label={`[${t.pendiente}: ${nombre}] ${alt}`}
 		/>
 	)
 }

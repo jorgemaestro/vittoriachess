@@ -1,0 +1,268 @@
+---
+// Vista de Contacto, en el idioma de la página — ver docs/definicion.md (Páginas: Contacto).
+// Columna a 434 px, 572 px de ancho, desde 201 px: palabra CONTACTO, frase en estilo
+// Llamada, apunte en pequeño y formulario (campos sin caja, línea inferior de 1 px).
+// ENVIAR con línea guía.
+// Envío real a Formspree en la Fase 7: por ahora se validan los campos y se muestra
+// MENSAJE RECIBIDO sin mandar nada.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Enlace from '../components/Enlace.astro';
+import EnlaceGuia from '../components/EnlaceGuia.astro';
+import { obras } from '../data/obras';
+import { usar } from '../i18n';
+
+const { t, r } = usar(Astro);
+const c = t.contacto;
+
+// Para empezar el mensaje con el nombre de la obra al llegar desde su página (?obra=slug).
+// Hasta la Fase 6, todas las obras llevan el marcador de nombre pendiente.
+const consultas = Object.fromEntries(
+	obras.map((o) => [o.slug, t.obras.mensajeConsulta(t.obras.sinDatos.nombre)]),
+);
+
+const campos = [
+	{ id: 'nombre', etiqueta: c.campos.nombre, tipo: 'text', autocompletar: 'given-name', obligatorio: true },
+	{ id: 'apellidos', etiqueta: c.campos.apellidos, tipo: 'text', autocompletar: 'family-name', obligatorio: false },
+	{ id: 'telefono', etiqueta: c.campos.telefono, tipo: 'tel', autocompletar: 'tel', obligatorio: false },
+	{ id: 'email', etiqueta: c.campos.email, tipo: 'email', autocompletar: 'email', obligatorio: true },
+];
+---
+
+<Base title={`${c.titulo} — ${t.sufijoTitulo}`}>
+	<Nav actual="contacto" />
+	<main class="contacto">
+		<h1 class="palabra">{c.palabra}</h1>
+		<p class="frase">{c.frase}</p>
+		<p class="apunte">{c.apunte}</p>
+
+		<!-- Fase 7: action = dirección de Formspree. method="post" para que los datos nunca
+		     vayan en la dirección de la página. -->
+		<form
+			class="formulario"
+			method="post"
+			novalidate
+			data-formulario
+			data-consultas={JSON.stringify(consultas)}
+			data-avisos={JSON.stringify(c.avisos)}
+		>
+			{
+				campos.map((campo) => (
+					<div class="campo">
+						<label for={campo.id}>{campo.etiqueta}</label>
+						<input
+							id={campo.id}
+							name={campo.id}
+							type={campo.tipo}
+							autocomplete={campo.autocompletar}
+							required={campo.obligatorio}
+							aria-describedby={`aviso-${campo.id}`}
+						/>
+						<p class="aviso" id={`aviso-${campo.id}`} aria-live="polite"></p>
+					</div>
+				))
+			}
+			<div class="campo">
+				<label for="mensaje">{c.campos.mensaje}</label>
+				<textarea id="mensaje" name="mensaje" rows="4" required aria-describedby="aviso-mensaje"
+				></textarea>
+				<p class="aviso" id="aviso-mensaje" aria-live="polite"></p>
+			</div>
+
+			<div class="envio">
+				<EnlaceGuia lado="izquierda">{c.enviar}</EnlaceGuia>
+				<p class="privacidad">
+					{c.aceptas} <Enlace href={r.privacidad}>{c.politica}</Enlace>
+				</p>
+			</div>
+		</form>
+
+		<p class="recibido" tabindex="-1" hidden data-recibido>{c.recibido}</p>
+	</main>
+	<Footer actual="contacto" />
+</Base>
+
+<script>
+	const formulario = document.querySelector<HTMLFormElement>('[data-formulario]');
+	const recibido = document.querySelector<HTMLElement>('[data-recibido]');
+
+	// Los textos de los avisos vienen en el idioma de la página (data-avisos).
+	const textos: Record<string, string> = JSON.parse(formulario?.dataset.avisos ?? '{}');
+	const avisos: Record<string, (valor: string, campo: HTMLInputElement) => string> = {
+		nombre: (v) => (v ? '' : textos.nombre),
+		email: (v, campo) => (!v ? textos.email : campo.validity.typeMismatch ? textos.emailInvalido : ''),
+		mensaje: (v) => (v ? '' : textos.mensaje),
+	};
+
+	const comprobar = (campo: HTMLInputElement) => {
+		const regla = avisos[campo.name];
+		if (!regla) return true;
+		const texto = regla(campo.value.trim(), campo);
+		document.getElementById(`aviso-${campo.name}`)!.textContent = texto;
+		if (texto) campo.setAttribute('aria-invalid', 'true');
+		else campo.removeAttribute('aria-invalid');
+		return !texto;
+	};
+
+	if (formulario && recibido) {
+		const campos = [...formulario.querySelectorAll<HTMLInputElement>('input, textarea')];
+
+		// Al llegar desde la página de una obra (?obra=slug), el mensaje empieza con su nombre.
+		const obra = new URLSearchParams(location.search).get('obra');
+		const consulta = obra && JSON.parse(formulario.dataset.consultas ?? '{}')[obra];
+		const mensaje = formulario.querySelector<HTMLTextAreaElement>('#mensaje');
+		if (consulta && mensaje && !mensaje.value) {
+			mensaje.value = `${consulta}\n\n`;
+		}
+
+		// Al corregir un campo con aviso, el aviso se quita en cuanto vuelve a estar bien.
+		campos.forEach((campo) =>
+			campo.addEventListener('input', () => {
+				if (campo.hasAttribute('aria-invalid')) comprobar(campo);
+			}),
+		);
+
+		formulario.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const errores = campos.filter((campo) => !comprobar(campo));
+			if (errores.length) {
+				errores[0].focus();
+				return;
+			}
+			// Fase 7: aquí se enviará a Formspree. Por ahora solo se muestra la confirmación.
+			formulario.hidden = true;
+			recibido.hidden = false;
+			recibido.focus();
+		});
+	}
+</script>
+
+<style>
+	/* Columna a 434 px (30,139 vw), 572 px de ancho (39,722 vw), desde 201 px. */
+	.contacto {
+		width: 39.722vw;
+		padding: 201px 0 0 30.139vw;
+	}
+
+	.palabra {
+		margin: 0;
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.frase {
+		margin: 16px 0 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* Segunda frase, con menor jerarquía. */
+	.apunte {
+		margin: 16px 0 0;
+		color: var(--color-secundario);
+		font-weight: var(--peso-regular);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.formulario {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		margin-top: 80px;
+	}
+
+	.formulario[hidden] {
+		display: none;
+	}
+
+	label {
+		display: block;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.campo:focus-within label {
+		color: var(--color-tinta);
+	}
+
+	/* Campos sin caja: solo una línea inferior de 1 px. */
+	input,
+	textarea {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+		margin: 4px 0 0;
+		padding: 0 0 6px;
+		border: 0;
+		border-bottom: var(--linea) solid currentColor;
+		border-radius: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+		outline: none;
+	}
+
+	/* Mientras se escribe, la línea engrosa a --linea-foco (borde: nítido en cualquier
+	   pantalla). El relleno inferior se reduce lo mismo para que el texto no se mueva. */
+	input:focus,
+	textarea:focus {
+		border-bottom-width: var(--linea-foco);
+		padding-bottom: calc(6px - (var(--linea-foco) - var(--linea)));
+	}
+
+	textarea {
+		resize: vertical;
+		min-height: calc(4 * var(--respuesta-alto));
+	}
+
+	/* Sin el fondo de color que pone el navegador al autocompletar. */
+	input:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0 100px var(--color-fondo) inset;
+		-webkit-text-fill-color: var(--color-tinta);
+	}
+
+	.aviso {
+		margin: 6px 0 0;
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.aviso:empty {
+		display: none;
+	}
+
+	.envio {
+		margin-top: 0; /* 40 px de separación + el alto de línea del botón = 48 px bajo el campo */
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.privacidad {
+		margin: 16px 0 0;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.recibido {
+		margin: 80px 0 0;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+		outline: none;
+	}
+
+	@media (max-width: 809px) {
+		.contacto {
+			width: auto;
+			padding: 120px var(--margen) 0;
+		}
+	}
+</style>

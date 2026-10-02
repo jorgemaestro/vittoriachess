@@ -2,6 +2,8 @@
 
 Doce fases, en orden. No se pasa a la siguiente hasta revisar la anterior en el navegador y guardarla (commit). El dominio se toca al final: hasta entonces la web de Wix sigue funcionando.
 
+**Cambio de orden (02/10/2026):** la Fase 6 (contenido y fotos reales) queda en espera hasta tener el material. Mientras, se avanza en este orden: 8 (inglés) → 7 (formulario) → 9 (pulido técnico y SEO) → 10 (publicación provisional). La 6 se hace en cuanto llegue el material y, en todo caso, antes de la 11 (dominio).
+
 ## Método en cada paso
 
 1. Pide a Claude Code una sola cosa. Empieza en modo plan para que explique qué va a hacer antes de hacerlo.
@@ -56,7 +58,7 @@ Conexión con Formspree y prueba de envío real.
 
 ## Fase 8 — Inglés
 
-Rutas /en/..., textos traducidos a mano, selector ES / EN.
+Rutas /en/... con direcciones traducidas (/en/works, /en/the-pieces, /en/studio, /en/contact…), selector ES / EN que lleva a la misma página en el otro idioma. Los textos en inglés los redacta Claude a mano, con cuidado, y los aprueba Jorge (decidido el 02/10/2026); nunca con un traductor automático.
 
 ## Fase 9 — Pulido técnico
 

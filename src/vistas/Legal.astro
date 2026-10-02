@@ -1,0 +1,110 @@
+---
+// Vista de las páginas legales, en el idioma de la página — ver docs/definicion.md
+// (Páginas: Legales). Misma columna que Contacto (434 px, 572 px de ancho, desde 201 px).
+// Título a 24 px y texto en estilo Legal. Los textos (apartados, párrafos y listas) están
+// en src/i18n/ (legal); son un borrador: los [REVISAR] los confirma el titular.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { usar } from '../i18n';
+
+interface Props {
+	pagina: 'avisoLegal' | 'privacidad' | 'cookies';
+}
+
+const { pagina } = Astro.props;
+const { t } = usar(Astro);
+const textos = { avisoLegal: t.legal.aviso, privacidad: t.legal.privacidad, cookies: t.legal.cookies }[
+	pagina
+];
+// "AVISO LEGAL" → "Aviso legal" para el título de la pestaña.
+const titulo = textos.titulo.charAt(0) + textos.titulo.slice(1).toLowerCase();
+---
+
+<Base title={`${titulo} — ${t.sufijoTitulo}`}>
+	<Nav />
+	<main class="legal">
+		<h1 class="titulo">{textos.titulo}</h1>
+		<div class="texto">
+			{
+				textos.apartados.map((apartado) => (
+					<section>
+						<h2>{apartado.titulo}</h2>
+						{apartado.parrafos.map((parrafo) => (
+							<p set:html={parrafo} />
+						))}
+						{'lista' in apartado && apartado.lista && (
+							<ul>
+								{apartado.lista.map((elemento) => (
+									<li set:html={elemento} />
+								))}
+							</ul>
+						)}
+					</section>
+				))
+			}
+		</div>
+		<p class="actualizado">{t.legal.actualizado}: {t.legal.fecha}</p>
+	</main>
+	<Footer actual={pagina} />
+</Base>
+
+<style>
+	/* Columna a 434 px (30,139 vw), 572 px de ancho (39,722 vw), desde 201 px. */
+	.legal {
+		width: 39.722vw;
+		padding: 201px 0 0 30.139vw;
+	}
+
+	.titulo {
+		margin: 0;
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.texto {
+		margin-top: 40px;
+		font-weight: var(--peso-regular);
+		font-size: var(--legal);
+		line-height: var(--legal-alto);
+	}
+
+	.texto :global(section + section) {
+		margin-top: 32px;
+	}
+
+	.texto :global(h2) {
+		margin: 0 0 8px;
+		font-weight: var(--peso-medio);
+		font-size: var(--legal);
+		line-height: var(--legal-alto);
+	}
+
+	.texto :global(p),
+	.texto :global(ul) {
+		margin: 0 0 8px;
+	}
+
+	.texto :global(ul) {
+		padding-left: 1.2em;
+	}
+
+	.texto :global(a) {
+		color: inherit;
+	}
+
+	.actualizado {
+		margin: 48px 0 0;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	@media (max-width: 809px) {
+		.legal {
+			width: auto;
+			padding: 120px var(--margen) 0;
+		}
+	}
+</style>

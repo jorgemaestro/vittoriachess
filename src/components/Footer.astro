@@ -5,40 +5,39 @@
 import Enlace from './Enlace.astro';
 import FilaNav from './FilaNav.astro';
 import type { Pagina } from './navegacion';
+import { usar } from '../i18n';
+import { titular } from '../data/titular';
 
-type Legal = 'aviso-legal' | 'privacidad' | 'cookies';
+type Legal = 'avisoLegal' | 'privacidad' | 'cookies';
 
 interface Props {
 	actual?: Pagina | Legal;
 }
 
 const { actual } = Astro.props;
+const { t, r } = usar(Astro);
 
 // Año de la publicación; el script lo cambia al año en curso en el navegador.
 const anio = new Date().getFullYear();
 
-const legales: [Legal, string][] = [
-	['aviso-legal', 'AVISO LEGAL'],
-	['privacidad', 'PRIVACIDAD'],
-	['cookies', 'COOKIES'],
-];
+const legales: Legal[] = ['avisoLegal', 'privacidad', 'cookies'];
 ---
 
 <footer class="pie">
 	<div class="fila">
-		<FilaNav etiqueta="Pie" actual={actual as Pagina} pie />
+		<FilaNav etiqueta={t.nav.etiquetaPie} actual={actual as Pagina} pie />
 	</div>
 	<p class="legal">
 		<span class="grupo">©<span data-anio>{anio}</span> VITTORIA CHESS</span><span class="sep"> · </span><span class="grupo"
-			><Enlace href="mailto:jorge@vittoriachess.com">EMAIL</Enlace> · <Enlace
+			><Enlace href={`mailto:${titular.email}`}>{t.pie.email}</Enlace> · <Enlace
 				href="https://www.instagram.com/vittoria_chess/"
 				target="_blank"
-				rel="noopener">INSTAGRAM</Enlace
+				rel="noopener">{t.pie.instagram}</Enlace
 			></span
 		><span class="sep"> · </span><span class="grupo"
-			>{legales.map(([ruta, texto], i) => (
+			>{legales.map((pagina, i) => (
 				<>
-					<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
+					<Enlace href={r[pagina]} activo={actual === pagina}>{t.pie[pagina]}</Enlace>
 					{i < legales.length - 1 && ' · '}
 				</>
 			))}</span

@@ -2,13 +2,18 @@
 // Logotipo provisional — ver docs/definicion.md (Componentes: Logotipo).
 // Texto en Cinzel hasta tener el SVG del estuche, que mantendrá la misma altura.
 // Siempre con la firma debajo: BY JORGE MAESTRO (estilo pie de foto).
+import { usar } from '../i18n';
+
 interface Props {
-	href?: string;
+	/** true: el logotipo enlaza a la home del idioma de la página. */
+	enlace?: boolean;
 	carga?: boolean;
 }
 
-const { href, carga = false } = Astro.props;
-const Etiqueta = href ? 'a' : 'span';
+const { enlace = false, carga = false } = Astro.props;
+const { r } = usar(Astro);
+const Etiqueta = enlace ? 'a' : 'span';
+const href = enlace ? r.inicio : undefined;
 ---
 
 <Etiqueta href={href} class:list={['logo', { carga }]}>

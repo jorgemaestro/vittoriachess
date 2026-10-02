@@ -4,21 +4,24 @@
 // terminando a 138 px del borde (en móvil, a la izquierda). Línea guía desde la izquierda.
 import EnlaceGuia from '../EnlaceGuia.astro';
 import Video from './Video.astro';
+import { usar } from '../../i18n';
 
 interface Props {
 	horizontal?: string;
 	vertical?: string;
 	poster?: string;
 }
+
+const { t, r } = usar(Astro);
 ---
 
 <section class="obras">
 	<!-- El vídeo también lleva a Obras, solo con ratón o dedo: para teclado y lectores de
 	     pantalla el enlace es VER OBRAS (así no se repite). -->
-	<a class="video-enlace" href="/obras" tabindex="-1" aria-hidden="true">
-		<Video nombre="Vídeo obras" {...Astro.props} />
+	<a class="video-enlace" href={r.obras} tabindex="-1" aria-hidden="true">
+		<Video nombre={t.home.videoObras} {...Astro.props} />
 	</a>
-	<p class="ver"><EnlaceGuia href="/obras" lado="izquierda">VER OBRAS</EnlaceGuia></p>
+	<p class="ver"><EnlaceGuia href={r.obras} lado="izquierda">{t.home.verObras}</EnlaceGuia></p>
 </section>
 
 <style>

@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Carga from '../components/Carga.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Video from '../components/home/Video.astro';
+import Manifiesto from '../components/home/Manifiesto.astro';
+import Obras from '../components/home/Obras.astro';
+import Entrevista from '../components/home/Entrevista.astro';
+import LlamadaContacto from '../components/LlamadaContacto.astro';
+import { usar } from '../i18n';
+
+const { t } = usar(Astro);
+
+// Vídeos de la home: direcciones en Cloudflare R2 (Fase 6). Vacías = bloque provisional.
+const videoPrincipal = {
+	horizontal: undefined,
+	vertical: undefined,
+	poster: undefined,
+};
+const videoObras = {
+	horizontal: undefined,
+	vertical: undefined,
+	poster: undefined,
+};
+---
+
+<Base>
+	<Carga />
+	<Nav claro />
+	<main>
+		<h1 class="solo-lectores">{t.home.titulo}</h1>
+		<Video nombre={t.home.videoPrincipal} {...videoPrincipal} />
+		<Manifiesto />
+		<Obras {...videoObras} />
+		<Entrevista />
+		<LlamadaContacto />
+	</main>
+	<Footer />
+</Base>

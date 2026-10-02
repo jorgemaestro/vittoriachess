@@ -4,6 +4,8 @@
 // Pantalla completa, sin texto ni sonido, en bucle y automático; versión vertical para
 // móvil y póster mientras carga. La barra va en claro encima (data-nav-claro).
 // Sin vídeo todavía: bloque provisional oscuro con marcador [PENDIENTE].
+import { usar } from '../../i18n';
+
 interface Props {
 	/** Nombre para lectores de pantalla y para el marcador provisional. */
 	nombre: string;
@@ -14,6 +16,7 @@ interface Props {
 }
 
 const { nombre, horizontal, vertical, poster } = Astro.props;
+const { t } = usar(Astro);
 ---
 
 <section class="video" data-nav-claro aria-label={nombre}>
@@ -24,7 +27,7 @@ const { nombre, horizontal, vertical, poster } = Astro.props;
 				<source src={horizontal} type="video/mp4" />
 			</video>
 		) : (
-			<p class="pendiente">[PENDIENTE: {nombre.toUpperCase()}]</p>
+			<p class="pendiente">[{t.pendiente}: {nombre.toUpperCase()}]</p>
 		)
 	}
 </section>

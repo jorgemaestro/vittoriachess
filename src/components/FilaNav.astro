@@ -5,7 +5,8 @@
 // enlaces e idioma pasan a una fila pequeña, y con JavaScript los sustituye el icono.
 import Enlace from './Enlace.astro';
 import Logo from './Logo.astro';
-import { enlaces, type Pagina } from './navegacion';
+import { paginas, type Pagina } from './navegacion';
+import { usar } from '../i18n';
 
 interface Props {
 	etiqueta: string;
@@ -14,19 +15,25 @@ interface Props {
 }
 
 const { etiqueta, actual, pie = false } = Astro.props;
+const { idioma, t, r, enIdioma } = usar(Astro);
 ---
 
-<Logo href="/" />
+<Logo enlace />
 <nav class:list={['centro', { pie }]} aria-label={etiqueta}>
-	{enlaces.map(([ruta, texto], i) => (
+	{paginas.map((pagina, i) => (
 		<>
-			<Enlace href={`/${ruta}`} activo={actual === ruta}>{texto}</Enlace>
-			{i < enlaces.length - 1 && ' · '}
+			<Enlace href={r[pagina]} activo={actual === pagina}>{t.nav[pagina]}</Enlace>
+			{i < paginas.length - 1 && ' · '}
 		</>
 	))}
 </nav>
 <div class:list={['idioma', { pie }]}>
-	<Enlace href="/" activo lang="es">ES</Enlace> / <Enlace href="/en/" lang="en">EN</Enlace>
+	<Enlace href={enIdioma.es} activo={idioma === 'es'} lang="es" hreflang="es">ES</Enlace> / <Enlace
+		href={enIdioma.en}
+		activo={idioma === 'en'}
+		lang="en"
+		hreflang="en">EN</Enlace
+	>
 </div>
 
 <style>

@@ -1,8 +1,11 @@
 // Trayectoria de la página Estudio — ver docs/definicion.md (Páginas: Estudio).
-// Solo tipo y nombre de cada entrada. Años del más reciente al más antiguo.
+// Solo tipo y nombre de cada entrada. Años del más reciente al más antiguo. El texto de
+// cada tipo, en cada idioma, está en src/i18n/ (estudio.trayectoria.tipos).
+
+export type Tipo = 'prensa' | 'campana' | 'exposicion' | 'permanente' | 'colaboracion';
 
 export interface Entrada {
-	tipo: string;
+	tipo: Tipo;
 	nombre: string;
 }
 
@@ -10,15 +13,15 @@ export const trayectoria: { anio: number; entradas: Entrada[] }[] = [
 	{
 		anio: 2026,
 		entradas: [
-			{ tipo: 'PRENSA', nombre: 'EL MUNDO' },
-			{ tipo: 'CAMPAÑA', nombre: 'OTZ Lab' },
-			{ tipo: 'EXPOSICIÓN', nombre: 'COAM, Madrid' },
-			{ tipo: 'PRENSA', nombre: 'Escuela Limón' },
-			{ tipo: 'PERMANENTE', nombre: 'Gambit Café, Madrid' },
+			{ tipo: 'prensa', nombre: 'EL MUNDO' },
+			{ tipo: 'campana', nombre: 'OTZ Lab' },
+			{ tipo: 'exposicion', nombre: 'COAM, Madrid' },
+			{ tipo: 'prensa', nombre: 'Escuela Limón' },
+			{ tipo: 'permanente', nombre: 'Gambit Café, Madrid' },
 		],
 	},
 	{
 		anio: 2025,
-		entradas: [{ tipo: 'COLABORACIÓN', nombre: 'Momoc' }],
+		entradas: [{ tipo: 'colaboracion', nombre: 'Momoc' }],
 	},
 ];

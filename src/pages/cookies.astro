@@ -1,54 +1,7 @@
 ---
-// Política de cookies — ver docs/definicion.md (Páginas: Legales). La web no usa cookies
-// de analítica ni publicidad: por eso no hay banner. Borrador: los [REVISAR] los confirma
-// el titular.
-import Legal from '../layouts/Legal.astro';
-import { actualizado } from '../data/titular';
+// Página de un idioma: solo indica qué vista mostrar. El contenido está en src/vistas/
+// y los textos en src/i18n/ (ver docs/definicion.md, Idiomas).
+import Vista from '../vistas/Legal.astro';
 ---
 
-<Legal titulo="POLÍTICA DE COOKIES" pagina="cookies" actualizado={actualizado}>
-	<section>
-		<h2>QUÉ SON</h2>
-		<p>
-			Las cookies y tecnologías parecidas son pequeños archivos o datos que una web guarda en el
-			navegador de quien la visita.
-		</p>
-	</section>
-
-	<section>
-		<h2>QUÉ USA ESTA WEB</h2>
-		<p>
-			Esta web no usa cookies propias ni de terceros para analítica, publicidad o seguimiento.
-			Solo guarda en el navegador (almacenamiento de sesión) una marca técnica para no repetir la
-			pantalla de carga de la portada durante la misma visita. Se borra sola al cerrar el
-			navegador y no identifica a nadie. Por ser necesaria para el funcionamiento que se pide al
-			entrar, no requiere consentimiento (artículo 22.2 de la LSSI-CE).
-		</p>
-	</section>
-
-	<section>
-		<h2>SERVICIOS DE TERCEROS</h2>
-		<p>
-			Al enviar el formulario de contacto, los datos se envían a Formspree (ver la política de
-			privacidad). Los enlaces a Instagram llevan a su web, que aplica su propia política de
-			cookies. [REVISAR: confirmar al activar Formspree en la Fase 7 que no añade cookies ni
-			comprobaciones antispam de terceros en esta web.]
-		</p>
-	</section>
-
-	<section>
-		<h2>CÓMO GESTIONARLAS</h2>
-		<p>
-			Cualquier navegador permite ver, bloquear y borrar las cookies y los datos guardados por
-			las webs desde su configuración.
-		</p>
-	</section>
-
-	<section>
-		<h2>CAMBIOS</h2>
-		<p>
-			Si en el futuro la web incorporase cookies que necesiten consentimiento, se actualizaría
-			esta política y se pediría antes de usarlas.
-		</p>
-	</section>
-</Legal>
+<Vista pagina="cookies" />
