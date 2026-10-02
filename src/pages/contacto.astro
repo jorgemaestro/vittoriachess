@@ -9,6 +9,10 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
+import { obras } from '../data/obras';
+
+// Para escribir el nombre de la obra en el mensaje al llegar desde su página (?obra=slug).
+const nombresObras = Object.fromEntries(obras.map((o) => [o.slug, o.nombre]));
 
 const campos = [
 	{ id: 'nombre', etiqueta: 'NOMBRE*', tipo: 'text', autocompletar: 'given-name', obligatorio: true },
@@ -27,7 +31,13 @@ const campos = [
 
 		<!-- Fase 7: action = dirección de Formspree. method="post" para que los datos nunca
 		     vayan en la dirección de la página. -->
-		<form class="formulario" method="post" novalidate data-formulario>
+		<form
+			class="formulario"
+			method="post"
+			novalidate
+			data-formulario
+			data-obras={JSON.stringify(nombresObras)}
+		>
 			{
 				campos.map((c) => (
 					<div class="campo">
@@ -86,6 +96,14 @@ const campos = [
 
 	if (formulario && recibido) {
 		const campos = [...formulario.querySelectorAll<HTMLInputElement>('input, textarea')];
+
+		// Al llegar desde la página de una obra (?obra=slug), el mensaje empieza con su nombre.
+		const obra = new URLSearchParams(location.search).get('obra');
+		const nombreObra = obra && JSON.parse(formulario.dataset.obras ?? '{}')[obra];
+		const mensaje = formulario.querySelector<HTMLTextAreaElement>('#mensaje');
+		if (nombreObra && mensaje && !mensaje.value) {
+			mensaje.value = `Consulta sobre la obra: ${nombreObra}.\n\n`;
+		}
 
 		// Al corregir un campo con aviso, el aviso se quita en cuanto vuelve a estar bien.
 		campos.forEach((campo) =>

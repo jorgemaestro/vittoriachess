@@ -1,0 +1,55 @@
+---
+// Página no encontrada — ver docs/definicion.md (Páginas: Página no encontrada).
+// Misma columna que Contacto (434 px, desde 201 px), con la barra y el pie de la web.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import EnlaceGuia from '../components/EnlaceGuia.astro';
+---
+
+<Base title="Página no encontrada — Vittoria Chess" noindex>
+	<Nav />
+	<main class="no-encontrada">
+		<h1 class="palabra">PÁGINA NO ENCONTRADA</h1>
+		<p class="frase">Esta página no existe o ha cambiado de dirección.</p>
+		<p class="accion"><EnlaceGuia href="/" lado="izquierda">VOLVER AL INICIO</EnlaceGuia></p>
+	</main>
+	<Footer />
+</Base>
+
+<style>
+	/* Columna a 434 px (30,139 vw), 572 px de ancho (39,722 vw), desde 201 px. */
+	.no-encontrada {
+		width: 39.722vw;
+		min-height: 50vh;
+		padding: 201px 0 0 30.139vw;
+	}
+
+	.palabra {
+		margin: 0;
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.frase {
+		margin: 16px 0 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.accion {
+		margin: 48px 0 0;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	@media (max-width: 809px) {
+		.no-encontrada {
+			width: auto;
+			padding: 120px var(--margen) 0;
+		}
+	}
+</style>

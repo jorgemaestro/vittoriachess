@@ -278,6 +278,45 @@ const destacados: Record<number, string> = {
 		transform: none;
 	}
 
+	/* Anchos intermedios (tabletas): dos columnas iguales. La pregunta a lo ancho; debajo,
+	   la foto en una columna y el texto en la otra, alternando el lado. Con cuatro
+	   columnas el texto quedaría demasiado estrecho. */
+	@media (min-width: 810px) and (max-width: 1100px) {
+		.bloque,
+		.destacado {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.entrevista .bloque {
+			grid-template-rows: auto auto 1fr;
+			row-gap: 32px;
+		}
+
+		.entrevista .bloque .pregunta { grid-column: 1 / -1; grid-row: 1; }
+		.entrevista .bloque .foto { grid-column: 1; grid-row: 2 / 4; width: auto; }
+		.entrevista .bloque .entradilla { grid-column: 2; grid-row: 2; }
+		.entrevista .bloque .cuerpo { grid-column: 2; grid-row: 3; }
+
+		/* Fotos apaisadas: a la derecha, con el texto a la izquierda. */
+		.entrevista .v2 .foto,
+		.entrevista .v5 .foto,
+		.entrevista .v7 .foto { grid-column: 2; }
+		.entrevista .v2 .entradilla,
+		.entrevista .v5 .entradilla,
+		.entrevista .v7 .entradilla,
+		.entrevista .v2 .cuerpo,
+		.entrevista .v5 .cuerpo,
+		.entrevista .v7 .cuerpo { grid-column: 1; }
+
+		/* Bloque sin foto: entradilla y resto, una al lado del otro. */
+		.entrevista .v3 .entradilla { grid-column: 1; grid-row: 2; }
+		.entrevista .v3 .cuerpo { grid-column: 2; grid-row: 2; }
+
+		.destacado .mascara {
+			grid-column: 1 / -1;
+		}
+	}
+
 	/* Móvil: una columna (foto, pregunta, entradilla, resto), con los tres tamaños. */
 	@media (max-width: 809px) {
 		.entrevista {

@@ -41,7 +41,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
-**Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra. También se cierra con Escape y al pasar a más de 810 px. Mientras está abierto, la barra queda encima en tono oscuro y no se oculta. Sin JavaScript no hay icono ni panel: la barra móvil muestra los enlaces y ES / EN en una fila a 14 px bajo el logotipo.
+**Menú móvil.** Panel a pantalla completa, fondo PLASTER (el mismo de la web), entra con fundido de 0,4 s. Enlaces apilados a la izquierda a 40 / 48 px, empezando a 120 px de arriba; ES / EN abajo a 14 px. Bloquea el scroll mientras está abierto; tocar un enlace lo cierra. Si el panel no cabe en pantallas muy bajas (móvil en horizontal), se desplaza por dentro. También se cierra con Escape y al pasar a más de 810 px. Mientras está abierto, la barra queda encima en tono oscuro y no se oculta. Sin JavaScript no hay icono ni panel: la barra móvil muestra los enlaces y ES / EN en una fila a 14 px bajo el logotipo.
 
 **Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©AÑO VITTORIA CHESS (el año en curso, se actualiza solo) · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas: ©AÑO VITTORIA CHESS / EMAIL · INSTAGRAM / AVISO LEGAL · PRIVACIDAD · COOKIES. EMAIL abre el correo a jorge@vittoriachess.com; INSTAGRAM lleva a @vittoria_chess (instagram.com/vittoria_chess) en una pestaña nueva.
 
@@ -54,6 +54,8 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, las mismas bajo /en/.
 
 ### Home (de arriba abajo)
+
+Título principal para Google y lectores de pantalla (no visible): "Vittoria Chess".
 
 1. Pantalla de carga.
 2. Vídeo a pantalla completa (100 % × 100 vh, cover), sin texto, sin sonido, en bucle, reproducción automática. Planos abstractos, muy de cerca, casi misteriosos, de las piezas. Versión vertical aparte para móvil. Póster mientras carga. Con movimiento reducido no arranca solo (queda el póster). Mientras no haya vídeo: bloque en provisional oscuro con el marcador [PENDIENTE: VÍDEO].
@@ -72,7 +74,7 @@ Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio ·
 
 ### Obras
 
-Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahora). OBRAS subrayado en la barra. Fotos en blanco y negro; al pasar el ratón por una obra, su foto vuelve a su color original en 0,6 s (var(--ease)). En pantallas táctiles, siempre en color; con movimiento reducido, el cambio es inmediato (decidido el 30/09/2026). Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
+Catálogo de 8 obras en zigzag; cada obra enlaza a su página (ver más abajo). OBRAS subrayado en la barra. Fotos en blanco y negro; al pasar el ratón por una obra, su foto vuelve a su color original en 0,6 s (var(--ease)). En pantallas táctiles, siempre en color; con movimiento reducido, el cambio es inmediato (decidido el 30/09/2026). Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
 
 | Obra | Izquierda (px) | Arriba (px) | Imagen (px) | Formato |
 | --- | --- | --- | --- | --- |
@@ -86,6 +88,14 @@ Catálogo de 8 obras en zigzag, sin enlaces (no hay páginas de detalle por ahor
 | 8 | 789 | 5046 | 592 × 473 | Horizontal |
 
 Llamada a contacto 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras, pie en tres líneas.
+
+**Página de cada obra** (decidida el 02/10/2026; antes no había páginas de detalle). Dirección /obras/<identificador> (obra-01 … obra-08 hasta tener los nombres reales). En el catálogo, cada obra (foto y pie) es un enlace a su página.
+- Composición sobre la retícula, desde 201 px: a la izquierda, de 96 a 1020 px, las fotos de la obra una debajo de otra (40 px entre ellas), a su proporción natural; a la derecha, en la columna de 1044 a 1344 px, la ficha, que se queda fija mientras pasan las fotos.
+- Ficha: nombre (estilo Llamada, 40 / 48 px); debajo, cuatro datos con su etiqueta a 10 px en gris y el valor en Lectura (16 / 24 px): TIPO, MEDIDAS, EDICIÓN, AÑO; una descripción breve en Lectura; y el enlace CONSULTAR DISPONIBILIDAD (24 px, con línea guía), que lleva a Contacto con el nombre de la obra ya escrito en el mensaje.
+- Fotos: 2–3 por obra. La principal es la del catálogo (src/assets/obras/obra-01) y las demás se llaman obra-01-b, obra-01-c… Mientras no haya ninguna, tres cajas grises. En ordenador, en blanco y negro y en color al pasar el ratón, como en el catálogo; en pantallas táctiles, siempre en color.
+- Al final: ANTERIOR · TODAS LAS OBRAS · SIGUIENTE.
+- Hasta 1100 px de ancho (tabletas y móvil): primero la ficha y después las fotos, en una columna. La ficha solo se queda fija si la pantalla tiene al menos 700 px de alto; si no, se desplaza con la página para que el enlace siempre se alcance (revisión del 02/10/2026).
+- Datos de cada obra en src/data/obras.ts; lo que falte, con marcador [PENDIENTE].
 
 ### Las piezas
 
@@ -103,6 +113,7 @@ Entrevista (texto nuevo recibido el 02/10/2026: 7 preguntas, en src/data/entrevi
 - Composición por bloque: 1 pregunta a lo ancho, foto pequeña y texto en dos columnas · 2 foto apaisada grande a la derecha · 3 solo texto, desplazado a la segunda columna · 4 foto alta a la izquierda · 5 pregunta a lo ancho y foto apaisada junto al texto · 6 foto pequeña a la derecha · 7 cierre, pregunta a tamaño manifiesto y foto apaisada a la izquierda.
 - Dos destacados a tamaño manifiesto, con frases literales de la entrevista, 160 px tras su bloque: "Brancusi no esculpía el pájaro, sino el vuelo." (tras el 2) y "Una forma que se adapta al proceso acaba perdiendo su esencia." (tras el 5).
 - Animación: preguntas y destacados suben desde una máscara al entrar en pantalla (1,2 s, una vez). Sin JavaScript o con movimiento reducido, todo visible.
+- Anchos intermedios (810–1100 px, tabletas): dos columnas iguales; la pregunta a lo ancho y debajo la foto en una columna y el texto (entradilla y resto) en la otra, alternando el lado de la foto. Evita columnas de texto demasiado estrechas (revisión del 02/10/2026).
 - Móvil: todo en una columna (foto, pregunta, entradilla, resto), manteniendo los tres tamaños; 120 px entre bloques.
 
 **Trayectoria** (decidida el 30/09/2026; antes "Exhibitions & Press"). Al final de Estudio, 240 px bajo el último bloque de la entrevista y antes de la llamada a contacto. Título TRAYECTORIA (24 px) a 96 px del borde. Línea temporal: año a 96 px en estilo Llamada (40 / 48 px, regular), fijo en pantalla mientras pasan sus entradas; línea vertical de 1 px a 434 px; entradas a 40 px de la línea, cada una con el tipo (10 / 17 px) y debajo el nombre (24 / 32 px), sin textos descriptivos. 40 px entre entradas y 120 px entre años. Animación: la línea se dibuja con el scroll; el año y cada entrada suben desde una máscara al entrar en pantalla. Sin JavaScript o con movimiento reducido: todo visible y la línea completa. Móvil: año encima de sus entradas y línea a la izquierda, a 20 px.
@@ -119,6 +130,10 @@ Tras enviar: el formulario da paso a MENSAJE RECIBIDO. Envío a Formspree en la 
 Móvil: la columna a todo el ancho, con los márgenes, empezando a 120 px.
 Pendiente: email de recepción (Fase 7).
 
+### Página no encontrada (404)
+
+Con la barra y el pie de la web. Misma columna que Contacto (434 px, desde 201 px): PÁGINA NO ENCONTRADA (24 px), frase en estilo Llamada "Esta página no existe o ha cambiado de dirección." y el enlace VOLVER AL INICIO con línea guía. Fuera de Google. (Añadida en la revisión del 02/10/2026; hasta la Fase 8 es donde lleva el enlace EN.)
+
 ### Legales
 
 Aviso legal (/aviso-legal), privacidad (/privacidad) y cookies (/cookies). Misma composición que Contacto: columna a 434 px, 572 px de ancho, desde 201 px (móvil: a todo el ancho desde 120 px). Título a 24 px; 40 px debajo el texto en estilo Legal (14 / 22 px); apartados con título en mayúsculas (14 px, peso 500) y 32 px entre apartados. Fecha de actualización al final, en gris secundario.
@@ -133,7 +148,7 @@ Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; b
 
 | Dónde | Carpeta y nombre |
 | --- | --- |
-| Obras (8, en el orden de la tabla) | src/assets/obras/obra-01 … obra-08 |
+| Obras (8, en el orden de la tabla) | src/assets/obras/obra-01 … obra-08 (foto principal) y obra-01-b, obra-01-c… (más fotos para su página) |
 | Las piezas | src/assets/piezas/peon, caballo, alfil, torre, reina, rey |
 | Entrevista, acceso de la home | src/assets/entrevista/home |
 | Entrevista, bloques de la página | src/assets/entrevista/bloque-01 … bloque-06 |

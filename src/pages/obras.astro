@@ -1,6 +1,7 @@
 ---
 // Obras — ver docs/definicion.md (Páginas: Obras).
-// Catálogo de 8 obras en zigzag, sin enlaces. Posiciones de la tabla pasadas a vw.
+// Catálogo de 8 obras en zigzag; cada obra enlaza a su página (/obras/<slug>).
+// Posiciones de la tabla pasadas a vw.
 // Pie de cada obra a 4 px, en una columna: nombre / tipo / medidas. Llamada a contacto
 // 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras.
 // Con ratón: fotos en blanco y negro que vuelven a su color al pasar por encima.
@@ -26,8 +27,9 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 						class="obra"
 						style={`--x: ${vw(o.izquierda)}; --y: ${vw(o.arriba)}; --ancho: ${vw(o.ancho)}`}
 					>
+						<a class="enlace-obra" href={`/obras/${o.slug}`}>
 						<Foto
-							nombre={`obras/obra-${String(o.numero).padStart(2, '0')}`}
+							nombre={`obras/${o.slug}`}
 							alt={`[PENDIENTE: descripción de la obra ${o.numero}]`}
 							proporcion={o.ancho / o.alto}
 							sizes={`(max-width: 809px) calc(100vw - 40px), ${vw(o.ancho)}`}
@@ -37,6 +39,7 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 							<span>{o.tipo}</span>
 							<span>{o.medidas}</span>
 						</p>
+						</a>
 					</li>
 				))
 			}
@@ -81,6 +84,12 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 		.obra :global(.foto) {
 			transition: none;
 		}
+	}
+
+	.enlace-obra {
+		display: block;
+		color: inherit;
+		text-decoration: none;
 	}
 
 	.pie {

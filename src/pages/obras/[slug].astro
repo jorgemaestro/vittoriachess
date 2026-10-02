@@ -1,0 +1,225 @@
+---
+// Página de cada obra — ver docs/definicion.md (Páginas: Obras, "Página de cada obra").
+// A la izquierda (96 → 1020 px) las fotos, una debajo de otra; a la derecha (1044 → 1344 px)
+// la ficha, fija mientras pasan las fotos: nombre, tipo, medidas, edición, año, descripción
+// y CONSULTAR DISPONIBILIDAD. Al final, anterior / todas / siguiente.
+// Móvil: primero la ficha y después las fotos.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Foto from '../../components/Foto.astro';
+import Enlace from '../../components/Enlace.astro';
+import EnlaceGuia from '../../components/EnlaceGuia.astro';
+import { obras, type Obra } from '../../data/obras';
+
+export function getStaticPaths() {
+	return obras.map((obra, i) => ({
+		params: { slug: obra.slug },
+		props: {
+			obra,
+			anterior: obras[(i - 1 + obras.length) % obras.length],
+			siguiente: obras[(i + 1) % obras.length],
+		},
+	}));
+}
+
+interface Props {
+	obra: Obra;
+	anterior: Obra;
+	siguiente: Obra;
+}
+
+const { obra, anterior, siguiente } = Astro.props;
+
+// Fotos de la obra: la principal (obra-NN) y las que se llamen obra-NN-b, -c…
+// Mientras no haya ninguna, tres cajas grises.
+const enCarpeta = Object.keys(
+	import.meta.glob('/src/assets/obras/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}'),
+).map((ruta) => ruta.replace(/^.*\//, '').replace(/\.[^.]+$/, ''));
+const propias = enCarpeta.filter((n) => n === obra.slug || n.startsWith(`${obra.slug}-`)).sort();
+const fotos = propias.length ? propias : [obra.slug, `${obra.slug}-b`, `${obra.slug}-c`];
+
+const ficha = [
+	['TIPO', obra.tipo],
+	['MEDIDAS', obra.medidas],
+	['EDICIÓN', obra.edicion],
+	['AÑO', obra.anio],
+];
+---
+
+<Base title={`${obra.nombre} — Obras — Vittoria Chess`}>
+	<Nav actual="obras" />
+	<main>
+		<article class="obra">
+			<div class="fotos">
+				{
+					fotos.map((nombre, i) => (
+						<Foto
+							nombre={`obras/${nombre}`}
+							alt={`[PENDIENTE: descripción de la foto ${i + 1} de ${obra.nombre}]`}
+							proporcion={obra.ancho / obra.alto}
+							sizes="(max-width: 809px) calc(100vw - 40px), 64vw"
+							natural
+						/>
+					))
+				}
+			</div>
+
+			<div class="ficha">
+				<h1 class="nombre">{obra.nombre}</h1>
+				<dl class="datos">
+					{
+						ficha.map(([etiqueta, valor]) => (
+							<div>
+								<dt>{etiqueta}</dt>
+								<dd>{valor}</dd>
+							</div>
+						))
+					}
+				</dl>
+				<p class="descripcion">{obra.descripcion}</p>
+				<p class="accion">
+					<EnlaceGuia href={`/contacto?obra=${obra.slug}`} lado="derecha">
+						CONSULTAR DISPONIBILIDAD
+					</EnlaceGuia>
+				</p>
+			</div>
+		</article>
+
+		<nav class="otras" aria-label="Otras obras">
+			<Enlace href={`/obras/${anterior.slug}`}>ANTERIOR</Enlace>
+			<Enlace href="/obras">TODAS LAS OBRAS</Enlace>
+			<Enlace href={`/obras/${siguiente.slug}`}>SIGUIENTE</Enlace>
+		</nav>
+	</main>
+	<Footer actual="obras" />
+</Base>
+
+<style>
+	/* Retícula de la web: fotos de 96 a 1020 px; ficha de 1044 a 1344 px. */
+	.obra {
+		display: grid;
+		grid-template-columns: 64.167vw 1fr; /* 924 px + ficha */
+		column-gap: 1.667vw;
+		align-items: start;
+		padding: 201px 6.667vw 0;
+	}
+
+	.fotos {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	/* Solo con ratón: en blanco y negro, y en color al pasar por la foto. En pantallas
+	   táctiles, siempre en color. */
+	@media (hover: hover) and (pointer: fine) {
+		.fotos :global(.foto) {
+			filter: grayscale(1);
+			transition: filter 0.6s var(--ease);
+		}
+
+		.fotos :global(.foto:hover) {
+			filter: grayscale(0);
+		}
+	}
+
+	/* La ficha se queda fija mientras pasan las fotos, solo si la pantalla es lo bastante
+	   alta para que quepa entera (si no, el enlace del final no se alcanzaría). */
+	@media (min-height: 700px) {
+		.ficha {
+			position: sticky;
+			top: 120px;
+		}
+	}
+
+	.nombre {
+		margin: 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.datos {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		margin: 40px 0 0;
+	}
+
+	dt {
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	dd,
+	.descripcion {
+		margin: 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.descripcion {
+		margin-top: 40px;
+	}
+
+	.accion {
+		margin: 48px 0 0;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	/* Anterior · todas · siguiente. */
+	.otras {
+		display: flex;
+		justify-content: space-between;
+		margin-top: var(--aire);
+		padding: 0 6.667vw;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	/* Hasta 1100 px (tabletas y móvil): una columna, primero la ficha y después las fotos.
+	   Con dos columnas la ficha quedaría demasiado estrecha. */
+	@media (max-width: 1100px) {
+		.obra {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch; /* las fotos ocupan todo el ancho */
+			gap: 64px;
+			padding-top: 160px;
+		}
+
+		.ficha {
+			position: static;
+			order: -1;
+			max-width: 480px;
+		}
+	}
+
+	@media (max-width: 809px) {
+		.obra {
+			padding: 120px var(--margen) 0;
+		}
+
+		.fotos {
+			gap: 24px;
+		}
+
+		.otras {
+			flex-direction: column;
+			gap: 8px;
+			margin-top: 120px;
+			padding: 0 var(--margen);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.fotos :global(.foto) {
+			transition: none;
+		}
+	}
+</style>
