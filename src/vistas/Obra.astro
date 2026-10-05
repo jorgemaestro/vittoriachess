@@ -2,8 +2,8 @@
 // Vista de la página de una obra, en el idioma de la página — ver docs/definicion.md
 // (Páginas: Obras, "Página de cada obra"). Recibe el identificador de la obra.
 // A la izquierda (96 → 1020 px) las fotos, una debajo de otra; a la derecha (1044 → 1344 px)
-// la ficha, fija mientras pasan las fotos: nombre, tipo, medidas, edición, año, descripción
-// y CONSULTAR DISPONIBILIDAD. Al final, anterior / todas / siguiente.
+// la ficha, fija mientras pasan las fotos: nombre, tipo, medidas, edición, año, descripción,
+// detalles (si los tiene) y CONSULTAR DISPONIBILIDAD. Al final, anterior / todas / siguiente.
 // Móvil: primero la ficha y después las fotos.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
@@ -11,27 +11,21 @@ import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
-import { obras } from '../data/obras';
+import { cargarObras } from '../data/obras';
 import { usar } from '../i18n';
 
 interface Props {
 	slug: string;
 }
 
-const { t, r } = usar(Astro);
+const { t, r, idioma } = usar(Astro);
+const obras = await cargarObras(idioma, t.obras.sinDatos);
 const i = obras.findIndex((o) => o.slug === Astro.props.slug);
 const obra = obras[i];
 const anterior = obras[(i - 1 + obras.length) % obras.length];
 const siguiente = obras[(i + 1) % obras.length];
-const datos = t.obras.sinDatos; // hasta la Fase 6, todas las obras llevan los marcadores
-
-// Fotos de la obra: la principal (obra-NN) y las que se llamen obra-NN-b, -c…
-// Mientras no haya ninguna, tres cajas grises.
-const enCarpeta = Object.keys(
-	import.meta.glob('/src/assets/obras/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}'),
-).map((ruta) => ruta.replace(/^.*\//, '').replace(/\.[^.]+$/, ''));
-const propias = enCarpeta.filter((n) => n === obra.slug || n.startsWith(`${obra.slug}-`)).sort();
-const fotos = propias.length ? propias : [obra.slug, `${obra.slug}-b`, `${obra.slug}-c`];
+const datos = obra; // textos de su ficha (src/content/obras/), en el idioma de la página
+const fotos = obra.fotos; // las de su carpeta; sin ninguna todavía, tres cajas grises
 
 const ficha = [
 	[t.obras.ficha.tipo, datos.tipo],
@@ -49,8 +43,8 @@ const ficha = [
 				{
 					fotos.map((nombre, n) => (
 						<Foto
-							nombre={`obras/${nombre}`}
-							alt={`[${t.pendiente}: ${t.obras.fotoDe(obra.numero)}, ${n + 1}]`}
+							nombre={nombre}
+							alt={`${obra.nombre}, ${n + 1}`}
 							proporcion={obra.ancho / obra.alto}
 							sizes="(max-width: 809px) calc(100vw - 40px), 64vw"
 							natural
@@ -71,7 +65,19 @@ const ficha = [
 						))
 					}
 				</dl>
-				<p class="descripcion">{datos.descripcion}</p>
+				<div class="descripcion">{datos.descripcion.map((parrafo) => <p>{parrafo}</p>)}</div>
+				{
+					datos.detalles.length > 0 && (
+						<dl class="datos">
+							<div>
+								<dt>{t.obras.ficha.detalles}</dt>
+								{datos.detalles.map((detalle) => (
+									<dd>{detalle}</dd>
+								))}
+							</div>
+						</dl>
+					)
+				}
 				<p class="accion">
 					<EnlaceGuia href={`${r.contacto}?obra=${obra.slug}`} lado="derecha">
 						{t.obras.consultar}
@@ -158,6 +164,15 @@ const ficha = [
 
 	.descripcion {
 		margin-top: 40px;
+	}
+
+	/* Párrafos de la descripción: una línea de separación entre ellos. */
+	.descripcion p {
+		margin: 0;
+	}
+
+	.descripcion p + p {
+		margin-top: var(--lectura-alto);
 	}
 
 	.accion {

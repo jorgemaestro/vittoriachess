@@ -2,6 +2,6 @@
 // Los textos y las direcciones de cada idioma están en src/i18n/.
 import type { ClaveRuta } from '../i18n';
 
-export type Pagina = Extract<ClaveRuta, 'obras' | 'piezas' | 'estudio' | 'contacto'>;
+export type Pagina = Extract<ClaveRuta, 'obras' | 'piezas' | 'autor' | 'contacto'>;
 
-export const paginas: Pagina[] = ['obras', 'piezas', 'estudio', 'contacto'];
+export const paginas: Pagina[] = ['obras', 'piezas', 'autor', 'contacto'];

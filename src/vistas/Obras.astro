@@ -1,21 +1,21 @@
 ---
 // Vista del catálogo de obras, en el idioma de la página — ver docs/definicion.md
 // (Páginas: Obras).
-// Catálogo de 8 obras en zigzag; cada obra enlaza a su página (/obras/<slug>).
-// Posiciones de la tabla pasadas a vw.
+// Catálogo en zigzag de las obras de src/content/obras/; cada obra enlaza a su página
+// (/obras/<slug>). Posiciones de la tabla pasadas a vw.
 // Pie de cada obra a 4 px, en una columna: nombre / tipo / medidas. Llamada a contacto
-// 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras.
+// 240 px bajo la última obra. Móvil: una columna, 64 px entre obras.
 // Con ratón: fotos en blanco y negro que vuelven a su color al pasar por encima.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
-import { obras } from '../data/obras';
+import { cargarObras } from '../data/obras';
 import { usar } from '../i18n';
 
-const { t, r } = usar(Astro);
-const datos = t.obras.sinDatos; // hasta la Fase 6, todas las obras llevan los marcadores
+const { t, r, idioma } = usar(Astro);
+const obras = await cargarObras(idioma, t.obras.sinDatos);
 
 const vw = (px: number) => `${((px / 1440) * 100).toFixed(3)}vw`;
 const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
@@ -34,15 +34,15 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 					>
 						<a class="enlace-obra" href={`${r.obras}/${o.slug}`}>
 						<Foto
-							nombre={`obras/${o.slug}`}
-							alt={`[${t.pendiente}: ${t.obras.fotoDe(o.numero)}]`}
+							nombre={o.fotos[0]}
+							alt={o.nombre}
 							proporcion={o.ancho / o.alto}
 							sizes={`(max-width: 809px) calc(100vw - 40px), ${vw(o.ancho)}`}
 						/>
 						<p class="pie">
-							<span>{datos.nombre}</span>
-							<span>{datos.tipo}</span>
-							<span>{datos.medidas}</span>
+							<span>{o.nombre}</span>
+							<span>{o.tipo}</span>
+							<span>{o.medidas}</span>
 						</p>
 						</a>
 					</li>

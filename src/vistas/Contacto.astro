@@ -10,7 +10,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
-import { obras } from '../data/obras';
+import { cargarObras } from '../data/obras';
 import { titular, formulario } from '../data/titular';
 import { usar } from '../i18n';
 
@@ -18,10 +18,8 @@ const { t, r, idioma } = usar(Astro);
 const c = t.contacto;
 
 // Para empezar el mensaje con el nombre de la obra al llegar desde su página (?obra=slug).
-// Hasta la Fase 6, todas las obras llevan el marcador de nombre pendiente.
-const consultas = Object.fromEntries(
-	obras.map((o) => [o.slug, t.obras.mensajeConsulta(t.obras.sinDatos.nombre)]),
-);
+const obras = await cargarObras(idioma, t.obras.sinDatos);
+const consultas = Object.fromEntries(obras.map((o) => [o.slug, t.obras.mensajeConsulta(o.nombre)]));
 
 const campos = [
 	{ id: 'nombre', etiqueta: c.campos.nombre, tipo: 'text', autocompletar: 'given-name', obligatorio: true },

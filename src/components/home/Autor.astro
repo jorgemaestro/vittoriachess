@@ -1,8 +1,8 @@
 ---
-// Home · Acceso a Entrevista — ver docs/definicion.md (Páginas: Home, punto 6).
-// Sin título. Foto 512 × 683 a 96 px del borde; a la derecha (columna de 744 px) pregunta,
-// fragmento y LEER ENTREVISTA (lleva a /estudio). Móvil: foto a todo el ancho y texto debajo.
-// Foto: src/assets/entrevista/home (caja gris mientras no esté).
+// Home · Acceso a Autor — ver docs/definicion.md (Páginas: Home, punto 6).
+// Sin título. Foto 512 × 683 a 96 px del borde; a la derecha (columna de 744 px) la firma
+// y SABER MÁS (lleva a /el-autor). Móvil: foto a todo el
+// ancho y texto debajo. Foto: src/assets/autor/home (caja gris mientras no esté).
 import EnlaceGuia from '../EnlaceGuia.astro';
 import Foto from '../Foto.astro';
 import { usar } from '../../i18n';
@@ -10,28 +10,27 @@ import { usar } from '../../i18n';
 const { t, r } = usar(Astro);
 ---
 
-<section class="entrevista" aria-label={t.home.entrevistaEtiqueta}>
+<section class="autor" aria-label={t.autor.titulo}>
 	<div class="cuerpo">
 		<div class="foto">
 			<Foto
-				nombre="entrevista/home"
-				alt={`[${t.pendiente}: ${t.home.entrevistaFoto}]`}
+				nombre="autor/home"
+				alt={`[${t.pendiente}: ${t.home.autorFoto}]`}
 				proporcion={512 / 683}
 				sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
 			/>
 		</div>
 		<div class="texto">
-			<p class="pregunta">{t.home.entrevistaPregunta}</p>
-			<p class="fragmento">{t.home.entrevistaFragmento}</p>
+			<p class="firma">{t.home.autorFirma}</p>
 			<p class="leer">
-				<EnlaceGuia href={r.estudio} lado="derecha">{t.home.leerEntrevista}</EnlaceGuia>
+				<EnlaceGuia href={r.autor} lado="derecha">{t.home.saberMas}</EnlaceGuia>
 			</p>
 		</div>
 	</div>
 </section>
 
 <style>
-	.entrevista {
+	.autor {
 		margin-top: var(--aire);
 	}
 
@@ -57,20 +56,14 @@ const { t, r } = usar(Astro);
 		max-width: 33.333vw;
 	}
 
-	.pregunta {
+	.firma {
 		color: var(--color-secundario);
 		font-size: var(--pie-foto);
 		line-height: var(--pie-foto-alto);
 	}
 
-	.fragmento {
-		margin-top: 16px;
-		font-size: var(--respuesta);
-		line-height: var(--respuesta-alto);
-	}
-
 	.leer {
-		margin-top: 40px;
+		margin-top: 24px;
 		font-size: var(--nav-central);
 		line-height: var(--nav-central-alto);
 	}

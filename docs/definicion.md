@@ -20,12 +20,12 @@ Referencia de tono y estructura: wakawaka.aristidebenoist.com/objects (solo refe
 | --- | --- | --- |
 | Nav central | 24 / 27,5 px, peso 500 | Enlaces de la barra, títulos de acceso, enlaces grandes |
 | Nav lateral | 14 / 17,5 px, peso 500 | ES / EN, palabras bajo las piezas en la home |
-| Pie de foto | 10 / 17 px, peso 500 | Pies de obra, línea legal, preguntas de entrevista |
+| Pie de foto | 10 / 17 px, peso 500 | Pies de obra, línea legal, firma en el acceso a El autor |
 | Manifiesto | 80 / 88 px (5,556 / 6,111 vw), peso 400, -0,02 em | Solo el manifiesto |
-| Respuesta entrevista | 24 / 32 px, peso 500 | Entrevista |
+| Respuesta | 24 / 32 px | Texto de El autor, nombres de la trayectoria y de las piezas, campos del formulario |
 | Llamada | 40 / 48 px (móvil 28 / 34), peso 400, -0,02 em | Frase de la llamada a contacto de la home |
 | Legal | 14 / 22 px, peso 400 | Texto de las páginas legales |
-| Lectura | 16 / 24 px, peso 400 | Texto corrido en columnas (respuestas de la entrevista) |
+| Lectura | 16 / 24 px, peso 400 | Texto corrido en columnas (fichas de obra, apunte de contacto) |
 
 Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
@@ -37,7 +37,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Enlace con línea guía** (decidido el 30/09/2026). Para que se note que hay un enlace: una línea de 1 px, a la altura de su subrayado, va desde un borde de la pantalla hasta 16 px antes del enlace. Al entrar en pantalla hace un ciclo completo (decidido el 30/09/2026): crece desde el borde hasta el enlace (1,2 s, var(--ease)), se detiene un instante (0,25 s) y desaparece empezando por su origen, como el subrayado de la barra al salir: el extremo del borde avanza hacia el enlace hasta que la línea se pierde en él, con una aceleración y frenada suaves (1,2 s). Ocurre una sola vez. Lado: VER PIEZAS desde la derecha, VER OBRAS desde la izquierda, LEER ENTREVISTA desde la derecha, CONTACTAR desde la izquierda. En móvil (enlaces a la izquierda) siempre desde la derecha. Sin JavaScript o con movimiento reducido no hay línea (es decoración).
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Se pinta en negativo sobre lo que tiene debajo (mix-blend-mode: difference, como el cursor; decidido el 02/10/2026): sobre el fondo claro se ve en el color de tinta, y sobre una foto o zona oscura se aclara sola, de modo que nunca se pierde. Para ello usa el color --color-negativo (#D9D9D9, que sobre el fondo #F5F5F5 da exactamente la tinta #1C1C1C). Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto.
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Se pinta en negativo sobre lo que tiene debajo (mix-blend-mode: difference, como el cursor; decidido el 02/10/2026): sobre el fondo claro se ve en el color de tinta, y sobre una foto o zona oscura se aclara sola, de modo que nunca se pierde. Para ello usa el color --color-negativo (#D9D9D9, que sobre el fondo #F5F5F5 da exactamente la tinta #1C1C1C). Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto. Nombres de la barra (simplificados el 05/10/2026): OBRAS · PIEZAS · AUTOR · CONTACTO; en inglés, WORKS · PIECES · AUTHOR · CONTACT. Antes LAS PIEZAS y EL AUTOR (y, antes, ESTUDIO). Las direcciones no cambian (/las-piezas, /el-autor).
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
@@ -51,7 +51,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 ## Páginas
 
-Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /estudio · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, bajo /en/ y traducidas (ver Idiomas).
+Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /el-autor · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, bajo /en/ y traducidas (ver Idiomas).
 
 ### Home (de arriba abajo)
 
@@ -66,7 +66,7 @@ Título principal para Google y lectores de pantalla (no visible): "Vittoria Che
    Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Al pulsar el vídeo se va a /obras (solo con ratón o dedo; para teclado y lectores de pantalla el enlace es VER OBRAS, sin duplicarlo). Debajo, solo el enlace VER OBRAS a /obras, a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
-6. Acceso a Entrevista: sin título (quitado el 30/09/2026 por redundante); foto 512 × 683 a 96 px del borde izquierdo; a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, una pregunta (10 px: "SI LA REGLA LO DETERMINA TODO, ¿DÓNDE QUEDA EL AUTOR?"), 16 px debajo un fragmento (24 / 32 px, máx. 480 px: "Quizás en el ojo humano. La geometría da la estructura, pero no define."; cambiados el 02/10/2026 con el texto nuevo) y 40 px debajo el enlace LEER ENTREVISTA, que lleva a /estudio (decidido el 30/09/2026; antes LEER LA ENTREVISTA). Móvil: foto a todo el ancho y texto debajo.
+6. Acceso a Autor (redefinido el 05/10/2026; antes "Acceso a Entrevista", con una pregunta y un fragmento de la entrevista): sin título; foto 512 × 683 a 96 px del borde izquierdo (src/assets/autor/home); a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, la firma (10 px, gris: "JORGE MAESTRO · ARQUITECTO Y ARTISTA") y, 24 px debajo, el enlace SABER MÁS (24 px, con línea guía desde la derecha), que lleva a /el-autor. Sin frase resumen (quitada el 05/10/2026: más sobrio). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda. Animación (decidida el 30/09/2026): la frase, partida en sus dos líneas ("Información sobre obras, ediciones" / "y proyectos por encargo."), sube línea a línea desde una máscara como el manifiesto (1,2 s, 80 ms entre líneas), y después CONTACTAR. CONTACTAR lleva línea guía desde la izquierda (ver Enlace con línea guía). Sin JavaScript o con movimiento reducido: todo visible. Es la misma llamada en home, Obras, Las piezas y Estudio.
 8. Pie.
 
@@ -74,7 +74,7 @@ Título principal para Google y lectores de pantalla (no visible): "Vittoria Che
 
 ### Obras
 
-Catálogo de 8 obras en zigzag; cada obra enlaza a su página (ver más abajo). OBRAS subrayado en la barra. Fotos en blanco y negro; al pasar el ratón por una obra, su foto vuelve a su color original en 0,6 s (var(--ease)). En pantallas táctiles, siempre en color; con movimiento reducido, el cambio es inmediato (decidido el 30/09/2026). Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
+Catálogo de obras en zigzag; cada obra enlaza a su página (ver más abajo). Las obras salen de las fichas de src/content/obras/ (ver "Fichas de las obras"), ordenadas por su campo orden; cada una ocupa el hueco de la tabla que le toca por posición, y el formato de la foto principal (vertical u horizontal) lo marca el hueco. La tabla define 8 huecos; si hay más obras, el patrón de los 6 primeros se repite 4320 px más abajo. OBRAS subrayado en la barra. Fotos en blanco y negro; al pasar el ratón por una obra, su foto vuelve a su color original en 0,6 s (var(--ease)). En pantallas táctiles, siempre en color; con movimiento reducido, el cambio es inmediato (decidido el 30/09/2026). Pie de cada obra a 4 px de la imagen, 10 / 17 px, en una sola columna alineada a la izquierda con la foto: nombre / tipo / medidas en cm, uno debajo de otro (decidido el 30/09/2026; antes, tres columnas de 176 y 140 px).
 
 | Obra | Izquierda (px) | Arriba (px) | Imagen (px) | Formato |
 | --- | --- | --- | --- | --- |
@@ -87,15 +87,17 @@ Catálogo de 8 obras en zigzag; cada obra enlaza a su página (ver más abajo). 
 | 7 | 138 | 4521 | 512 × 696 | Vertical |
 | 8 | 789 | 5046 | 592 × 473 | Horizontal |
 
-Llamada a contacto 240 px bajo la obra 8. Móvil: una columna, 64 px entre obras, pie en tres líneas.
+Llamada a contacto 240 px bajo la última obra. Móvil: una columna, 64 px entre obras, pie en tres líneas.
 
-**Página de cada obra** (decidida el 02/10/2026; antes no había páginas de detalle). Dirección /obras/<identificador> (obra-01 … obra-08 hasta tener los nombres reales). En el catálogo, cada obra (foto y pie) es un enlace a su página.
+**Página de cada obra** (decidida el 02/10/2026; antes no había páginas de detalle). Dirección /obras/<identificador> y /en/works/<identificador>, donde el identificador es el nombre del archivo de su ficha (obra-01 … obra-08 hasta tener los nombres reales). En el catálogo, cada obra (foto y pie) es un enlace a su página.
 - Composición sobre la retícula, desde 201 px: a la izquierda, de 96 a 1020 px, las fotos de la obra una debajo de otra (40 px entre ellas), a su proporción natural; a la derecha, en la columna de 1044 a 1344 px, la ficha, que se queda fija mientras pasan las fotos.
-- Ficha: nombre (estilo Llamada, 40 / 48 px); debajo, cuatro datos con su etiqueta a 10 px en gris y el valor en Lectura (16 / 24 px): TIPO, MEDIDAS, EDICIÓN, AÑO; una descripción breve en Lectura; y el enlace CONSULTAR DISPONIBILIDAD (24 px, con línea guía), que lleva a Contacto con el nombre de la obra ya escrito en el mensaje.
-- Fotos: 2–3 por obra. La principal es la del catálogo (src/assets/obras/obra-01) y las demás se llaman obra-01-b, obra-01-c… Mientras no haya ninguna, tres cajas grises. En ordenador, en blanco y negro y en color al pasar el ratón, como en el catálogo; en pantallas táctiles, siempre en color.
+- Ficha: nombre (estilo Llamada, 40 / 48 px); debajo, cuatro datos con su etiqueta a 10 px en gris y el valor en Lectura (16 / 24 px): TIPO, MEDIDAS, EDICIÓN, AÑO; una descripción breve en Lectura; si la obra los tiene, 40 px bajo la descripción, los DETALLES (etiqueta a 10 px en gris y, debajo, una línea por característica en Lectura); y el enlace CONSULTAR DISPONIBILIDAD (24 px, con línea guía), que lleva a Contacto con el nombre de la obra ya escrito en el mensaje.
+- Fotos: 2–3 por obra, en una carpeta con el mismo nombre que su ficha: src/assets/obras/<identificador>/01, 02, 03… La 01 es la principal (la del catálogo) y el número marca el orden en la página. Mientras no haya ninguna, tres cajas grises. En ordenador, en blanco y negro y en color al pasar el ratón, como en el catálogo; en pantallas táctiles, siempre en color.
 - Al final: ANTERIOR · TODAS LAS OBRAS · SIGUIENTE.
 - Hasta 1100 px de ancho (tabletas y móvil): primero la ficha y después las fotos, en una columna. La ficha solo se queda fija si la pantalla tiene al menos 700 px de alto; si no, se desplaza con la página para que el enlace siempre se alcance (revisión del 02/10/2026).
-- Datos de cada obra en src/data/obras.ts; lo que falte, con marcador [PENDIENTE].
+- Datos de cada obra en su ficha; lo que falte (campo vacío), con marcador [PENDIENTE].
+
+**Fichas de las obras** (decidido el 04/10/2026). Un archivo por obra en src/content/obras/<identificador>.md, que se edita como un formulario con el Bloc de notas (instrucciones en el LEEME de esa carpeta). Se leen con un lector propio y tolerante (src/content.config.ts): cada línea "campo: valor" es un dato, sin importar la sangría ni las comillas, y la descripción es todo lo que sigue a "descripcion:" hasta el siguiente campo. El nombre del archivo (minúsculas, sin tildes ni espacios) es la dirección de su página y el nombre de su carpeta de fotos. Campos: orden (número, obligatorio: posición en el catálogo), anio, medidas (comunes a los dos idiomas) y, dentro de es y de en, nombre, tipo, edicion, descripcion (uno o varios párrafos) y detalles (opcional, añadido el 04/10/2026: otras características de la obra, una por línea, como la altura del rey, el peso del tablero, el número de piezas o si lleva estuche). Un campo vacío muestra su marcador [PENDIENTE], salvo detalles, que si está vacío no se muestra. Añadir una obra es crear una ficha y su carpeta de fotos; quitarla, borrar la ficha. El inglés lo redacta Claude y lo aprueba Jorge.
 
 ### Las piezas
 
@@ -109,23 +111,31 @@ Página con el fondo claro del resto de la web (en prueba desde el 02/10/2026; a
 | Torre | 0 | 2300 | 480 × 640 | Llega al borde izquierdo |
 | Reina | 790 | 2620 | 512 × 683 | |
 | Rey | 290 | 3560 | 620 × 827 | |
-Solo se llega desde LAS PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (decidido el 30/09/2026).
+Solo se llega desde PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (decidido el 30/09/2026).
 
-### Estudio
+### El autor
 
-Antes "Entrevista" (renombrada el 30/09/2026). Contiene la entrevista y, al final, la trayectoria (ver más abajo), antes de la llamada a contacto.
+Antes "Estudio" y, antes, "Entrevista" (renombrada el 05/10/2026). En la barra, AUTOR (en inglés, AUTHOR). Dirección /el-autor (/en/the-author). Sustituye a la entrevista de siete preguntas por un texto breve (recibido el 05/10/2026 en primera persona y pasado ese mismo día a tercera persona, singular y presente), seguido de la llamada a contacto. La trayectoria queda oculta de momento (ver más abajo). Una foto (retrato o estudio).
 
-Entrevista (texto nuevo recibido el 02/10/2026: 7 preguntas, en src/data/entrevista.ts; sustituye al de 11 preguntas del 30/09). Las preguntas tutean al entrevistado (decidido el 02/10/2026). Una cita dentro de una respuesta va con comillas simples ‘ ’, porque la respuesta entera ya va entre comillas. Composición editorial aprobada el 02/10/2026 (antes: seis bloques alternos iguales de foto y texto): se lee de principio a fin haciendo scroll, sobre la retícula de la web (96 · 434 · 744 · 1044 · 1344 px), con contraste de escala y un bloque distinto por pregunta. El primero empieza a 201 px de arriba; 240 px entre bloques.
-- Tamaños: pregunta en estilo Llamada (40 / 48 px) o, las dos más cortas (la 3 y la 7), a tamaño manifiesto (80 / 88 px); primera frase de la respuesta como entradilla (24 / 32 px), entre comillas inglesas “ ” en gris; resto de la respuesta en estilo Lectura (16 / 24 px) en una columna.
-- Marca de pregunta: "(p)" en minúscula y entre paréntesis, a 14 px y en gris secundario, delante de cada pregunta y a la altura de su primera línea (decidido el 02/10/2026; antes una "P" al tamaño del texto). Los lectores de pantalla no la leen.
-- Fotos: seis (src/assets/entrevista/bloque-01 … bloque-06), de formatos distintos: 3:4 en los bloques 1, 4 y 6; 5:4 en los bloques 2, 5 y 7. El bloque 3 es solo tipografía.
-- Composición por bloque: 1 pregunta a lo ancho, foto pequeña y texto en dos columnas · 2 foto apaisada grande a la derecha · 3 solo texto, desplazado a la segunda columna · 4 foto alta a la izquierda · 5 pregunta a lo ancho y foto apaisada junto al texto · 6 foto pequeña a la derecha · 7 cierre, pregunta a tamaño manifiesto y foto apaisada a la izquierda.
-- Dos destacados a tamaño manifiesto, con frases literales de la entrevista, 160 px tras su bloque: "Brancusi no esculpía el pájaro, sino el vuelo." (tras el 2) y "Una forma que se adapta al proceso acaba perdiendo su esencia." (tras el 5).
-- Animación: preguntas y destacados suben desde una máscara al entrar en pantalla (1,2 s, una vez). Sin JavaScript o con movimiento reducido, todo visible.
-- Anchos intermedios (810–1100 px, tabletas): dos columnas iguales; la pregunta a lo ancho y debajo la foto en una columna y el texto (entradilla y resto) en la otra, alternando el lado de la foto. Evita columnas de texto demasiado estrechas (revisión del 02/10/2026).
-- Móvil: todo en una columna (foto, pregunta, entradilla, resto), manteniendo los tres tamaños; 120 px entre bloques.
+Texto, en minúscula (mayúscula solo inicial), en src/i18n/ (autor):
+- "Jorge Maestro sueña con crear las seis piezas del ajedrez con la geometría como única ley." (el texto empieza por el nombre; la línea de firma "Jorge Maestro · Arquitecto y artista" se quitó el 05/10/2026)
+- "Todo empieza en el cuadrado. El origen del juego. La única forma que sobrevive al paso de los siglos."
+- "Les da vida; movimiento."
+- Destacado: "Contar lo máximo / con lo mínimo."
+- "Piedra, madera y resina. Materiales que exigen sacrificios en la forma. Aparece el metal."
+- "Nacen seis esculturas vivas: el peón, el caballo, el alfil, la torre, la reina y el rey."
+- "Y con ellas, Vittoria Chess. Su obra. Donde explora la forma, el material y la perspectiva."
+- "El ajedrez vertical. Una nueva mirada."
+- Destacado: "Un juego creado / para ser contemplado."
 
-**Trayectoria** (decidida el 30/09/2026; antes "Exhibitions & Press"). Al final de Estudio, 240 px bajo el último bloque de la entrevista y antes de la llamada a contacto. Título TRAYECTORIA (24 px) a 96 px del borde. Línea temporal: año a 96 px en estilo Llamada (40 / 48 px, regular), fijo en pantalla mientras pasan sus entradas; línea vertical de 1 px a 434 px; entradas a 40 px de la línea, cada una con el tipo (10 / 17 px) y debajo el nombre (24 / 32 px), sin textos descriptivos. 40 px entre entradas y 120 px entre años. Animación: la línea se dibuja con el scroll; el año y cada entrada suben desde una máscara al entrar en pantalla. Sin JavaScript o con movimiento reducido: todo visible y la línea completa. Móvil: año encima de sus entradas y línea a la izquierda, a 20 px.
+Composición, sobre la retícula de la web y desde 201 px:
+- Texto corrido en la columna de 434 px, 572 px de ancho, a 24 / 32 px y peso 400, con una línea en blanco (32 px) entre párrafos.
+- Las dos frases destacadas son frases literales del texto, que no se repiten: salen de su párrafo y se muestran en estilo Destacado (64 / 72 px a 1440, es decir 4,444 / 5 vw; móvil 30 / 36; reducido el 05/10/2026 desde el tamaño manifiesto, 80 / 88), desde 96 px del borde, con 160 px de aire arriba y abajo (96 px en móvil). La segunda cierra el texto.
+- Foto (src/assets/autor/retrato, 3:4): 300 × 400 px en la columna derecha (1044 → 1344 px), junto al primer bloque de texto y empezando 64 px por debajo de su primera línea, de modo que baja hasta el aire de la primera frase destacada, sin tocarla (subida ahí el 05/10/2026; antes junto al segundo bloque). Hasta 1100 px de ancho pasa a ir en la columna del texto, tras el primer bloque y antes de la frase destacada (en móvil, a todo el ancho). Caja gris mientras no esté.
+- Animación: cada línea de una frase destacada sube desde una máscara al entrar en pantalla (1,2 s, var(--ease), 80 ms entre líneas), como el manifiesto de la home. El texto corrido no se anima. Sin JavaScript o con movimiento reducido, todo visible.
+- Entre 810 y 1100 px, la columna de texto se ensancha hasta 96 px del borde derecho. Móvil: todo en una columna con los márgenes, empezando a 120 px.
+
+**Trayectoria** — OCULTA desde el 05/10/2026: se reserva para más adelante. El componente (src/components/Trayectoria.astro), sus datos y sus textos se conservan; para recuperarla basta con volver a ponerla en la página El autor, entre el texto y la llamada a contacto. Definición: (decidida el 30/09/2026; antes "Exhibitions & Press"). Al final de El autor, 240 px bajo la última frase destacada y antes de la llamada a contacto. Título TRAYECTORIA (24 px) a 96 px del borde. Línea temporal: año a 96 px en estilo Llamada (40 / 48 px, regular), fijo en pantalla mientras pasan sus entradas; línea vertical de 1 px a 434 px; entradas a 40 px de la línea, cada una con el tipo (10 / 17 px) y debajo el nombre (24 / 32 px), sin textos descriptivos. 40 px entre entradas y 120 px entre años. Animación: la línea se dibuja con el scroll; el año y cada entrada suben desde una máscara al entrar en pantalla. Sin JavaScript o con movimiento reducido: todo visible y la línea completa. Móvil: año encima de sus entradas y línea a la izquierda, a 20 px.
 Entradas: 2026 — PRENSA · EL MUNDO; CAMPAÑA · OTZ Lab; EXPOSICIÓN · COAM, Madrid; PRENSA · Escuela Limón; PERMANENTE · Gambit Café, Madrid. 2025 — COLABORACIÓN · Momoc. (Se quitó la colaboración con Michał Koziołek.)
 
 ### Contacto
@@ -158,17 +168,17 @@ Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; b
 
 | Dónde | Carpeta y nombre |
 | --- | --- |
-| Obras (8, en el orden de la tabla) | src/assets/obras/obra-01 … obra-08 (foto principal) y obra-01-b, obra-01-c… (más fotos para su página) |
+| Obras | src/assets/obras/<identificador de la ficha>/01 (foto principal), 02, 03… (más fotos para su página) |
 | Las piezas | src/assets/piezas/peon, caballo, alfil, torre, reina, rey |
-| Entrevista, acceso de la home | src/assets/entrevista/home |
-| Entrevista, bloques de la página | src/assets/entrevista/bloque-01 … bloque-06 |
+| El autor, acceso de la home | src/assets/autor/home |
+| El autor, foto de la página | src/assets/autor/retrato |
 
 Vídeos (no van al repositorio; hasta publicar se copian en public/video/, excluida de GitHub, y al publicar pasan a Cloudflare R2; el vertical y el póster son opcionales): video-principal-horizontal.mp4, video-principal-vertical.mp4, video-principal-poster.jpg; video-obras-horizontal.mp4, video-obras-vertical.mp4, video-obras-poster.jpg.
 
 ## Idiomas
 
 ES por defecto, en la raíz; EN bajo /en/. Decidido el 02/10/2026:
-- Se traduce todo: interfaz, manifiesto, entrevista, trayectoria, contacto, páginas de obra, legales y página no encontrada.
+- Se traduce todo: interfaz, manifiesto, texto de El autor, trayectoria, contacto, páginas de obra, legales y página no encontrada.
 - Los textos en inglés los redacta Claude a mano (inglés correcto, depurado y legible para cualquiera) y los aprueba Jorge. Nunca traducción automática.
 - Direcciones traducidas:
 
@@ -178,7 +188,7 @@ ES por defecto, en la raíz; EN bajo /en/. Decidido el 02/10/2026:
 | Obras | /obras | /en/works |
 | Página de obra | /obras/<obra> | /en/works/<obra> |
 | Las piezas | /las-piezas | /en/the-pieces |
-| Estudio | /estudio | /en/studio |
+| El autor | /el-autor | /en/the-author |
 | Contacto | /contacto | /en/contact |
 | Aviso legal | /aviso-legal | /en/legal-notice |
 | Privacidad | /privacidad | /en/privacy |

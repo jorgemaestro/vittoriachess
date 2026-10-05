@@ -50,6 +50,8 @@
   --manifiesto: 5.556vw;         /* 80 px */
   --manifiesto-alto: 6.111vw;    /* 88 px */
   --manifiesto-espaciado: -0.02em;
+  --destacado: 4.444vw;          /* 64 px: frases destacadas de El autor */
+  --destacado-alto: 5vw;         /* 72 px */
   --respuesta: 24px;
   --respuesta-alto: 32px;
   --llamada: 40px;
@@ -96,5 +98,7 @@
     --llamada-alto: 34px;
     --manifiesto: 36px;
     --manifiesto-alto: 40px;
+    --destacado: 30px;
+    --destacado-alto: 36px;
   }
 }

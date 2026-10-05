@@ -6,13 +6,13 @@ gris. Detalle completo en docs/definicion.md ("Fotos y vídeos: nombres de archi
 
 | Dónde | Carpeta | Nombres |
 | --- | --- | --- |
-| Obras (orden de la tabla del documento) | obras/ | obra-01 … obra-08 (foto principal) |
-| Más fotos de cada obra, para su página | obras/ | obra-01-b, obra-01-c … |
+| Obras: una carpeta por obra, con el nombre de su ficha | obras/obra-01/ … | 01 (foto principal), 02, 03 … |
 | Las piezas | piezas/ | peon, caballo, alfil, torre, reina, rey |
-| Entrevista, acceso de la home | entrevista/ | home |
-| Entrevista, bloques de la página | entrevista/ | bloque-01 … bloque-06 |
+| El autor, acceso de la home | autor/ | home |
+| El autor, foto de la página | autor/ | retrato |
 
-Ejemplo: la primera obra es `src/assets/obras/obra-01.jpg`.
+Ejemplo: la foto principal de la primera obra es `src/assets/obras/obra-01/01.jpg`.
+Los datos de cada obra están en su ficha: `src/content/obras/` (ver su LEEME).
 
 Originales a buena resolución: unos 1600 px de lado largo. Astro las recorta a la
 proporción de su hueco y genera las versiones ligeras para cada pantalla.

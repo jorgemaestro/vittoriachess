@@ -9,7 +9,7 @@ export type ClaveRuta =
 	| 'inicio'
 	| 'obras'
 	| 'piezas'
-	| 'estudio'
+	| 'autor'
 	| 'contacto'
 	| 'avisoLegal'
 	| 'privacidad'
@@ -22,7 +22,7 @@ export const rutas: Record<Idioma, Record<ClaveRuta, string>> = {
 		inicio: '/',
 		obras: '/obras',
 		piezas: '/las-piezas',
-		estudio: '/estudio',
+		autor: '/el-autor',
 		contacto: '/contacto',
 		avisoLegal: '/aviso-legal',
 		privacidad: '/privacidad',
@@ -32,7 +32,7 @@ export const rutas: Record<Idioma, Record<ClaveRuta, string>> = {
 		inicio: '/en/',
 		obras: '/en/works',
 		piezas: '/en/the-pieces',
-		estudio: '/en/studio',
+		autor: '/en/the-author',
 		contacto: '/en/contact',
 		avisoLegal: '/en/legal-notice',
 		privacidad: '/en/privacy',

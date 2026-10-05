@@ -1,6 +1,6 @@
-// Trayectoria de la página Estudio — ver docs/definicion.md (Páginas: Estudio).
+// Trayectoria de la página El autor — ver docs/definicion.md (Páginas: El autor).
 // Solo tipo y nombre de cada entrada. Años del más reciente al más antiguo. El texto de
-// cada tipo, en cada idioma, está en src/i18n/ (estudio.trayectoria.tipos).
+// cada tipo, en cada idioma, está en src/i18n/ (autor.trayectoria.tipos).
 
 export type Tipo = 'prensa' | 'campana' | 'exposicion' | 'permanente' | 'colaboracion';
 

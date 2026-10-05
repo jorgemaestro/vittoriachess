@@ -12,8 +12,8 @@ const en: Textos = {
 
 	nav: {
 		obras: 'WORKS',
-		piezas: 'THE PIECES',
-		estudio: 'STUDIO',
+		piezas: 'PIECES',
+		autor: 'AUTHOR',
 		contacto: 'CONTACT',
 		etiquetaPrincipal: 'Main',
 		etiquetaMenu: 'Menu',
@@ -39,11 +39,9 @@ const en: Textos = {
 		manifiesto: ['The square, the origin', 'Geometry, the law', 'Six pieces. Six souls'],
 		verPiezas: 'VIEW THE PIECES',
 		verObras: 'VIEW THE WORKS',
-		entrevistaEtiqueta: 'Interview',
-		entrevistaPregunta: 'IF THE RULE DETERMINES EVERYTHING, WHERE DOES THAT LEAVE THE AUTHOR?',
-		entrevistaFragmento: 'Perhaps in the human eye. Geometry gives the structure, but it does not define.',
-		entrevistaFoto: 'description of the interview photograph',
-		leerEntrevista: 'READ THE INTERVIEW',
+		autorFirma: 'JORGE MAESTRO · ARCHITECT AND ARTIST',
+		autorFoto: 'description of the photograph of the author',
+		saberMas: 'LEARN MORE',
 	},
 
 	llamada: {
@@ -55,7 +53,7 @@ const en: Textos = {
 	obras: {
 		titulo: 'Works',
 		fotoDe: (n: number) => `description of work ${n}`,
-		ficha: { tipo: 'TYPE', medidas: 'DIMENSIONS', edicion: 'EDITION', anio: 'YEAR' },
+		ficha: { tipo: 'TYPE', medidas: 'DIMENSIONS', edicion: 'EDITION', anio: 'YEAR', detalles: 'DETAILS' },
 		consultar: 'ENQUIRE ABOUT AVAILABILITY',
 		otras: 'Other works',
 		anterior: 'PREVIOUS',
@@ -73,7 +71,7 @@ const en: Textos = {
 	},
 
 	piezas: {
-		titulo: 'The pieces',
+		titulo: 'Pieces',
 		nombres: {
 			peon: 'PAWN',
 			caballo: 'KNIGHT',
@@ -84,55 +82,27 @@ const en: Textos = {
 		},
 	},
 
-	estudio: {
-		titulo: 'Studio',
-		marcaPregunta: '(q)',
-		fotoDe: (archivo: string) => `description of the photograph ${archivo}`,
-		entrevista: [
+	autor: {
+		titulo: 'Author',
+		texto: [
 			{
-				pregunta:
-					'The whole system is born from three forms: the square, the triangle and the sphere. Why impose such a strict law on yourself?',
-				respuesta:
-					'Because without a law any form is possible, and then none is necessary. Chess already had an origin: the square. If the board is born from it, the pieces had to be born from it too. The triangle and the sphere complete the language.',
+				parrafos: [
+					'Jorge Maestro dreams of creating the six chess pieces with geometry as the only law.',
+					'It all begins with the square. The origin of the game. The only form that survives the passing of the centuries.',
+					'He gives them life; movement.',
+				],
 			},
+			{ destacado: ['To say the most', 'with the least.'] },
 			{
-				pregunta:
-					'Your work has been placed in the lineage of Brancusi and of Fröbel’s pedagogy, which shaped the eye of the avant-garde. Do you recognise that genealogy?',
-				respuesta:
-					'I did not seek it, but I recognise it. Brancusi did not sculpt the bird, but flight. Fröbel taught a generation to think with the cube and the sphere. For centuries chess has been a game of modules on a grid. I have simply carried the logic of the board into the pieces.',
+				parrafos: [
+					'Stone, wood and resin. Materials that demand sacrifices in form. Then, metal.',
+					'Six living sculptures are born: the pawn, the knight, the bishop, the rook, the queen and the king.',
+					'And with them, Vittoria Chess. His work. Where he explores form, material and perspective.',
+					'Vertical chess. A new way of seeing.',
+				],
 			},
-			{
-				pregunta: 'If the rule determines everything, where does that leave the author?',
-				respuesta:
-					'Perhaps in the human eye. Geometry gives the structure, but it does not define. During the creative process I would make three or four almost identical forms and study them for days until, somehow, I felt that one resonated more than the others. I believe that difference cannot be calculated. It is an almost spiritual dimension.',
-			},
-			{
-				pregunta: 'In chess, the pawn is the lesser piece. In your system it comes first.',
-				respuesta:
-					'It was the first I drew. And the first I resolved. It only advances, it never retreats. The others are born from its geometry. It seemed logical to me that the system should begin from the bottom.',
-			},
-			{
-				pregunta:
-					'You refused to alter the form to make it easier to manufacture. What has that intransigence cost?',
-				respuesta:
-					'More than twenty years. 3D printing, plastic and resin all failed, each in its own way. I gave up many times. But I believe a form that adapts to the process ends up losing its essence. Cast metal was the answer: and, at last, the right weight. Then, the hand. Each piece leaves the mould in the rough and is finished down to the sharp edge. No two are alike.',
-			},
-			{
-				pregunta: 'The vertical board leaves the table and takes to the wall. Is it still chess?',
-				respuesta:
-					'Yes, it can be played, but once it inhabits the vertical plane, like a painting, it seems to demand to be looked at. In honour of Luca de Tena and his ‘exaltation of the useless’.',
-			},
-			{
-				pregunta: 'What does Vittoria mean today?',
-				respuesta:
-					'At first it was about that battle that is won or lost. Today, twenty years on, I believe it means something deeper: that the work simply exists. What the world decides about it does not really belong to me.',
-			},
+			{ destacado: ['A game created', 'to be contemplated.'] },
 		],
-		frasesEntradilla: [1, 1, 1, 2, 1, 1, 1],
-		destacados: {
-			1: 'Brancusi did not sculpt the bird, but flight.',
-			4: 'A form that adapts to the process ends up losing its essence.',
-		},
 		trayectoria: {
 			titulo: 'EXHIBITIONS AND PRESS',
 			tipos: {

@@ -1,0 +1,209 @@
+---
+// Vista de Autor, en el idioma de la página — ver docs/definicion.md (Páginas: El autor).
+// Un texto breve sobre el autor y una foto (la trayectoria está oculta de momento); los textos están en src/i18n/
+// (autor). Composición sobre la retícula de la web: el texto corrido en la columna de
+// 434 px (24 / 32 px) y dos frases destacadas en grande (64 / 72 px) que salen a la izquierda,
+// a 96 px, y suben desde una máscara al entrar en pantalla. La foto (src/assets/autor/retrato)
+// va en la columna derecha, junto al primer bloque de texto. Móvil: todo en una columna.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Foto from '../components/Foto.astro';
+import LlamadaContacto from '../components/LlamadaContacto.astro';
+import { usar } from '../i18n';
+
+const { t } = usar(Astro);
+const { titulo, texto } = t.autor;
+
+// La foto acompaña al primer bloque de texto corrido.
+const conFoto = texto.findIndex((b) => 'parrafos' in b);
+---
+
+<Base title={`${titulo} — ${t.sufijoTitulo}`}>
+	<Nav actual="autor" />
+	<main>
+		<h1 class="solo-lectores">{titulo}</h1>
+		<div class="autor" data-autor>
+			{
+				texto.map((bloque, i) =>
+					'destacado' in bloque ? (
+						<p class="destacado" data-destacado>
+							{bloque.destacado.map((linea) => (
+								<span class="linea">
+									<span class="interior">{linea}</span>
+								</span>
+							))}
+						</p>
+					) : (
+						<div class="parrafos">
+							{i === conFoto && (
+								<div class="foto">
+									<Foto
+										nombre="autor/retrato"
+										alt={`[${t.pendiente}: ${t.home.autorFoto}]`}
+										proporcion={3 / 4}
+										sizes="(max-width: 809px) calc(100vw - 40px), (max-width: 1100px) 40vw, 20.833vw"
+									/>
+								</div>
+							)}
+							{bloque.parrafos.map((parrafo) => (
+								<p>{parrafo}</p>
+							))}
+						</div>
+					),
+				)
+			}
+		</div>
+		{/* Trayectoria: oculta de momento (05/10/2026). Para recuperarla, importar
+		    ../components/Trayectoria.astro y poner <Trayectoria /> aquí. */}
+		<LlamadaContacto />
+	</main>
+	<Footer actual="autor" />
+</Base>
+
+<script>
+	// Las frases destacadas suben desde su máscara al entrar en pantalla. Solo se esconden
+	// si este script arranca: sin JavaScript se ven directamente.
+	const autor = document.querySelector<HTMLElement>('[data-autor]');
+	const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (autor && !sinMovimiento && 'IntersectionObserver' in window) {
+		autor.classList.add('preparado');
+		const observador = new IntersectionObserver(
+			(entradas) => {
+				entradas.forEach((e) => {
+					if (e.isIntersecting) {
+						e.target.classList.add('visible');
+						observador.unobserve(e.target);
+					}
+				});
+			},
+			{ rootMargin: '0px 0px -15% 0px' },
+		);
+		autor.querySelectorAll('[data-destacado]').forEach((d) => observador.observe(d));
+	}
+</script>
+
+<style>
+	.autor {
+		padding-top: 201px;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	/* Texto corrido: columna a 434 px (30,139 vw), 572 px de ancho (39,722 vw). */
+	.parrafos {
+		width: 39.722vw;
+		margin-left: 30.139vw;
+		font-weight: var(--peso-regular);
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	/* Foto: 300 × 400 en la columna derecha (1044 → 1344 px), junto al primer bloque de
+	   texto y 64 px por debajo de su inicio: baja hasta el aire de la frase destacada. Se
+	   coloca respecto a su bloque (434 px): 1044 − 434 = 610. */
+	.parrafos {
+		position: relative;
+	}
+
+	.foto {
+		position: absolute;
+		top: 64px;
+		left: 42.361vw;
+		width: 20.833vw;
+	}
+
+	/* Una línea en blanco entre párrafos. */
+	.parrafos p + p {
+		margin-top: var(--respuesta-alto);
+	}
+
+	/* Frases destacadas: en grande, desde 96 px (6,667 vw), con aire alrededor. */
+	.destacado {
+		margin: 160px var(--margen) 160px 6.667vw;
+		font-weight: var(--peso-regular);
+		font-size: var(--destacado);
+		line-height: var(--destacado-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	/* La última cierra el texto: el aire de debajo lo pone la llamada a contacto. */
+	.destacado:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Máscara: deja aire abajo para no cortar las letras que bajan (g, p). */
+	.linea {
+		display: block;
+		overflow: hidden;
+		padding-bottom: 0.15em;
+		margin-bottom: -0.15em;
+	}
+
+	.interior {
+		display: block;
+		transition: transform 1.2s var(--ease);
+	}
+
+	.preparado .interior {
+		transform: translateY(110%);
+	}
+
+	.preparado .visible .interior {
+		transform: none;
+	}
+
+	.visible .linea:nth-child(2) .interior {
+		transition-delay: 80ms;
+	}
+
+	.visible .linea:nth-child(3) .interior {
+		transition-delay: 160ms;
+	}
+
+	@media (max-width: 1100px) {
+		/* Tabletas: la columna de texto se ensancha hasta el margen derecho de la retícula. */
+		.parrafos {
+			width: auto;
+			margin-right: 6.667vw;
+		}
+
+		/* La foto entra en la columna, tras su bloque de texto. */
+		.parrafos {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.foto {
+			position: static;
+			order: 1;
+			width: 40vw;
+			margin-top: 48px;
+		}
+	}
+
+	@media (max-width: 809px) {
+		.autor {
+			padding-top: 120px;
+		}
+
+		.parrafos {
+			margin: 0 var(--margen);
+		}
+
+		.foto {
+			width: auto;
+		}
+
+		.destacado {
+			margin: 96px var(--margen);
+		}
+
+		.destacado:last-child {
+			margin-bottom: 0;
+		}
+	}
+</style>
