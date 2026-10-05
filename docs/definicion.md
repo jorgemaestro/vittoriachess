@@ -63,7 +63,8 @@ Título principal para Google y lectores de pantalla (no visible): "Vittoria Che
    El cuadrado, el origen
    La geometría, la ley
    Seis piezas. Seis almas
-   Enlace VER PIEZAS (24 px, subrayado animado) a /piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
+   A la derecha, un cuadro (en prueba desde el 06/10/2026; antes solo estaban el texto y el enlace): imagen o vídeo cuadrado de 434 × 434 px, de 868 a 1302 px (termina a 138 px del borde derecho, como VER OBRAS y CONTACTAR), con su borde de arriba a la altura exacta de las mayúsculas de la primera línea del manifiesto (decidido el 06/10/2026; para ello el cuadro baja 0,18 del tamaño de letra, valor de Inter Tight que hay que revisar al cambiar de fuente; en la primera prueba compartían base). Es el vídeo public/video/video-piezas.mp4 si existe (sin sonido, en bucle); si no, la foto src/assets/home/piezas; y mientras no haya ninguna, provisionalmente, la foto del rey recortada. El cuadro también lleva a /piezas.
+   Enlace VER PIEZAS (24 px, subrayado animado, línea guía desde la derecha) a /piezas, 24 px bajo el cuadro y alineado con su lado derecho (antes, en la línea de "Seis piezas. Seis almas" y centrado entre el manifiesto y el margen). En móvil: manifiesto, cuadro a todo el ancho 40 px debajo y enlace a la izquierda, 24 px bajo el cuadro.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Al pulsar el vídeo se va a /obras (solo con ratón o dedo; para teclado y lectores de pantalla el enlace es VER OBRAS, sin duplicarlo). Debajo, solo el enlace VER OBRAS a /obras, a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
 6. Acceso a Autor (redefinido el 05/10/2026; antes "Acceso a Entrevista", con una pregunta y un fragmento de la entrevista): sin título; foto 512 × 683 a 96 px del borde izquierdo (src/assets/autor/home); a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, la firma (10 px, gris: "JORGE MAESTRO · ARQUITECTO Y ARTISTA") y, 24 px debajo, el enlace SABER MÁS (24 px, con línea guía desde la derecha), que lleva a /autor. Sin frase resumen (quitada el 05/10/2026: más sobrio). Móvil: foto a todo el ancho y texto debajo.
@@ -170,6 +171,7 @@ Decidido el 30/09/2026. Cada foto tiene carpeta y nombre fijos en src/assets/; b
 | --- | --- |
 | Obras | src/assets/obras/<identificador de la ficha>/01 (foto principal), 02, 03… (más fotos para su página) |
 | Las piezas | src/assets/piezas/peon, caballo, alfil, torre, reina, rey |
+| Home, cuadro junto al manifiesto (cuadrada) | src/assets/home/piezas |
 | El autor, acceso de la home | src/assets/autor/home |
 | El autor, foto de la página | src/assets/autor/retrato |
 

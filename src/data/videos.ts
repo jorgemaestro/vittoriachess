@@ -10,6 +10,12 @@ const BASE = '/video';
 const direccion = (archivo: string) =>
 	existsSync(`${CARPETA}/${archivo}`) ? `${BASE}/${archivo}` : undefined;
 
+/** Vídeo cuadrado del cuadro que acompaña al manifiesto de la home (opcional). */
+export const videoPiezas = () => ({
+	video: direccion('video-piezas.mp4'),
+	poster: direccion('video-piezas-poster.jpg'),
+});
+
 export const video = (nombre: 'principal' | 'obras') => ({
 	horizontal: direccion(`video-${nombre}-horizontal.mp4`),
 	vertical: direccion(`video-${nombre}-vertical.mp4`),

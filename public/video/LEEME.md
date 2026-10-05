@@ -7,5 +7,6 @@ pesan demasiado); al publicar la web irán a Cloudflare R2.
 | --- | --- | --- | --- |
 | Vídeo principal de la home | video-principal-horizontal.mp4 | video-principal-vertical.mp4 | video-principal-poster.jpg |
 | Vídeo de Obras de la home | video-obras-horizontal.mp4 | video-obras-vertical.mp4 | video-obras-poster.jpg |
+| Cuadro junto al manifiesto de la home (vídeo cuadrado) | video-piezas.mp4 | (el mismo) | video-piezas-poster.jpg |
 
 Sin sonido, en bucle. Mientras falte el horizontal, se ve el bloque oscuro provisional.

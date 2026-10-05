@@ -1,14 +1,25 @@
 ---
 // Home · Manifiesto — ver docs/definicion.md (Páginas: Home, punto 3).
-// Tres líneas 10 vw bajo el vídeo, a la izquierda; VER PIEZAS centrado entre el final del
-// manifiesto y el margen derecho, en la línea de la tercera (debajo en móvil). Al entrar
+// Tres líneas 10 vw bajo el vídeo, a la izquierda. A la derecha, un cuadro de 434 × 434 px
+// (vídeo o foto cuadrada) alineado por arriba con el manifiesto, y debajo VER PIEZAS,
+// alineado con el lado derecho del cuadro (en móvil, todo en una columna). Al entrar
 // en pantalla, cada línea sube desde una máscara. El texto solo se esconde si el script de
 // la animación arranca: sin JavaScript o si falla, se ve directamente.
 import EnlaceGuia from '../EnlaceGuia.astro';
+import Foto from '../Foto.astro';
+import { videoPiezas } from '../../data/videos';
 import { usar } from '../../i18n';
 
 const { t, r } = usar(Astro);
 const lineas = t.home.manifiesto;
+
+// El cuadro: el vídeo cuadrado si existe; si no, la foto home/piezas; y mientras no haya
+// ninguna de las dos, provisionalmente, la foto del rey recortada a cuadrado.
+const { video, poster } = videoPiezas();
+const hayFoto =
+	Object.keys(import.meta.glob('/src/assets/home/piezas.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}'))
+		.length > 0;
+const foto = hayFoto ? 'home/piezas' : 'piezas/rey';
 ---
 
 <section class="manifiesto">
@@ -21,7 +32,27 @@ const lineas = t.home.manifiesto;
 			))
 		}
 	</p>
-	<p class="ver"><EnlaceGuia href={r.piezas} lado="derecha">{t.home.verPiezas}</EnlaceGuia></p>
+	<div class="lado">
+		<!-- El cuadro también lleva a Piezas, solo con ratón o dedo: para teclado y lectores
+		     de pantalla el enlace es VER PIEZAS (así no se repite). -->
+		<a class="cuadro" href={r.piezas} tabindex="-1" aria-hidden="true">
+			{
+				video ? (
+					<video autoplay muted loop playsinline preload="metadata" poster={poster} data-video>
+						<source src={video} type="video/mp4" />
+					</video>
+				) : (
+					<Foto
+						nombre={foto}
+						alt=""
+						proporcion={1}
+						sizes="(max-width: 809px) calc(100vw - 40px), 30.139vw"
+					/>
+				)
+			}
+		</a>
+		<p class="ver"><EnlaceGuia href={r.piezas} lado="derecha">{t.home.verPiezas}</EnlaceGuia></p>
+	</div>
 </section>
 
 <script>
@@ -44,11 +75,38 @@ const lineas = t.home.manifiesto;
 </script>
 
 <style>
+	/* El cuadro y el manifiesto empiezan a la misma altura. VER PIEZAS cuelga bajo el cuadro,
+	   fuera del flujo; el hueco de debajo lo reserva la sección. */
 	.manifiesto {
 		display: flex;
 		justify-content: space-between;
-		align-items: last baseline;
-		padding: 10vw var(--margen) 0;
+		align-items: flex-start;
+		padding: 10vw calc(var(--margen) + 8.194vw) calc(24px + var(--nav-central-alto)) var(--margen);
+	}
+
+	/* 434 × 434 px (30,139 vw), de 868 a 1302 px: termina a 138 px del borde, como VER OBRAS. */
+	.lado {
+		position: relative;
+		flex: none;
+		width: 30.139vw;
+		/* Baja lo que mide el aire sobre las mayúsculas de la primera línea (0,18 del tamaño
+		   de letra con Inter Tight; revisar al cambiar de fuente): el borde de arriba del cuadro
+		   queda a la altura exacta de las letras. */
+		margin-top: calc(var(--manifiesto) * 0.18);
+	}
+
+	.cuadro {
+		display: block;
+		aspect-ratio: 1;
+		overflow: hidden;
+		background: var(--color-provisional);
+	}
+
+	.cuadro video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.texto {
@@ -88,11 +146,12 @@ const lineas = t.home.manifiesto;
 		transition-delay: 160ms;
 	}
 
-	/* Ocupa el hueco entre el final del manifiesto y el margen derecho y se centra en él. */
+	/* 24 px bajo el cuadro, alineado con su lado derecho. */
 	.ver {
-		flex: 1;
+		position: absolute;
+		top: calc(100% + 24px);
+		right: 0;
 		margin: 0;
-		text-align: center;
 		font-size: var(--nav-central);
 		line-height: var(--nav-central-alto);
 		white-space: nowrap;
@@ -101,12 +160,18 @@ const lineas = t.home.manifiesto;
 	@media (max-width: 809px) {
 		.manifiesto {
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: stretch;
+			padding: 10vw var(--margen) 0;
+		}
+
+		.lado {
+			width: auto;
+			margin-top: 40px;
 		}
 
 		.ver {
-			margin: 40px 0 0;
-			text-align: left;
+			position: static;
+			margin: 24px 0 0;
 		}
 	}
 </style>

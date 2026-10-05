@@ -8,6 +8,7 @@ gris. Detalle completo en docs/definicion.md ("Fotos y vídeos: nombres de archi
 | --- | --- | --- |
 | Obras: una carpeta por obra, con el nombre de su ficha | obras/obra-01/ … | 01 (foto principal), 02, 03 … |
 | Las piezas | piezas/ | peon, caballo, alfil, torre, reina, rey |
+| Home, cuadro junto al manifiesto (foto cuadrada) | home/ | piezas |
 | El autor, acceso de la home | autor/ | home |
 | El autor, foto de la página | autor/ | retrato |
 
