@@ -21,7 +21,11 @@ const vw = (px: number) => `${((px / 1440) * 100).toFixed(3)}vw`;
 const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 ---
 
-<Base title={`${t.obras.titulo} — ${t.sufijoTitulo}`}>
+<Base
+	title={t.seo.obras.titulo}
+	description={t.seo.obras.descripcion}
+	imagen={obras.find((o) => o.conFotos)?.fotos[0]}
+>
 	<Nav actual="obras" />
 	<main>
 		<h1 class="solo-lectores">{t.obras.titulo}</h1>

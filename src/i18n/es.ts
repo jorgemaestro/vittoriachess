@@ -8,6 +8,40 @@ const correo = `<a href="mailto:${titular.email}">${titular.email}</a>`;
 const es = {
 	sufijoTitulo: 'Vittoria Chess',
 
+	// Lo que leen Google y las redes de cada página (ver docs/seo.md). Títulos de unos 60
+	// caracteres y descripciones de unos 155, con las búsquedas que interesan.
+	seo: {
+		// Foto para compartir cuando la página no tiene una propia (src/assets/…).
+		imagen: 'piezas/rey',
+		profesion: 'Arquitecto y artista',
+		legal: (titulo: string) => `${titulo} de la web de Vittoria Chess.`,
+		inicio: {
+			titulo: 'Vittoria Chess — Ajedrez escultórico de autor',
+			descripcion:
+				'Ajedrez de diseño y de autor, del arquitecto y artista Jorge Maestro. Seis piezas nacidas de la geometría, trabajadas a mano en metal, y el ajedrez vertical.',
+		},
+		obras: {
+			titulo: 'Obras: ajedrez de lujo y piezas únicas — Vittoria Chess',
+			descripcion:
+				'Tableros y juegos de ajedrez de diseño: piezas únicas, ediciones y proyectos por encargo. Metal, mármol y madera, trabajados a mano.',
+		},
+		piezas: {
+			titulo: 'Piezas: seis esculturas de ajedrez — Vittoria Chess',
+			descripcion:
+				'Peón, caballo, alfil, torre, reina y rey: seis esculturas nacidas del cuadrado, con la geometría como única ley. Metal fundido y pulido a mano.',
+		},
+		autor: {
+			titulo: 'Jorge Maestro, arquitecto y artista — Vittoria Chess',
+			descripcion:
+				'Jorge Maestro, arquitecto y artista, autor de Vittoria Chess: seis piezas de ajedrez regidas por la geometría y el ajedrez vertical, creado para ser contemplado.',
+		},
+		contacto: {
+			titulo: 'Contacto — Vittoria Chess',
+			descripcion:
+				'Consultas sobre obras, disponibilidad, proyectos por encargo y colaboraciones. Cada solicitud se atiende de forma individual.',
+		},
+	},
+
 	nav: {
 		obras: 'OBRAS',
 		piezas: 'PIEZAS',

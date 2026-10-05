@@ -52,6 +52,10 @@ export interface Obra {
 	detalles: string[];
 	/** Fotos (carpeta y nombre sin extensión); la primera es la principal. */
 	fotos: string[];
+	/** true si la obra tiene alguna foto en su carpeta. */
+	conFotos: boolean;
+	/** Qué datos vienen de la ficha (true) y cuáles son un marcador [PENDIENTE] (false). */
+	completa: Record<'nombre' | 'tipo' | 'medidas' | 'anio' | 'descripcion', boolean>;
 }
 
 /** Identificadores de todas las obras, para generar sus páginas. */
@@ -79,6 +83,14 @@ export async function cargarObras(idioma: Idioma, sinDatos: SinDatos): Promise<O
 				.map((p) => p.trim())
 				.filter(Boolean),
 			detalles: (textos?.detalles ?? '').split(/\n+/).filter(Boolean),
+			conFotos: Boolean(fotosPorObra[ficha.id]),
+			completa: {
+				nombre: Boolean(textos?.nombre?.trim()),
+				tipo: Boolean(textos?.tipo?.trim()),
+				medidas: Boolean(ficha.data.medidas?.trim()),
+				anio: Boolean(ficha.data.anio?.trim()),
+				descripcion: Boolean(textos?.descripcion?.trim()),
+			},
 			// Sin fotos todavía: tres cajas grises con los nombres que se esperan.
 			fotos:
 				fotosPorObra[ficha.id] ?? ['01', '02', '03'].map((n) => `obras/${ficha.id}/${n}`),

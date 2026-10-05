@@ -10,6 +10,37 @@ const domicilio = titular.domicilio.replace('España', 'Spain');
 const en: Textos = {
 	sufijoTitulo: 'Vittoria Chess',
 
+	seo: {
+		imagen: 'piezas/rey',
+		profesion: 'Architect and artist',
+		legal: (titulo: string) => `${titulo} of the Vittoria Chess website.`,
+		inicio: {
+			titulo: 'Vittoria Chess — Sculptural chess, reimagined as art',
+			descripcion:
+				'Luxury sculptural chess sets by architect and artist Jorge Maestro. Six pieces born from pure geometry, hand-finished in metal, and the vertical chess set.',
+		},
+		obras: {
+			titulo: 'Works: luxury chess sets and unique pieces — Vittoria Chess',
+			descripcion:
+				'Designer chess sets and boards: unique pieces, editions and commissions. Metal, marble and wood, finished by hand.',
+		},
+		piezas: {
+			titulo: 'Pieces: six chess sculptures — Vittoria Chess',
+			descripcion:
+				'Pawn, knight, bishop, rook, queen and king: six sculptures born from the square, with geometry as the only law. Cast metal, polished by hand.',
+		},
+		autor: {
+			titulo: 'Jorge Maestro, architect and artist — Vittoria Chess',
+			descripcion:
+				'Jorge Maestro, architect and artist, is the author of Vittoria Chess: six chess pieces ruled by geometry, and vertical chess, a game created to be contemplated.',
+		},
+		contacto: {
+			titulo: 'Contact — Vittoria Chess',
+			descripcion:
+				'Enquiries about works, availability, commissions and collaborations. Each request is answered individually.',
+		},
+	},
+
 	nav: {
 		obras: 'WORKS',
 		piezas: 'PIECES',
@@ -95,7 +126,7 @@ const en: Textos = {
 			{ destacado: ['To say the most', 'with the least.'] },
 			{
 				parrafos: [
-					'Stone, wood and resin. Materials that demand sacrifices in form. Then, metal.',
+					'Stone, wood and resin. Materials that demand sacrifices in form. Then, metal appeared.',
 					'Six living sculptures are born: the pawn, the knight, the bishop, the rook, the queen and the king.',
 					'And with them, Vittoria Chess. His work. Where he explores form, material and perspective.',
 					'Vertical chess. A new way of seeing.',

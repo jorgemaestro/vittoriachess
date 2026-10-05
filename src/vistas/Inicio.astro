@@ -9,16 +9,17 @@ import Obras from '../components/home/Obras.astro';
 import Autor from '../components/home/Autor.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
 import { video } from '../data/videos';
+import { deLaMarca } from '../data/estructurados';
 import { usar } from '../i18n';
 
-const { t } = usar(Astro);
+const { t, r } = usar(Astro);
 
 // Vídeos de la home: por nombre de archivo (src/data/videos.ts). Sin archivo = bloque provisional.
 const videoPrincipal = video('principal');
 const videoObras = video('obras');
 ---
 
-<Base>
+<Base datos={deLaMarca(t.seo.inicio.descripcion, t.seo.profesion, r.autor)}>
 	<Carga />
 	<Nav claro />
 	<main>

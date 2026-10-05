@@ -2,7 +2,8 @@
 // Cursor — ver docs/definicion.md (Componentes: Cursor).
 // Cuadrado de 16 px en negativo (mix-blend-mode: difference) que sigue al ratón con
 // suavizado 0,25; sobre enlaces y botones crece a 28 px con un golpe. Solo con ratón y
-// JavaScript: en pantallas táctiles o sin JS el visitante conserva su cursor de siempre.
+// JavaScript: en pantallas táctiles (mientras no se mueva un ratón) o sin JS, el visitante
+// conserva su cursor de siempre.
 ---
 
 <div class="cursor" aria-hidden="true" data-cursor><span class="cuadro"></span></div>
@@ -11,7 +12,10 @@
 	const cursor = document.querySelector<HTMLElement>('[data-cursor]');
 	const conRaton = matchMedia('(hover: hover) and (pointer: fine)');
 
-	if (cursor && conRaton.matches) {
+	// Se activa una sola vez: al cargar si el dispositivo tiene ratón, o en cuanto se mueve
+	// uno (portátiles táctiles, o la vista de móvil de un navegador de escritorio).
+	const activar = () => {
+		if (!cursor || document.documentElement.classList.contains('cursor-propio')) return;
 		const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)');
 		const SUAVIZADO = 0.25;
 		const destino = { x: 0, y: 0 };
@@ -67,6 +71,17 @@
 				!!objetivo.closest('input, textarea, select, [contenteditable="true"]'),
 			);
 		});
+	};
+
+	if (conRaton.matches) {
+		activar();
+	} else {
+		const alMoverRaton = (e: PointerEvent) => {
+			if (e.pointerType !== 'mouse') return;
+			document.removeEventListener('pointermove', alMoverRaton);
+			activar();
+		};
+		document.addEventListener('pointermove', alMoverRaton);
 	}
 </script>
 

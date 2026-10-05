@@ -37,7 +37,7 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Enlace con línea guía** (decidido el 30/09/2026). Para que se note que hay un enlace: una línea de 1 px, a la altura de su subrayado, va desde un borde de la pantalla hasta 16 px antes del enlace. Al entrar en pantalla hace un ciclo completo (decidido el 30/09/2026): crece desde el borde hasta el enlace (1,2 s, var(--ease)), se detiene un instante (0,25 s) y desaparece empezando por su origen, como el subrayado de la barra al salir: el extremo del borde avanza hacia el enlace hasta que la línea se pierde en él, con una aceleración y frenada suaves (1,2 s). Ocurre una sola vez. Lado: VER PIEZAS desde la derecha, VER OBRAS desde la izquierda, LEER ENTREVISTA desde la derecha, CONTACTAR desde la izquierda. En móvil (enlaces a la izquierda) siempre desde la derecha. Sin JavaScript o con movimiento reducido no hay línea (es decoración).
 
-**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Se pinta en negativo sobre lo que tiene debajo (mix-blend-mode: difference, como el cursor; decidido el 02/10/2026): sobre el fondo claro se ve en el color de tinta, y sobre una foto o zona oscura se aclara sola, de modo que nunca se pierde. Para ello usa el color --color-negativo (#D9D9D9, que sobre el fondo #F5F5F5 da exactamente la tinta #1C1C1C). Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto. Nombres de la barra (simplificados el 05/10/2026): OBRAS · PIEZAS · AUTOR · CONTACTO; en inglés, WORKS · PIECES · AUTHOR · CONTACT. Antes LAS PIEZAS y EL AUTOR (y, antes, ESTUDIO). Las direcciones no cambian (/las-piezas, /el-autor).
+**Barra de navegación.** Fija a 20 px de arriba, izquierda y derecha, sin fondo. Se pinta en negativo sobre lo que tiene debajo (mix-blend-mode: difference, como el cursor; decidido el 02/10/2026): sobre el fondo claro se ve en el color de tinta, y sobre una foto o zona oscura se aclara sola, de modo que nunca se pierde. Para ello usa el color --color-negativo (#D9D9D9, que sobre el fondo #F5F5F5 da exactamente la tinta #1C1C1C). Tres bloques en fila (space-between): logotipo · OBRAS · LAS PIEZAS · ESTUDIO · CONTACTO (separados por " · ", decidido el 30/09/2026; antes ", ") · ES / EN. Se oculta al bajar (sube su altura más el margen, unos 64 px con la firma, en 0,6 s) y reaparece al subir. Variante clara (blanco) mientras está sobre el vídeo de la home; oscura en el resto. Nombres de la barra (simplificados el 05/10/2026): OBRAS · PIEZAS · AUTOR · CONTACTO; en inglés, WORKS · PIECES · AUTHOR · CONTACT. Antes LAS PIEZAS y EL AUTOR (y, antes, ESTUDIO). Las direcciones se igualaron a la barra ese mismo día: /piezas y /autor (/en/pieces, /en/author).
 
 **Icono de menú (menos de 810 px).** Dos líneas de 24 px y 1 px de grosor, separadas 7 px, en un área táctil de 40 × 40 px. Al abrir, las líneas se juntan en el centro y después giran ±45° hasta formar una cruz, en dos tiempos encadenados. Al cerrar, el movimiento inverso.
 
@@ -45,13 +45,13 @@ Todo el texto de interfaz en mayúsculas escritas así, espaciado normal.
 
 **Pie.** Dos líneas sin fondo. Línea 1: igual que la barra. Línea 2 (10 / 17 px), 32 px debajo y a 20 px del borde inferior: ©AÑO VITTORIA CHESS (el año en curso, se actualiza solo) · EMAIL · INSTAGRAM · AVISO LEGAL · PRIVACIDAD · COOKIES. 120 px de aire antes del pie. En móvil, la línea 1 queda en el logotipo y la 2 se apila en tres filas: ©AÑO VITTORIA CHESS / EMAIL · INSTAGRAM / AVISO LEGAL · PRIVACIDAD · COOKIES. EMAIL abre el correo a jorge@vittoriachess.com; INSTAGRAM lleva a @vittoria_chess (instagram.com/vittoria_chess) en una pestaña nueva.
 
-**Cursor.** Cuadrado blanco de 16 × 16 px, sin bordes, mix-blend-mode: difference (muestra el negativo de lo que tiene detrás). Sigue al ratón con suavizado (factor 0,25). Sobre enlaces y botones crece a 28 × 28 px en 0,25 s con un golpe: se pasa hasta unos 31 px y se asienta (curva propia --ease-golpe, única excepción a la curva común); al salir vuelve a 16 px en 0,2 s sin rebote (decidido el 02/10/2026; antes 24 px en 0,4 s). Cursor de texto normal dentro de campos de formulario. Oculto en dispositivos táctiles, sin JavaScript y fuera de la ventana; con movimiento reducido sigue al ratón sin suavizado.
+**Cursor.** Cuadrado blanco de 16 × 16 px, sin bordes, mix-blend-mode: difference (muestra el negativo de lo que tiene detrás). Sigue al ratón con suavizado (factor 0,25). Sobre enlaces y botones crece a 28 × 28 px en 0,25 s con un golpe: se pasa hasta unos 31 px y se asienta (curva propia --ease-golpe, única excepción a la curva común); al salir vuelve a 16 px en 0,2 s sin rebote (decidido el 02/10/2026; antes 24 px en 0,4 s). Cursor de texto normal dentro de campos de formulario. Oculto en dispositivos táctiles, sin JavaScript y fuera de la ventana; con movimiento reducido sigue al ratón sin suavizado. Se activa al cargar si el dispositivo tiene ratón, o en cuanto se mueve uno (vista de móvil en un ordenador, portátiles táctiles): así nunca conviven el cuadrado y la mano del sistema (ajustado el 05/10/2026; el icono de menú ya no fuerza la mano).
 
 **Pantalla de carga.** Solo al entrar por la home. Fondo negro, logotipo en blanco centrado, visible 1,5 s y fundido de 0,8 s. Un clic la salta. Sin bloquear clics mientras se desvanece.
 
 ## Páginas
 
-Direcciones (decididas el 30/09/2026): / · /obras · /las-piezas · /el-autor · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, bajo /en/ y traducidas (ver Idiomas).
+Direcciones (decididas el 30/09/2026): / · /obras · /piezas · /autor · /contacto · /aviso-legal · /privacidad · /cookies. En inglés, bajo /en/ y traducidas (ver Idiomas).
 
 ### Home (de arriba abajo)
 
@@ -63,10 +63,10 @@ Título principal para Google y lectores de pantalla (no visible): "Vittoria Che
    El cuadrado, el origen
    La geometría, la ley
    Seis piezas. Seis almas
-   Enlace VER PIEZAS (24 px, subrayado animado) a /las-piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
+   Enlace VER PIEZAS (24 px, subrayado animado) a /piezas, en la línea de "Seis piezas. Seis almas" y alineado con su base, centrado entre el final del manifiesto y el margen derecho (decidido el 30/09/2026; antes terminaba a 138 px del borde). En móvil, debajo, a la izquierda y a 40 px.
 4. [APLAZADO el 30/09/2026: de momento la home pasa del manifiesto a Obras] Acceso a Las piezas: seis imágenes 3:4 en una fila (20 px entre ellas), palabra debajo a 14 px (PEÓN, CABALLO, ALFIL, TORRE, REINA, REY), y VER LAS PIEZAS. Móvil: 2 columnas.
 5. Acceso a Obras (redefinido el 30/09/2026): un segundo vídeo igual que el del punto 2 (pantalla completa, sin texto ni sonido, bucle, barra en claro encima), sin título. Al pulsar el vídeo se va a /obras (solo con ratón o dedo; para teclado y lectores de pantalla el enlace es VER OBRAS, sin duplicarlo). Debajo, solo el enlace VER OBRAS a /obras, a la derecha, terminando a 138 px del borde, 40 px bajo el vídeo (en móvil, a la izquierda). Mientras no haya vídeo: bloque provisional oscuro con [PENDIENTE: VÍDEO OBRAS]. (Antes: título OBRAS y las tres primeras obras en zigzag.)
-6. Acceso a Autor (redefinido el 05/10/2026; antes "Acceso a Entrevista", con una pregunta y un fragmento de la entrevista): sin título; foto 512 × 683 a 96 px del borde izquierdo (src/assets/autor/home); a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, la firma (10 px, gris: "JORGE MAESTRO · ARQUITECTO Y ARTISTA") y, 24 px debajo, el enlace SABER MÁS (24 px, con línea guía desde la derecha), que lleva a /el-autor. Sin frase resumen (quitada el 05/10/2026: más sobrio). Móvil: foto a todo el ancho y texto debajo.
+6. Acceso a Autor (redefinido el 05/10/2026; antes "Acceso a Entrevista", con una pregunta y un fragmento de la entrevista): sin título; foto 512 × 683 a 96 px del borde izquierdo (src/assets/autor/home); a la derecha, en la columna de 744 px y alineados con la parte de arriba de la foto, la firma (10 px, gris: "JORGE MAESTRO · ARQUITECTO Y ARTISTA") y, 24 px debajo, el enlace SABER MÁS (24 px, con línea guía desde la derecha), que lleva a /autor. Sin frase resumen (quitada el 05/10/2026: más sobrio). Móvil: foto a todo el ancho y texto debajo.
 7. Llamada a contacto (definida el 30/09/2026): texto "Información sobre obras, ediciones y proyectos por encargo." (40 / 48 px, peso 400, -0,02 em, tal cual en minúscula, en dos líneas equilibradas; móvil 28 / 34 px) y debajo, a 24 px, el enlace CONTACTAR a /contacto. Alineados a la derecha con VER OBRAS (terminan a 138 px del borde). Móvil: a la izquierda. Animación (decidida el 30/09/2026): la frase, partida en sus dos líneas ("Información sobre obras, ediciones" / "y proyectos por encargo."), sube línea a línea desde una máscara como el manifiesto (1,2 s, 80 ms entre líneas), y después CONTACTAR. CONTACTAR lleva línea guía desde la izquierda (ver Enlace con línea guía). Sin JavaScript o con movimiento reducido: todo visible. Es la misma llamada en home, Obras, Las piezas y Estudio.
 8. Pie.
 
@@ -115,7 +115,7 @@ Solo se llega desde PIEZAS (barra) y VER PIEZAS (home); no lleva manifiesto (dec
 
 ### El autor
 
-Antes "Estudio" y, antes, "Entrevista" (renombrada el 05/10/2026). En la barra, AUTOR (en inglés, AUTHOR). Dirección /el-autor (/en/the-author). Sustituye a la entrevista de siete preguntas por un texto breve (recibido el 05/10/2026 en primera persona y pasado ese mismo día a tercera persona, singular y presente), seguido de la llamada a contacto. La trayectoria queda oculta de momento (ver más abajo). Una foto (retrato o estudio).
+Antes "Estudio" y, antes, "Entrevista" (renombrada el 05/10/2026). En la barra, AUTOR (en inglés, AUTHOR). Dirección /autor (/en/author). Sustituye a la entrevista de siete preguntas por un texto breve (recibido el 05/10/2026 en primera persona y pasado ese mismo día a tercera persona, singular y presente), seguido de la llamada a contacto. La trayectoria queda oculta de momento (ver más abajo). Una foto (retrato o estudio).
 
 Texto, en minúscula (mayúscula solo inicial), en src/i18n/ (autor):
 - "Jorge Maestro sueña con crear las seis piezas del ajedrez con la geometría como única ley." (el texto empieza por el nombre; la línea de firma "Jorge Maestro · Arquitecto y artista" se quitó el 05/10/2026)
@@ -187,8 +187,8 @@ ES por defecto, en la raíz; EN bajo /en/. Decidido el 02/10/2026:
 | Home | / | /en/ |
 | Obras | /obras | /en/works |
 | Página de obra | /obras/<obra> | /en/works/<obra> |
-| Las piezas | /las-piezas | /en/the-pieces |
-| El autor | /el-autor | /en/the-author |
+| Piezas | /piezas | /en/pieces |
+| Autor | /autor | /en/author |
 | Contacto | /contacto | /en/contact |
 | Aviso legal | /aviso-legal | /en/legal-notice |
 | Privacidad | /privacidad | /en/privacy |
@@ -201,3 +201,12 @@ ES por defecto, en la raíz; EN bajo /en/. Decidido el 02/10/2026:
 ## Pendientes de contenido
 
 Email del formulario · entradas de la trayectoria anteriores a 2025, si las hay · logotipo en SVG · fotos y vídeo definitivos.
+
+## SEO y cabecera de las páginas
+
+Decidido el 05/10/2026 (Fase 9). El detalle, las búsquedas elegidas y las direcciones antiguas de Wix están en docs/seo.md.
+- Dirección definitiva: https://www.vittoriachess.com, con www (es la que Google tiene indexada desde Wix). Direcciones sin barra final (/obras), y cada página se genera como archivo suelto (obras.html).
+- Cada página lleva: título (unos 60 caracteres) y descripción (unos 155) propios, en los dos idiomas (src/i18n/, seo); dirección canónica; la misma página en español, en inglés y por defecto (x-default: inglés, porque el mercado prioritario es el internacional); y las etiquetas para compartir en redes con una imagen de 1200 × 630 (la foto principal en las obras; la del rey en el resto, provisional).
+- Obras: título "Nombre — Tipo | Vittoria Chess" y, como descripción, el inicio de la suya. Una obra sin nombre en su ficha no se indexa ni sale en el mapa del sitio.
+- Datos estructurados (schema.org, src/data/estructurados.ts): la marca y la web en la home, el autor en Autor, y cada obra como obra de arte (VisualArtwork) con su autor, tipo, año, medidas y descripción, más su ruta de navegación. Solo se declaran datos reales, nunca un [PENDIENTE].
+- Mapa del sitio (sitemap-index.xml, generado con @astrojs/sitemap) y robots.txt. Fuera de Google: /sistema y la página no encontrada.

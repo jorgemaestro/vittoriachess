@@ -21,7 +21,7 @@ const textos = { avisoLegal: t.legal.aviso, privacidad: t.legal.privacidad, cook
 const titulo = textos.titulo.charAt(0) + textos.titulo.slice(1).toLowerCase();
 ---
 
-<Base title={`${titulo} — ${t.sufijoTitulo}`}>
+<Base title={`${titulo} — ${t.sufijoTitulo}`} description={t.seo.legal(titulo)}>
 	<Nav />
 	<main class="legal">
 		<h1 class="titulo">{textos.titulo}</h1>

@@ -58,11 +58,13 @@ Conexión con Web3Forms (plan gratuito; sustituye a Formspree, decidido el 02/10
 
 ## Fase 8 — Inglés
 
-Rutas /en/... con direcciones traducidas (/en/works, /en/the-pieces, /en/studio, /en/contact…), selector ES / EN que lleva a la misma página en el otro idioma. Los textos en inglés los redacta Claude a mano, con cuidado, y los aprueba Jorge (decidido el 02/10/2026); nunca con un traductor automático.
+Rutas /en/... con direcciones traducidas (/en/works, /en/pieces, /en/author, /en/contact…), selector ES / EN que lleva a la misma página en el otro idioma. Los textos en inglés los redacta Claude a mano, con cuidado, y los aprueba Jorge (decidido el 02/10/2026); nunca con un traductor automático.
 
 ## Fase 9 — Pulido técnico
 
-Títulos y descripciones para Google, imagen para redes, mapa del sitio, accesibilidad, velocidad.
+Títulos y descripciones para Google, imagen para redes, mapa del sitio, accesibilidad, velocidad. Plan completo de SEO en docs/seo.md.
+
+Hecho el 05/10/2026: direcciones definitivas, títulos y descripciones, canónicas, idiomas enlazados, etiquetas para redes, datos estructurados, mapa del sitio y robots.txt. Pendiente: velocidad (vídeo, fuentes), accesibilidad, iconos, imagen propia para compartir y medición.
 
 ## Fase 10 — Publicación en dirección provisional
 

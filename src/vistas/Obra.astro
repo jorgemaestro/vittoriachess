@@ -12,6 +12,7 @@ import Foto from '../components/Foto.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
 import { cargarObras } from '../data/obras';
+import { deLaObra } from '../data/estructurados';
 import { usar } from '../i18n';
 
 interface Props {
@@ -27,6 +28,26 @@ const siguiente = obras[(i + 1) % obras.length];
 const datos = obra; // textos de su ficha (src/content/obras/), en el idioma de la página
 const fotos = obra.fotos; // las de su carpeta; sin ninguna todavía, tres cajas grises
 
+// Para Google y redes: título con el nombre y el tipo, y el inicio de la descripción
+// (hasta unos 155 caracteres, sin cortar palabras). Una obra sin nombre no se indexa.
+const direccion = `${r.obras}/${obra.slug}`;
+const resumen = obra.descripcion.join(' ');
+const descripcionSeo = !obra.completa.descripcion
+	? t.seo.obras.descripcion
+	: resumen.length <= 155
+		? resumen
+		: `${resumen.slice(0, 155).replace(/\s+\S*$/, '')}…`;
+const tituloSeo = obra.completa.tipo
+	? `${obra.nombre} — ${obra.tipo} | ${t.sufijoTitulo}`
+	: `${obra.nombre} — ${t.obras.titulo} — ${t.sufijoTitulo}`;
+const datosSeo = deLaObra(
+	obra,
+	obra.completa,
+	{ profesion: t.seo.profesion, obras: t.obras.titulo },
+	{ obra: direccion, obras: r.obras, autor: r.autor },
+	idioma,
+);
+
 const ficha = [
 	[t.obras.ficha.tipo, datos.tipo],
 	[t.obras.ficha.medidas, datos.medidas],
@@ -35,7 +56,13 @@ const ficha = [
 ];
 ---
 
-<Base title={`${datos.nombre} — ${t.obras.titulo} — ${t.sufijoTitulo}`}>
+<Base
+	title={tituloSeo}
+	description={descripcionSeo}
+	imagen={obra.conFotos ? obra.fotos[0] : undefined}
+	datos={datosSeo}
+	noindex={!obra.completa.nombre}
+>
 	<Nav actual="obras" />
 	<main>
 		<article class="obra">

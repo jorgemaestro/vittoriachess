@@ -20,7 +20,7 @@ const alto = (ancho: number) => (ancho * 4) / 3;
 const fondo = Math.max(...piezas.map((p) => composicion[p].arriba + alto(composicion[p].ancho)));
 ---
 
-<Base title={`${t.piezas.titulo} — ${t.sufijoTitulo}`}>
+<Base title={t.seo.piezas.titulo} description={t.seo.piezas.descripcion} imagen="piezas/peon">
 	<Nav actual="piezas" />
 	<main>
 		<h1 class="solo-lectores">{t.piezas.titulo}</h1>
