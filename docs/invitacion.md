@@ -96,7 +96,7 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
 - Título «Mecenas», subtítulo «Nace Vittoria Chess, por Jorge Maestro». La galería no se nombra:
   «una galería muy especial en pleno Malasaña, entre obras del siglo XVII».
 - Portada: QUIERO PARTICIPAR (lleva a los pasos) y el regalo en bronce para aportaciones de más
-  de 500 €. Foto de portada panorámica (2000 × 775).
+  de 500 €. Foto de portada (src/assets/invitacion/portada.jpg, 1277 × 732), mostrada entera.
 - Carta reescrita por Jorge (objetivo «mínimo» de 8.000 €), terminada en «Muchas gracias».
 - Oculto «El comienzo de una nueva etapa»; su nota sobre invitados y medios pasa a las obras.
 - RESTANTE en lugar de PENDIENTE; «En qué se emplean los 8.000 €» pasa a las preguntas.
