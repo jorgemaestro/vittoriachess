@@ -5,12 +5,13 @@
 // (/obras/<slug>). Posiciones de la tabla pasadas a vw.
 // Pie de cada obra a 4 px, en una columna: nombre / tipo / medidas. Llamada a contacto
 // 240 px bajo la última obra. Móvil: una columna, 64 px entre obras.
-// Con ratón: fotos en blanco y negro que vuelven a su color al pasar por encima.
+// Fotos siempre en su color original.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { cargarObras } from '../data/obras';
 import { usar } from '../i18n';
 
@@ -54,6 +55,7 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 			}
 		</ul>
 		<LlamadaContacto />
+		<VolverInicio />
 	</main>
 	<Footer />
 </Base>
@@ -74,25 +76,6 @@ const fondo = Math.max(...obras.map((o) => o.arriba + o.alto));
 		left: var(--x);
 		top: var(--y);
 		width: var(--ancho);
-	}
-
-	/* Solo con ratón: en blanco y negro, y en color al pasar por la obra. En pantallas
-	   táctiles no hay "pasar por encima", así que se ven siempre en color. */
-	@media (hover: hover) and (pointer: fine) {
-		.obra :global(.foto) {
-			filter: grayscale(1);
-			transition: filter 0.6s var(--ease);
-		}
-
-		.obra:hover :global(.foto) {
-			filter: grayscale(0);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.obra :global(.foto) {
-			transition: none;
-		}
 	}
 
 	.enlace-obra {

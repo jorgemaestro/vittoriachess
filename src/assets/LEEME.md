@@ -10,6 +10,9 @@ gris. Detalle completo en docs/definicion.md ("Fotos y vídeos: nombres de archi
 | Las piezas | piezas/ | peon, caballo, alfil, torre, reina, rey |
 | Home, cuadro junto al manifiesto (foto cuadrada) | home/ | piezas |
 | El autor, acceso de la home | autor/ | home |
+| Obras antes de la exposición (16:9) | exposicion/ | obras |
+| Invitación privada, portada (16:9) | invitacion/ | portada |
+| Invitación privada, regalo en bronce (4:5) | invitacion/ | regalo |
 | El autor, foto de la página | autor/ | retrato |
 
 Ejemplo: la foto principal de la primera obra es `src/assets/obras/obra-01/01.jpg`.

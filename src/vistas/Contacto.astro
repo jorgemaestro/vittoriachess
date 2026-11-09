@@ -10,6 +10,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { cargarObras } from '../data/obras';
 import { titular, formulario } from '../data/titular';
 import { usar } from '../i18n';
@@ -19,7 +20,11 @@ const c = t.contacto;
 
 // Para empezar el mensaje con el nombre de la obra al llegar desde su página (?obra=slug).
 const obras = await cargarObras(idioma, t.obras.sinDatos);
-const consultas = Object.fromEntries(obras.map((o) => [o.slug, t.obras.mensajeConsulta(o.nombre)]));
+const consultas = {
+	...Object.fromEntries(obras.map((o) => [o.slug, t.obras.mensajeConsulta(o.nombre)])),
+	// Desde la pantalla de Obras antes de la exposición (?obra=exposicion).
+	exposicion: t.exposicion.mensaje,
+};
 
 const campos = [
 	{ id: 'nombre', etiqueta: c.campos.nombre, tipo: 'text', autocompletar: 'given-name', obligatorio: true },
@@ -95,6 +100,9 @@ const campos = [
 			<p class="volver"><EnlaceGuia href={r.inicio} lado="izquierda">{t.noEncontrada.volver}</EnlaceGuia></p>
 		</div>
 	</main>
+	<!-- Fuera de <main>, cuya columna es estrecha. Se oculta tras enviar: la pantalla de
+	     agradecimiento ya tiene su VOLVER AL INICIO. -->
+	<div data-volver-inicio><VolverInicio /></div>
 	<Footer actual="contacto" />
 </Base>
 
@@ -162,6 +170,7 @@ const campos = [
 				const resultado = await respuesta.json();
 				if (!respuesta.ok || !resultado.success) throw new Error(resultado.message);
 				recibido.parentElement?.classList.add('enviado');
+				document.querySelector<HTMLElement>('[data-volver-inicio]')?.setAttribute('hidden', '');
 				recibido.hidden = false;
 				scrollTo(0, 0);
 				// La línea guía de VOLVER se mide ahora que ya está en pantalla.

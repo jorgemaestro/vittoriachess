@@ -28,6 +28,8 @@ export default defineConfig({
 		sitemap({
 			filter: (pagina) =>
 				!/\/(sistema|404)\/?$/.test(pagina) &&
+				// La invitación privada nunca entra en el mapa del sitio.
+				!/\/(invitacion|invitation)\//.test(pagina) &&
 				!sinNombre.includes(new URL(pagina).pathname.replace(/\/$/, '')),
 		}),
 	],

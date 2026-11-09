@@ -1,0 +1,29 @@
+---
+// Volver al inicio — ver docs/definicion.md (Componentes: Volver al inicio).
+// Al final de cada página salvo la home: VOLVER AL INICIO a 24 px, terminando a 138 px del
+// borde derecho (como VER OBRAS y CONTACTAR), 120 px bajo lo anterior, con la línea guía
+// desde la derecha. En móvil, a la izquierda.
+import EnlaceGuia from './EnlaceGuia.astro';
+import { usar } from '../i18n';
+
+const { t, r } = usar(Astro);
+---
+
+<p class="volver-inicio"><EnlaceGuia href={r.inicio} lado="derecha">{t.volverInicio}</EnlaceGuia></p>
+
+<style>
+	.volver-inicio {
+		margin: 120px 0 0;
+		padding: 0 calc(var(--margen) + 8.194vw) 0 var(--margen);
+		text-align: right;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	@media (max-width: 809px) {
+		.volver-inicio {
+			margin-top: 80px;
+			text-align: left;
+		}
+	}
+</style>

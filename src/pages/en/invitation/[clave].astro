@@ -1,0 +1,12 @@
+---
+// Invitación privada (ver docs/invitacion.md). La dirección lleva una clave secreta que no está
+// en el repositorio: se lee de INVITACION_CLAVE. Sin clave, la página no se genera.
+import Vista from '../../../vistas/Invitacion.astro';
+import { claveInvitacion } from '../../../data/invitacion';
+
+export function getStaticPaths() {
+	return claveInvitacion ? [{ params: { clave: claveInvitacion } }] : [];
+}
+---
+
+<Vista />

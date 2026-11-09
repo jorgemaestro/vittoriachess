@@ -1,0 +1,277 @@
+---
+// Pantalla de Obras antes de la exposición — ver docs/definicion.md (Páginas: Obras, "Antes de
+// la exposición"). En tono oscuro, a pantalla completa: una imagen o vídeo de fondo (caja gris
+// mientras no estén) con un velo, y encima la frase
+// "Obra disponible tras la exposición", fechas y lugar, la cuenta atrás hasta la inauguración,
+// el evento del jueves (solo con invitación) y SOLICITAR INFORMACIÓN, que lleva a Contacto con
+// el mensaje empezado. Sin JavaScript, la cuenta atrás no se ve y queda la fecha escrita.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Foto from '../components/Foto.astro';
+import EnlaceGuia from '../components/EnlaceGuia.astro';
+import VolverInicio from '../components/VolverInicio.astro';
+import { exposicion } from '../data/exposicion';
+import { usar } from '../i18n';
+import { existsSync } from 'node:fs';
+
+const { t, r } = usar(Astro);
+const x = t.exposicion;
+// Vídeo opcional en public/video/; si no, la foto src/assets/exposicion/obras; si no, caja gris.
+const video = existsSync('public/video/video-exposicion.mp4') ? '/video/video-exposicion.mp4' : undefined;
+---
+
+<Base title={x.tituloSeo} description={x.descripcionSeo} tono="oscuro">
+	<Nav actual="obras" />
+	<main class="exposicion" data-estados={JSON.stringify({ abierta: x.abierta, terminada: x.terminada })}>
+		<section class="pantalla" data-nav-claro>
+		<div class="medio">
+			{
+				video ? (
+					<video autoplay muted loop playsinline preload="metadata" data-video>
+						<source src={video} type="video/mp4" />
+					</video>
+				) : (
+					<Foto
+						nombre="exposicion/obras"
+						alt={`[${t.pendiente}: ${x.imagen}]`}
+						proporcion={16 / 9}
+						sizes="100vw"
+					/>
+				)
+			}
+		</div>
+
+		<div class="texto">
+			<h1 class="palabra">{x.palabra}</h1>
+			<p class="frase">{x.frase}</p>
+			<p class="dato">{x.fechas}</p>
+			<p class="dato">{x.lugar}</p>
+
+			<div class="cuenta" data-cuenta data-inicio={exposicion.inicio} data-fin={exposicion.fin} hidden>
+				<p class="etiqueta">{x.faltan}</p>
+				<p class="cifras" aria-live="off">
+					{
+						x.unidades.map((unidad, i) => (
+							<span class="bloque">
+								<span class="numero" data-unidad={i}>00</span>
+								<span class="unidad">{unidad}</span>
+							</span>
+						))
+					}
+				</p>
+				<p class="estado" data-estado hidden></p>
+			</div>
+
+			<p class="evento">{x.evento}</p>
+
+			<p class="reservar">{x.reservar}</p>
+			<p class="accion">
+				<EnlaceGuia href={`${r.contacto}?obra=exposicion`} lado="derecha">{x.solicitar}</EnlaceGuia>
+			</p>
+		</div>
+		</section>
+		<VolverInicio />
+	</main>
+	<Footer actual="obras" />
+</Base>
+
+<script>
+	// Cuenta atrás hasta la inauguración. Durante la exposición y al terminar, una frase.
+	const cuenta = document.querySelector<HTMLElement>('[data-cuenta]');
+	if (cuenta) {
+		const inicio = Date.parse(cuenta.dataset.inicio ?? '');
+		const fin = Date.parse(cuenta.dataset.fin ?? '');
+		const numeros = [...cuenta.querySelectorAll<HTMLElement>('[data-unidad]')];
+		const cifras = cuenta.querySelector<HTMLElement>('.cifras');
+		const estado = cuenta.querySelector<HTMLElement>('[data-estado]');
+		const textos = JSON.parse(cuenta.closest('main')?.dataset.estados ?? '{}');
+		const dos = (n: number) => String(n).padStart(2, '0');
+
+		const pintar = () => {
+			const ahora = Date.now();
+			if (ahora >= inicio) {
+				cifras?.setAttribute('hidden', '');
+				cuenta.querySelector('.etiqueta')?.setAttribute('hidden', '');
+				if (estado) {
+					estado.textContent = ahora < fin ? textos.abierta : textos.terminada;
+					estado.hidden = false;
+				}
+				return false;
+			}
+			let s = Math.floor((inicio - ahora) / 1000);
+			const partes = [Math.floor(s / 86400), Math.floor((s %= 86400) / 3600), Math.floor((s %= 3600) / 60), s % 60];
+			partes.forEach((valor, i) => {
+				if (numeros[i]) numeros[i].textContent = dos(valor);
+			});
+			return true;
+		};
+
+		cuenta.hidden = false;
+		if (pintar()) {
+			const reloj = setInterval(() => {
+				if (!pintar()) clearInterval(reloj);
+			}, 1000);
+		}
+	}
+</script>
+
+<style>
+	/* Pantalla completa: la imagen o el vídeo de fondo y el texto encima, abajo. */
+	.pantalla {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		min-height: 100vh;
+		min-height: 100svh;
+		padding: 160px 0 96px;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+
+	p,
+	h1 {
+		margin: 0;
+	}
+
+	.medio {
+		position: absolute;
+		inset: 0;
+		background: var(--color-provisional);
+	}
+
+	/* La imagen o el vídeo llenan la pantalla, recortados al centro. */
+	.medio video,
+	.medio :global(.foto) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		aspect-ratio: auto !important;
+	}
+
+	/* Velo para que el texto se lea sobre cualquier imagen. */
+	.medio::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--color-velo);
+	}
+
+	/* Texto en la columna de 434 px, como Contacto. */
+	.texto {
+		position: relative;
+		width: 39.722vw;
+		margin: 0 0 0 30.139vw;
+	}
+
+	.palabra {
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.frase {
+		margin-top: 16px;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.dato {
+		color: var(--color-secundario);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.frase + .dato {
+		margin-top: 24px;
+	}
+
+	.cuenta {
+		margin-top: 56px;
+	}
+
+	.cuenta[hidden],
+	.cifras[hidden],
+	.estado[hidden],
+	.etiqueta[hidden] {
+		display: none;
+	}
+
+	.etiqueta,
+	.unidad {
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.cifras {
+		display: flex;
+		gap: 40px;
+		margin-top: 8px;
+	}
+
+	.bloque {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.numero {
+		font-weight: var(--peso-regular);
+		font-size: var(--destacado);
+		line-height: var(--destacado-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.estado {
+		margin-top: 8px;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+	}
+
+	.evento {
+		margin-top: 56px;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	/* Junto al CTA: las obras pueden reservarse antes de la exposición. */
+	.reservar {
+		margin-top: 40px;
+		color: var(--color-secundario);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.accion {
+		margin-top: 16px;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	@media (max-width: 1100px) {
+		.texto {
+			width: auto;
+			margin-right: 6.667vw;
+		}
+	}
+
+	@media (max-width: 809px) {
+		.pantalla {
+			padding: 120px 0 64px;
+		}
+
+		.texto {
+			margin: 0 var(--margen);
+		}
+
+		.cifras {
+			gap: 20px;
+		}
+	}
+</style>

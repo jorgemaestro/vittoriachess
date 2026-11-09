@@ -11,6 +11,7 @@ import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import Enlace from '../components/Enlace.astro';
 import EnlaceGuia from '../components/EnlaceGuia.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { cargarObras } from '../data/obras';
 import { deLaObra } from '../data/estructurados';
 import { usar } from '../i18n';
@@ -118,6 +119,7 @@ const ficha = [
 			<Enlace href={r.obras}>{t.obras.todas}</Enlace>
 			<Enlace href={`${r.obras}/${siguiente.slug}`}>{t.obras.siguiente}</Enlace>
 		</nav>
+		<VolverInicio />
 	</main>
 	<Footer actual="obras" />
 </Base>
@@ -136,19 +138,6 @@ const ficha = [
 		display: flex;
 		flex-direction: column;
 		gap: 40px;
-	}
-
-	/* Solo con ratón: en blanco y negro, y en color al pasar por la foto. En pantallas
-	   táctiles, siempre en color. */
-	@media (hover: hover) and (pointer: fine) {
-		.fotos :global(.foto) {
-			filter: grayscale(1);
-			transition: filter 0.6s var(--ease);
-		}
-
-		.fotos :global(.foto:hover) {
-			filter: grayscale(0);
-		}
 	}
 
 	/* La ficha se queda fija mientras pasan las fotos, solo si la pantalla es lo bastante

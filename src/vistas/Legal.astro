@@ -6,6 +6,7 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { usar } from '../i18n';
 
 interface Props {
@@ -46,6 +47,8 @@ const titulo = textos.titulo.charAt(0) + textos.titulo.slice(1).toLowerCase();
 		</div>
 		<p class="actualizado">{t.legal.actualizado}: {t.legal.fecha}</p>
 	</main>
+	<!-- Fuera de <main>, cuya columna es estrecha. -->
+	<VolverInicio />
 	<Footer actual={pagina} />
 </Base>
 

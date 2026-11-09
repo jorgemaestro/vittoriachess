@@ -65,7 +65,7 @@
 		// Crece sobre enlaces y botones; se esconde sobre campos de texto.
 		document.addEventListener('pointerover', (e) => {
 			const objetivo = e.target as Element;
-			cursor.classList.toggle('grande', !!objetivo.closest('a, button, [role="button"]'));
+			cursor.classList.toggle('grande', !!objetivo.closest('a, button, summary, [role="button"]'));
 			cursor.classList.toggle(
 				'en-campo',
 				!!objetivo.closest('input, textarea, select, [contenteditable="true"]'),

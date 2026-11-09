@@ -12,14 +12,16 @@ const { t, r } = usar(Astro);
 
 <section class="autor" aria-label={t.autor.titulo}>
 	<div class="cuerpo">
-		<div class="foto">
+		<!-- La foto también lleva a Autor, solo con ratón o dedo: para teclado y lectores de
+		     pantalla el enlace es SABER MÁS (así no se repite). -->
+		<a class="foto" href={r.autor} tabindex="-1" aria-hidden="true">
 			<Foto
 				nombre="autor/home"
 				alt={`[${t.pendiente}: ${t.home.autorFoto}]`}
 				proporcion={512 / 683}
 				sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
 			/>
-		</div>
+		</a>
 		<div class="texto">
 			<p class="firma">{t.home.autorFirma}</p>
 			<p class="leer">
@@ -45,6 +47,7 @@ const { t, r } = usar(Astro);
 
 	/* 512 × 683 a 96 px del borde. */
 	.foto {
+		display: block;
 		flex: none;
 		width: 35.556vw;
 		margin-left: 6.667vw;

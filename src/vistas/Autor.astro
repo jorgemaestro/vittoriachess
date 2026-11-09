@@ -10,6 +10,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { delAutor } from '../data/estructurados';
 import { usar } from '../i18n';
 
@@ -63,6 +64,7 @@ const conFoto = texto.findIndex((b) => 'parrafos' in b);
 		{/* Trayectoria: oculta de momento (05/10/2026). Para recuperarla, importar
 		    ../components/Trayectoria.astro y poner <Trayectoria /> aquí. */}
 		<LlamadaContacto />
+		<VolverInicio />
 	</main>
 	<Footer actual="autor" />
 </Base>

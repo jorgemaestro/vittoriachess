@@ -28,6 +28,23 @@ const fotos = import.meta.glob<{ default: ImageMetadata }>(
 );
 const ruta = Object.keys(fotos).find((r) => r.replace(/\.[^.]+$/, '') === `/src/assets/${nombre}`);
 const foto = ruta ? (await fotos[ruta]()).default : undefined;
+
+// Recortada a la proporción del hueco: Astro genera las versiones ya recortadas (si no, una
+// foto mucho más ancha que su hueco se escalaba por la altura y se veía pixelada). Solo se
+// piden anchos que el original permite sin ampliar.
+const anchoRecorte = foto
+	? Math.floor(Math.min(foto.width, foto.height * proporcion))
+	: 0;
+const anchos = [480, 800, 1200, 1600].filter((w) => w <= anchoRecorte);
+const recorte =
+	foto && !natural
+		? {
+				widths: anchos.length ? anchos : [anchoRecorte],
+				width: Math.min(1600, anchoRecorte),
+				height: Math.round(Math.min(1600, anchoRecorte) / proporcion),
+				fit: 'cover' as const,
+			}
+		: { widths: [480, 800, 1200, 1600] };
 ---
 
 {
@@ -35,7 +52,7 @@ const foto = ruta ? (await fotos[ruta]()).default : undefined;
 		<Image
 			src={foto}
 			alt={alt}
-			widths={[480, 800, 1200, 1600]}
+			{...recorte}
 			sizes={sizes}
 			class:list={['foto', clase]}
 			style={natural ? undefined : `aspect-ratio: ${proporcion}`}

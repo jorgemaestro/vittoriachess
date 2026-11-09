@@ -1,6 +1,6 @@
 ---
 // Home · Manifiesto — ver docs/definicion.md (Páginas: Home, punto 3).
-// Tres líneas 10 vw bajo el vídeo, a la izquierda. A la derecha, un cuadro de 434 × 434 px
+// Tres líneas 10 vw bajo el vídeo, a la izquierda. A la derecha, un cuadro de 520 × 520 px
 // (vídeo o foto cuadrada) alineado por arriba con el manifiesto, y debajo VER PIEZAS,
 // alineado con el lado derecho del cuadro (en móvil, todo en una columna). Al entrar
 // en pantalla, cada línea sube desde una máscara. El texto solo se esconde si el script de
@@ -46,7 +46,7 @@ const foto = hayFoto ? 'home/piezas' : 'piezas/rey';
 						nombre={foto}
 						alt=""
 						proporcion={1}
-						sizes="(max-width: 809px) calc(100vw - 40px), 30.139vw"
+						sizes="(max-width: 809px) calc(120vw - 48px), 43.333vw"
 					/>
 				)
 			}
@@ -81,14 +81,14 @@ const foto = hayFoto ? 'home/piezas' : 'piezas/rey';
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		padding: 10vw calc(var(--margen) + 8.194vw) calc(24px + var(--nav-central-alto)) var(--margen);
+		padding: 10vw calc(var(--margen) + 5.278vw) calc(24px + var(--nav-central-alto)) var(--margen);
 	}
 
-	/* 434 × 434 px (30,139 vw), de 868 a 1302 px: termina a 138 px del borde, como VER OBRAS. */
+	/* 520 × 520 px (36,111 vw), de 824 a 1344 px: termina a 96 px del borde, en la retícula. */
 	.lado {
 		position: relative;
 		flex: none;
-		width: 30.139vw;
+		width: 36.111vw;
 		/* Baja lo que mide el aire sobre las mayúsculas de la primera línea (0,18 del tamaño
 		   de letra con Inter Tight; revisar al cambiar de fuente): el borde de arriba del cuadro
 		   queda a la altura exacta de las letras. */
@@ -107,6 +107,13 @@ const foto = hayFoto ? 'home/piezas' : 'piezas/rey';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	/* Zoom del 20 % sobre el centro de la imagen o el vídeo; el cuadro recorta lo que sobra.
+	   (Por eso la foto se pide un 20 % más grande en sizes: así no pierde nitidez.) */
+	.cuadro :global(.foto),
+	.cuadro video {
+		transform: scale(1.2);
 	}
 
 	.texto {

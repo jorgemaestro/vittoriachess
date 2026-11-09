@@ -10,6 +10,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Foto from '../components/Foto.astro';
 import LlamadaContacto from '../components/LlamadaContacto.astro';
+import VolverInicio from '../components/VolverInicio.astro';
 import { piezas, composicion } from '../data/piezas';
 import { usar } from '../i18n';
 
@@ -46,6 +47,7 @@ const fondo = Math.max(...piezas.map((p) => composicion[p].arriba + alto(composi
 			}
 		</ul>
 		<LlamadaContacto />
+		<VolverInicio />
 	</main>
 	<Footer />
 </Base>

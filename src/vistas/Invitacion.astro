@@ -1,0 +1,983 @@
+---
+// Invitación privada de la inauguración — ver docs/invitacion.md.
+// Página fuera de la navegación pública: sin menú ni pie de la web, fuera de Google y del mapa
+// del sitio. Arriba, la marca, el selector ES / EN y un enlace a la home que reemplaza el
+// historial (no se vuelve con Atrás). Secciones: portada, carta, objetivo, cómo funciona,
+// por qué este momento, objetivo (con su destino), cómo funciona, la ventana comercial hasta
+// el 31/12, obras reales, ejemplo de 1.000 € y éxito extraordinario (desplegables), preguntas,
+// calendario, cercanía, cómo participar (inactivo hasta revisar el acuerdo) y regalo en bronce.
+// Las cifras de las tablas salen de la función de src/data/participacion.ts.
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Enlace from '../components/Enlace.astro';
+import EnlaceGuia from '../components/EnlaceGuia.astro';
+import Foto from '../components/Foto.astro';
+import { calcular } from '../data/participacion';
+import { cargarObras } from '../data/obras';
+import { invitacion, claveInvitacion, precios } from '../data/invitacion';
+import { usar, rutas } from '../i18n';
+
+const { t, idioma } = usar(Astro);
+const x = t.invitacion;
+const en = idioma === 'en';
+const direccion = { es: `/invitacion/${claveInvitacion}`, en: `/en/invitation/${claveInvitacion}` };
+
+// Formatos: 8.000 € / €8,000; −50 % / −50%.
+const euros = (n: number) => {
+	const cifra = Math.abs(n).toLocaleString(en ? 'en-GB' : 'de-DE', { maximumFractionDigits: 2 });
+	const signo = n < 0 ? '−' : '';
+	return en ? `${signo}€${cifra}` : `${signo}${cifra} €`;
+};
+const porcentaje = (n: number) => {
+	const cifra = Math.abs(n).toLocaleString(en ? 'en-GB' : 'de-DE', { maximumFractionDigits: 1 });
+	const signo = n < 0 ? '−' : n > 0 ? '+' : '';
+	return en ? `${signo}${cifra}%` : `${signo}${cifra} %`;
+};
+
+// Estado de la financiación (solo lo verificado).
+const { objetivo, recibido } = invitacion;
+const alcanzado = recibido >= objetivo;
+const avance = Math.min(100, (100 * recibido) / objetivo);
+const fechaActualizado = new Date(`${invitacion.actualizado}T12:00:00`).toLocaleDateString(
+	en ? 'en-GB' : 'es-ES',
+	{ day: 'numeric', month: 'long', year: 'numeric' },
+);
+
+// Tabla del ejemplo de 1.000 € (8.000 € captados y utilizados).
+const netos = [0, 4000, 8000, 12000, 16000, 40000, 60000];
+const ejemplo = netos.map((N) => {
+	const r = calcular({ F: 8000, U: 8000, A: 1000, N });
+	return [euros(N), euros(r.T), porcentaje(r.ROI)];
+});
+
+// Éxito extraordinario: netos supuestos de 40.000 y 60.000 € (80.000 y 100.000 facturados).
+const extra = [40000, 60000].map((N) => {
+	const grupo = calcular({ F: 8000, U: 8000, A: 8000, N });
+	const uno = calcular({ F: 8000, U: 8000, A: 1000, N });
+	return [N, grupo.K, grupo.E, grupo.B, grupo.K + grupo.B, grupo.V].map(euros).concat(
+		`${euros(uno.T)} (${porcentaje(uno.ROI)})`,
+	);
+});
+const filasExtra = x.extraordinario.filas.map((fila, i) => [fila, extra[0][i], extra[1][i]]);
+
+// Obras reales para «Obras concebidas para perdurar»: como mucho tres, solo las que tienen
+// foto y nombre en su ficha (sin precios ni catálogo inventado).
+const obrasReales = (await cargarObras(idioma, t.obras.sinDatos))
+	.filter((o) => o.conFotos && o.completa.nombre)
+	.slice(0, 3);
+// Foto del puente «Por qué este momento»: la de la primera obra real.
+const fotoMomento = obrasReales[0];
+
+const p = x.participar;
+const mailtoDuda = `mailto:${invitacion.correo}?subject=${encodeURIComponent(p.asuntoDuda)}`;
+const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURIComponent(invitacion.asuntoParticipar)}&body=${encodeURIComponent(p.cuerpoCorreo)}`;
+---
+
+<Base title={x.tituloSeo} noindex sinReferente>
+	<header class="cabecera">
+		<Logo enlace={false} />
+		<nav class="lado" aria-label={en ? 'Language' : 'Idioma'}>
+			<span class="idiomas">
+				<Enlace href={direccion.es} activo={!en} hreflang="es">ES</Enlace>
+				<span aria-hidden="true">/</span>
+				<Enlace href={direccion.en} activo={en} hreflang="en">EN</Enlace>
+			</span>
+			<Enlace href={rutas[idioma].inicio} data-salida>{x.irWeb}</Enlace>
+		</nav>
+	</header>
+
+	<main class="invitacion">
+		<!-- 01 · Portada -->
+		<section class="portada">
+			<div class="imagen">
+				<Foto
+					nombre="invitacion/portada"
+					alt={`[${t.pendiente}: ${x.imagenPortada}]`}
+					proporcion={16 / 9}
+					sizes="(max-width: 809px) calc(100vw - 40px), 86.667vw"
+				/>
+			</div>
+			<div class="columna">
+				<p class="etiqueta">{x.etiqueta}</p>
+				<h1 class="titulo">{x.titulo}</h1>
+				<p class="subtitulo">{x.subtitulo}</p>
+				<p class="dato">{x.fecha}</p>
+				<p class="dato">{x.lugar}</p>
+				<p class="dato">{x.apertura}</p>
+				<p class="accion"><EnlaceGuia href="#carta" lado="derecha">{x.descubrir}</EnlaceGuia></p>
+			</div>
+		</section>
+
+		<!-- 02 · Carta -->
+		<section class="bloque" id="carta">
+			<div class="columna carta">
+				{x.carta.map((parrafo) => <p set:html={parrafo} />)}
+				<p class="firma">{x.firma}<br /><span class="gris">{x.marca}</span></p>
+			</div>
+		</section>
+
+		<!-- Por qué este momento (puente entre la carta y la financiación) -->
+		<section class="bloque momento">
+			{
+				fotoMomento && (
+					<figure class="foto-momento">
+						<Foto nombre={fotoMomento.fotos[0]} alt={fotoMomento.nombre} proporcion={3 / 4} sizes="(max-width: 809px) calc(100vw - 40px), 20.833vw" />
+						<figcaption>{fotoMomento.nombre} · {fotoMomento.tipo}</figcaption>
+					</figure>
+				)
+			}
+			<div class="columna">
+				<p class="titulo-bloque">{x.momento.titulo}</p>
+				<p class="texto">{x.momento.texto}</p>
+				<p class="texto discreto">{x.momento.discreto}</p>
+			</div>
+		</section>
+
+		<!-- 03 · Objetivo -->
+		<section class="bloque">
+			<h2 class="seccion">{x.objetivo.titulo}</h2>
+			<div class="columna">
+				<p class="cifra-grande">{euros(objetivo)}</p>
+				<div class="progreso" role="img" aria-label={`${porcentaje(avance).replace('+', '')}`}>
+					<span style={`width: ${avance}%`}></span>
+				</div>
+				<dl class="cifras">
+					<div><dt>{x.objetivo.recibido}</dt><dd>{euros(recibido)} · {porcentaje(avance).replace('+', '')}</dd></div>
+					<div><dt>{x.objetivo.pendiente}</dt><dd>{euros(Math.max(0, objetivo - recibido))}</dd></div>
+					<div><dt>{x.objetivo.actualizado}</dt><dd>{fechaActualizado}</dd></div>
+				</dl>
+				{alcanzado && <p class="aviso">{x.objetivo.alcanzado}</p>}
+				<p class="nota">{x.objetivo.nota}</p>
+
+				<details class="desplegable">
+					<summary data-ver={x.ver} data-cerrar={x.cerrar}>{x.destino.abrir}</summary>
+					<p class="texto">{x.destino.texto}</p>
+					<ul class="partidas">{x.destino.partidas.map((partida) => <li>{partida}</li>)}</ul>
+					<p class="nota">{x.destino.sinDesglose}</p>
+				</details>
+			</div>
+		</section>
+
+		<!-- 04 · Cómo funciona -->
+		<section class="bloque">
+			<h2 class="seccion">{x.funcionamiento.titulo}</h2>
+			<div class="columna">
+				<ol class="pasos">
+					{
+						x.funcionamiento.pasos.map(([titulo, texto], i) => (
+							<li>
+								<span class="numero">{String(i + 1).padStart(2, '0')}</span>
+								<p class="paso-titulo">{titulo}</p>
+								<p>{texto}</p>
+							</li>
+						))
+					}
+				</ol>
+				<p class="riesgo">{x.funcionamiento.riesgo}</p>
+				<p class="nota">{x.funcionamiento.definicion}</p>
+			</div>
+		</section>
+
+		<!-- La ventana comercial hasta el 31/12 (sin cronómetro) -->
+		<section class="bloque">
+			<div class="columna">
+				<p class="titulo-bloque">{x.ventana.titulo}</p>
+				<ol class="hitos">
+					{x.ventana.hitos.map(([cuando, que]) => <li><span class="cuando">{cuando}</span><span class="que">{que}</span></li>)}
+				</ol>
+				<p class="texto" set:html={x.ventana.texto} />
+				<p class="nota">{x.ventana.nota}</p>
+			</div>
+		</section>
+
+		<!-- La obra: hasta tres obras reales, con su nombre exacto -->
+		{
+			obrasReales.length > 0 && (
+				<section class="bloque">
+					<div class="columna">
+						<p class="titulo-bloque">{x.obra.titulo}</p>
+						<p class="texto">{x.obra.texto}</p>
+					</div>
+					<ul class="obras-reales">
+						{obrasReales.map((o) => (
+							<li>
+								<Foto nombre={o.fotos[0]} alt={o.nombre} proporcion={3 / 4} sizes="(max-width: 809px) calc(100vw - 40px), 27.778vw" />
+								<p class="pie-obra">{o.nombre}<br /><span class="gris">{o.tipo}</span></p>
+							</li>
+						))}
+					</ul>
+					<div class="columna">
+						<table class="precios">
+							<caption>{x.obra.precios}</caption>
+							<thead><tr>{x.obra.columnas.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+							<tbody>
+								{precios.map((pr) => <tr><th scope="row">{pr.obra}</th><td>{pr.edicion[idioma]}</td><td>{euros(pr.precio)}</td></tr>)}
+							</tbody>
+						</table>
+						<p class="nota">{x.obra.notaPrecios}</p>
+						<p class="una-venta">{x.obra.unaVenta}</p>
+					</div>
+				</section>
+			)
+		}
+
+		<!-- 05–07 · Ejemplo de 1.000 € y éxito extraordinario -->
+		<section class="bloque">
+			<h2 class="seccion">{x.ejemplo.titulo}</h2>
+			<div class="columna">
+				<p class="texto">{x.ejemplo.texto}</p>
+
+				<details class="desplegable">
+					<summary data-ver={x.ver} data-cerrar={x.cerrar}>{x.ejemplo.abrir}</summary>
+					<table>
+						<thead><tr>{x.ejemplo.columnas.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+						<tbody>{ejemplo.map((fila) => <tr>{fila.map((celda) => <td>{celda}</td>)}</tr>)}</tbody>
+					</table>
+					<p class="nota">{x.ejemplo.nota}</p>
+				</details>
+
+				<details class="desplegable">
+					<summary data-ver={x.ver} data-cerrar={x.cerrar}>{x.extraordinario.abrir}</summary>
+					<p class="texto">{x.extraordinario.texto}</p>
+					<table>
+						<thead><tr>{x.extraordinario.columnas.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+						<tbody>
+							{filasExtra.map(([fila, a, b]) => <tr><th scope="row">{fila}</th><td>{a}</td><td>{b}</td></tr>)}
+						</tbody>
+					</table>
+					<p class="nota">{x.ejemplo.nota}</p>
+				</details>
+			</div>
+		</section>
+
+		<!-- 08 · Preguntas frecuentes -->
+		<section class="bloque">
+			<h2 class="seccion">{x.preguntas.titulo}</h2>
+			<div class="columna">
+				{
+					x.preguntas.lista.map(([pregunta, respuesta]) => (
+						<details class="pregunta">
+							<summary data-ver={x.ver} data-cerrar={x.cerrar}>{pregunta}</summary>
+							<p>{respuesta}</p>
+						</details>
+					))
+				}
+			</div>
+		</section>
+
+		<!-- 09 · Transparencia y calendario -->
+		<section class="bloque">
+			<h2 class="seccion">{x.calendario.titulo}</h2>
+			<div class="columna">
+				<dl class="calendario">
+					{x.calendario.fases.map(([cuando, que]) => <div><dt>{cuando}</dt><dd>{que}</dd></div>)}
+				</dl>
+			</div>
+		</section>
+
+		<!-- Cercanía: un agradecimiento que va más allá del retorno -->
+		<section class="bloque">
+			<div class="columna">
+				<p class="titulo-bloque">{x.cercania.titulo}</p>
+				<p class="texto">{x.cercania.texto}</p>
+			</div>
+		</section>
+
+		<!-- 10 · Cómo participar -->
+		<section class="bloque" id="participar">
+			<h2 class="seccion">{p.titulo}</h2>
+			<div class="columna">
+				{!invitacion.aportacionesAbiertas && <p class="estado">{p.estado}</p>}
+				{!invitacion.aportacionesAbiertas && <p class="texto">{p.aviso}</p>}
+				<ol class="pasos">
+					{
+						p.pasos.map(([titulo, texto], i) => (
+							<li>
+								<span class="numero">{String(i + 1).padStart(2, '0')}</span>
+								<p class="paso-titulo">{titulo}</p>
+								<p>{texto}</p>
+							</li>
+						))
+					}
+				</ol>
+				{
+					invitacion.aportacionesAbiertas && invitacion.iban && (
+						<dl class="cifras">
+							<div><dt>{p.titular}</dt><dd>{invitacion.titular}</dd></div>
+							<div>
+								<dt>{p.iban}</dt>
+								<dd>
+									{invitacion.iban}{' '}
+									<button class="copiar" type="button" data-copiar={invitacion.iban.replace(/\s/g, '')} data-copiado={p.copiado}>{p.copiarIban}</button>
+								</dd>
+							</div>
+						</dl>
+					)
+				}
+				<p class="acciones">
+					{invitacion.aportacionesAbiertas && <Enlace href={mailtoParticipar}>{p.escribir}</Enlace>}
+					<Enlace href={mailtoDuda}>{p.duda}</Enlace>
+				</p>
+				{invitacion.aportacionesAbiertas && <p class="nota">{p.nota}</p>}
+			</div>
+		</section>
+
+		<!-- 11 · Regalo -->
+		<section class="bloque regalo">
+			<div class="imagen-regalo">
+				<Foto
+					nombre="invitacion/regalo"
+					alt={`[${t.pendiente}: ${x.regalo.imagen}]`}
+					proporcion={4 / 5}
+					sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
+				/>
+			</div>
+			<div class="texto-regalo">
+				<h2 class="titulo-regalo">{x.regalo.titulo}</h2>
+				{x.regalo.texto.map((parrafo) => <p>{parrafo}</p>)}
+				<p class="firma">{x.firma}</p>
+			</div>
+		</section>
+	</main>
+
+	<footer class="pie">
+		<p>{x.pie}</p>
+		<p><Enlace href={rutas[idioma].inicio} data-salida>{x.irWeb}</Enlace></p>
+	</footer>
+</Base>
+
+<script>
+	// Salida a la home reemplazando el historial: Atrás no vuelve a la invitación.
+	document.querySelectorAll<HTMLAnchorElement>('[data-salida]').forEach((enlace) => {
+		enlace.addEventListener('click', (e) => {
+			e.preventDefault();
+			window.location.replace(enlace.href);
+		});
+	});
+
+	// Botones de copiar (solo existen cuando se abran las aportaciones).
+	document.querySelectorAll<HTMLButtonElement>('[data-copiar]').forEach((boton) => {
+		const original = boton.textContent;
+		boton.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(boton.dataset.copiar ?? '');
+				boton.textContent = boton.dataset.copiado ?? original;
+				setTimeout(() => (boton.textContent = original), 2000);
+			} catch {
+				/* Sin permiso del navegador: el dato sigue a la vista para copiarlo a mano. */
+			}
+		});
+	});
+</script>
+
+<style>
+	p,
+	h1,
+	h2,
+	dl,
+	dd,
+	ol {
+		margin: 0;
+	}
+
+	/* Cabecera propia: marca a la izquierda; idioma y salida a la derecha. */
+	.cabecera {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: var(--margen);
+	}
+
+	.lado {
+		display: flex;
+		gap: 40px;
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+	}
+
+	.idiomas {
+		display: flex;
+		gap: 4px;
+	}
+
+	/* Columna de lectura a 434 px (30,139 vw), 572 px de ancho (39,722 vw). */
+	.columna {
+		width: 39.722vw;
+		margin-left: 30.139vw;
+	}
+
+	.bloque {
+		margin-top: 160px;
+	}
+
+	/* Título de sección a 96 px, como TRAYECTORIA; el contenido, en la columna. */
+	.seccion {
+		margin: 0 0 24px 6.667vw;
+		font-weight: var(--peso-medio);
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.portada {
+		padding-top: 80px;
+	}
+
+	.imagen {
+		margin: 0 6.667vw 80px;
+	}
+
+	.etiqueta,
+	.nota,
+	dt,
+	th {
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+		font-weight: var(--peso-medio);
+	}
+
+	.titulo {
+		margin-top: 16px;
+		font-weight: var(--peso-regular);
+		font-size: var(--destacado);
+		line-height: var(--destacado-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.subtitulo {
+		margin-top: 16px;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.dato {
+		color: var(--color-secundario);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.subtitulo + .dato {
+		margin-top: 24px;
+	}
+
+	.accion {
+		margin-top: 48px;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	/* Carta: lectura cómoda, el énfasis con el peso medio (sin negrita). */
+	.carta {
+		font-weight: var(--peso-regular);
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.carta p + p {
+		margin-top: var(--respuesta-alto);
+	}
+
+	.carta :global(b) {
+		font-weight: var(--peso-medio);
+	}
+
+	.firma {
+		margin-top: 48px;
+		font-weight: var(--peso-medio);
+	}
+
+	.gris {
+		color: var(--color-secundario);
+		font-weight: var(--peso-regular);
+	}
+
+	/* Bloques de la segunda capa (addendum 02): un título en Llamada y un párrafo breve. */
+	.titulo-bloque {
+		margin-bottom: 16px;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.texto :global(b) {
+		font-weight: var(--peso-medio);
+	}
+
+	/* Por qué este momento: foto pequeña a 96 px y el texto en la columna. */
+	.momento {
+		position: relative;
+	}
+
+	.foto-momento {
+		position: absolute;
+		top: 0;
+		left: 6.667vw;
+		width: 20.833vw;
+		margin: 0;
+	}
+
+	.momento .columna {
+		min-height: 27.778vw;
+	}
+
+	figcaption,
+	.pie-obra {
+		margin-top: 4px;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.pie-obra {
+		color: var(--color-tinta);
+	}
+
+	.partidas {
+		margin: 16px 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.partidas li {
+		padding: 8px 0;
+		border-top: var(--linea) solid var(--color-provisional);
+	}
+
+	/* Ventana comercial: dos hitos sobre una línea, sin cuenta atrás. */
+	.hitos {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 24px;
+		margin: 24px 0 32px;
+		padding: 12px 0 0;
+		list-style: none;
+		border-top: var(--linea) solid var(--color-tinta);
+	}
+
+	.hitos li {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cuando {
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.que {
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	/* Obras reales: hasta tres, de 400 px, a partir de 96 px. */
+	.obras-reales {
+		display: flex;
+		gap: 2.222vw;
+		margin: 48px 6.667vw 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.obras-reales li {
+		width: 27.778vw;
+	}
+
+	.discreto {
+		margin-top: 16px;
+		color: var(--color-secundario);
+	}
+
+	.precios {
+		margin-top: 64px;
+	}
+
+	/* La previsión de una sola venta, destacada bajo los precios. */
+	.una-venta {
+		margin-top: 40px;
+		font-weight: var(--peso-regular);
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	caption {
+		padding-bottom: 12px;
+		text-align: left;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.cifra-grande {
+		font-weight: var(--peso-regular);
+		font-size: var(--destacado);
+		line-height: var(--destacado-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* Progreso: línea de 1 px de fondo y la parte verificada en tinta. */
+	.progreso {
+		position: relative;
+		margin-top: 24px;
+		border-top: var(--linea) solid var(--color-provisional);
+	}
+
+	.progreso span {
+		position: absolute;
+		top: calc(-1 * var(--linea));
+		left: 0;
+		border-top: var(--linea) solid var(--color-tinta);
+	}
+
+	.cifras {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px 48px;
+		margin-top: 24px;
+	}
+
+	dd {
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.aviso,
+	.estado {
+		margin-top: 24px;
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	.estado {
+		margin-top: 0;
+		margin-bottom: 16px;
+	}
+
+	.nota {
+		margin-top: 24px;
+	}
+
+	.texto,
+	.riesgo,
+	.pasos p,
+	.pregunta p,
+	.regalo p {
+		font-weight: var(--peso-regular);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.riesgo {
+		margin-top: 40px;
+	}
+
+	.pasos {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+		margin-top: 8px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.texto + .pasos {
+		margin-top: 40px;
+	}
+
+	.pasos li {
+		padding-top: 12px;
+		border-top: var(--linea) solid var(--color-tinta);
+	}
+
+	.numero {
+		display: block;
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	.pasos .paso-titulo {
+		margin: 4px 0 8px;
+		font-weight: var(--peso-medio);
+		font-size: var(--respuesta);
+		line-height: var(--respuesta-alto);
+	}
+
+	/* Desplegables: una línea arriba, el título en mayúsculas y un + / − a la derecha. */
+	details {
+		border-top: var(--linea) solid var(--color-tinta);
+	}
+
+	.desplegable {
+		margin-top: 40px;
+	}
+
+	.pregunta:last-child {
+		border-bottom: var(--linea) solid var(--color-tinta);
+	}
+
+	summary {
+		display: flex;
+		justify-content: space-between;
+		gap: 24px;
+		padding: 16px 0;
+		cursor: auto;
+		list-style: none;
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	summary::-webkit-details-marker {
+		display: none;
+	}
+
+	/* A la derecha, la acción en palabras: VER ↓ / CERRAR ↑. Al pasar el ratón, el título se
+	   subraya, como un enlace. */
+	summary::after {
+		content: attr(data-ver) '\00a0\00a0↓';
+		flex: none;
+		align-self: center;
+		font-size: var(--nav-lateral);
+		line-height: var(--nav-lateral-alto);
+		white-space: nowrap;
+	}
+
+	details[open] summary::after {
+		content: attr(data-cerrar) '\00a0\00a0↑';
+	}
+
+	summary:hover {
+		text-decoration: underline;
+		text-decoration-thickness: var(--linea);
+		text-underline-offset: 4px;
+	}
+
+
+	summary:focus-visible {
+		outline: var(--linea) solid currentColor;
+		outline-offset: 4px;
+	}
+
+	.pregunta p {
+		padding-bottom: 24px;
+		color: var(--color-secundario);
+	}
+
+	.desplegable > .texto {
+		margin-bottom: 24px;
+	}
+
+	/* Tablas: solo líneas horizontales; cifras alineadas y de ancho fijo. */
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		font-variant-numeric: tabular-nums;
+	}
+
+	th,
+	td {
+		padding: 12px 0;
+		text-align: right;
+		border-bottom: var(--linea) solid var(--color-provisional);
+	}
+
+	thead th {
+		border-bottom-color: var(--color-tinta);
+	}
+
+	th:first-child,
+	td:first-child {
+		text-align: left;
+	}
+
+	/* Aire entre columnas; las cifras nunca se parten. */
+	th + th,
+	th + td,
+	td + td {
+		padding-left: 16px;
+	}
+
+	td:last-child {
+		white-space: nowrap;
+	}
+
+	td,
+	tbody th {
+		font-weight: var(--peso-regular);
+		color: var(--color-tinta);
+		font-size: var(--legal);
+		line-height: var(--legal-alto);
+	}
+
+	.desplegable .nota {
+		padding-bottom: 24px;
+	}
+
+	.calendario {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.calendario div {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 24px;
+		padding: 12px 0;
+		border-top: var(--linea) solid var(--color-provisional);
+	}
+
+	.calendario dt {
+		color: var(--color-tinta);
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.calendario dd {
+		font-weight: var(--peso-regular);
+	}
+
+	.acciones {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px 40px;
+		margin-top: 48px;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
+	.copiar {
+		margin-left: 12px;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		font-size: var(--pie-foto);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	/* Regalo: imagen protagonista y texto a un lado. */
+	.regalo {
+		display: flex;
+		align-items: flex-end;
+		gap: 9.444vw;
+		margin: 240px 6.667vw 0;
+	}
+
+	.imagen-regalo {
+		flex: none;
+		width: 35.556vw;
+	}
+
+	.texto-regalo {
+		max-width: 33.333vw;
+	}
+
+	.titulo-regalo {
+		margin-bottom: 24px;
+		font-weight: var(--peso-regular);
+		font-size: var(--llamada);
+		line-height: var(--llamada-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.texto-regalo p + p {
+		margin-top: var(--lectura-alto);
+	}
+
+	.pie {
+		display: flex;
+		justify-content: space-between;
+		gap: 24px;
+		margin-top: 160px;
+		padding: var(--margen);
+		color: var(--color-secundario);
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+	}
+
+	@media (max-width: 1100px) {
+		.columna {
+			width: auto;
+			margin-right: 6.667vw;
+		}
+	}
+
+	@media (max-width: 809px) {
+		.cabecera {
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		.lado {
+			gap: 24px;
+		}
+
+		.columna {
+			margin: 0 var(--margen);
+		}
+
+		.imagen {
+			margin: 0 var(--margen) 48px;
+		}
+
+		.seccion {
+			margin-left: var(--margen);
+		}
+
+		.bloque {
+			margin-top: 120px;
+		}
+
+		.calendario div {
+			grid-template-columns: 1fr;
+			gap: 4px;
+		}
+
+		.foto-momento {
+			position: static;
+			width: auto;
+			margin: 0 var(--margen) 32px;
+		}
+
+		.momento .columna {
+			min-height: 0;
+		}
+
+		.hitos {
+			grid-template-columns: 1fr;
+		}
+
+		.obras-reales {
+			flex-direction: column;
+			gap: 32px;
+			margin: 32px var(--margen) 0;
+		}
+
+		.obras-reales li {
+			width: auto;
+		}
+
+		.regalo {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 32px;
+			margin: 160px var(--margen) 0;
+		}
+
+		.imagen-regalo,
+		.texto-regalo {
+			width: auto;
+			max-width: none;
+		}
+
+		.pie {
+			flex-direction: column;
+		}
+	}
+</style>
