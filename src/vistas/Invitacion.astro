@@ -14,7 +14,7 @@ import EnlaceGuia from '../components/EnlaceGuia.astro';
 import Foto from '../components/Foto.astro';
 import { calcular } from '../data/participacion';
 import { cargarObras } from '../data/obras';
-import { invitacion, claveInvitacion, precios } from '../data/invitacion';
+import { invitacion, claveInvitacion, precios, facturacionPosible } from '../data/invitacion';
 import { usar, rutas } from '../i18n';
 
 const { t, idioma } = usar(Astro);
@@ -104,7 +104,8 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 				<p class="dato">{x.fecha}</p>
 				<p class="dato">{x.lugar}</p>
 				<p class="dato">{x.apertura}</p>
-				<p class="accion"><EnlaceGuia href="#carta" lado="derecha">{x.descubrir}</EnlaceGuia></p>
+				<p class="regalo-portada">{x.regaloPortada}</p>
+				<p class="accion"><EnlaceGuia href="#participar" lado="derecha">{x.botonParticipar}</EnlaceGuia></p>
 			</div>
 		</section>
 
@@ -113,6 +114,24 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 			<div class="columna carta">
 				{x.carta.map((parrafo) => <p set:html={parrafo} />)}
 				<p class="firma">{x.firma}<br /><span class="gris">{x.marca}</span></p>
+			</div>
+		</section>
+
+		<!-- Regalo en bronce (aportaciones superiores a 500 €), tras la carta para darle importancia -->
+		<section class="bloque regalo">
+			<div class="imagen-regalo">
+				<Foto
+					nombre="invitacion/regalo"
+					alt={`[${t.pendiente}: ${x.regalo.imagen}]`}
+					proporcion={4 / 5}
+					sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
+				/>
+			</div>
+			<div class="texto-regalo">
+				<p class="etiqueta">{x.regalo.condicion}</p>
+				<h2 class="titulo-regalo">{x.regalo.titulo}</h2>
+				{x.regalo.texto.map((parrafo) => <p>{parrafo}</p>)}
+				<p class="firma">{x.firma}</p>
 			</div>
 		</section>
 
@@ -207,15 +226,13 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 						))}
 					</ul>
 					<div class="columna">
-						<table class="precios">
-							<caption>{x.obra.precios}</caption>
-							<thead><tr>{x.obra.columnas.map((c) => <th scope="col">{c}</th>)}</tr></thead>
-							<tbody>
-								{precios.map((pr) => <tr><th scope="row">{pr.obra}</th><td>{pr.edicion[idioma]}</td><td>{euros(pr.precio)}</td></tr>)}
-							</tbody>
-						</table>
+						<p class="etiqueta expuestas">{x.obra.expuestas}</p>
+						<ul class="lista-obras">
+							{precios.map((pr) => <li>{pr.obra}{pr.unidades ? ` (${pr.unidades})` : ''}</li>)}
+						</ul>
+						<p class="etiqueta facturacion">{x.obra.facturacion}</p>
+						<p class="cifra-grande">{euros(facturacionPosible)}</p>
 						<p class="nota">{x.obra.notaPrecios}</p>
-						<p class="una-venta">{x.obra.unaVenta}</p>
 					</div>
 				</section>
 			)
@@ -289,6 +306,44 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 			<div class="columna">
 				{!invitacion.aportacionesAbiertas && <p class="estado">{p.estado}</p>}
 				{!invitacion.aportacionesAbiertas && <p class="texto">{p.aviso}</p>}
+				{
+					invitacion.aportacionesAbiertas && invitacion.iban ? (
+						<ol class="pasos">
+							<li>
+								<span class="numero">01</span>
+								<p class="paso-titulo">{p.pasos[0][0]}</p>
+								<p>{p.pasos[0][1]}</p>
+								<dl class="cuenta">
+									<div><dt>{p.titular}</dt><dd>{invitacion.titular}</dd></div>
+									<div>
+										<dt>{p.iban}</dt>
+										<dd>
+											{invitacion.iban}{' '}
+											<button class="copiar" type="button" data-copiar={invitacion.iban.replace(/\s/g, '')} data-copiado={p.copiado}>{p.copiarIban}</button>
+										</dd>
+									</div>
+									<div>
+										<dt>{p.concepto}</dt>
+										<dd>
+											{invitacion.concepto}{' '}
+											<button class="copiar" type="button" data-copiar={invitacion.concepto} data-copiado={p.copiado}>{p.copiarConcepto}</button>
+										</dd>
+									</div>
+								</dl>
+							</li>
+							<li>
+								<span class="numero">02</span>
+								<p class="paso-titulo">{p.pasos[1][0]}</p>
+								<p>{p.pasos[1][1]}</p>
+								<p class="enviar"><Enlace href={mailtoParticipar}>{p.escribir}</Enlace></p>
+							</li>
+							<li>
+								<span class="numero">03</span>
+								<p class="paso-titulo">{p.pasos[2][0]}</p>
+								<p>{p.pasos[2][1]}</p>
+							</li>
+						</ol>
+					) : (
 				<ol class="pasos">
 					{
 						p.pasos.map(([titulo, texto], i) => (
@@ -300,44 +355,15 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 						))
 					}
 				</ol>
-				{
-					invitacion.aportacionesAbiertas && invitacion.iban && (
-						<dl class="cifras">
-							<div><dt>{p.titular}</dt><dd>{invitacion.titular}</dd></div>
-							<div>
-								<dt>{p.iban}</dt>
-								<dd>
-									{invitacion.iban}{' '}
-									<button class="copiar" type="button" data-copiar={invitacion.iban.replace(/\s/g, '')} data-copiado={p.copiado}>{p.copiarIban}</button>
-								</dd>
-							</div>
-						</dl>
 					)
 				}
 				<p class="acciones">
-					{invitacion.aportacionesAbiertas && <Enlace href={mailtoParticipar}>{p.escribir}</Enlace>}
 					<Enlace href={mailtoDuda}>{p.duda}</Enlace>
 				</p>
 				{invitacion.aportacionesAbiertas && <p class="nota">{p.nota}</p>}
 			</div>
 		</section>
 
-		<!-- 11 · Regalo -->
-		<section class="bloque regalo">
-			<div class="imagen-regalo">
-				<Foto
-					nombre="invitacion/regalo"
-					alt={`[${t.pendiente}: ${x.regalo.imagen}]`}
-					proporcion={4 / 5}
-					sizes="(max-width: 809px) calc(100vw - 40px), 35.556vw"
-				/>
-			</div>
-			<div class="texto-regalo">
-				<h2 class="titulo-regalo">{x.regalo.titulo}</h2>
-				{x.regalo.texto.map((parrafo) => <p>{parrafo}</p>)}
-				<p class="firma">{x.firma}</p>
-			</div>
-		</section>
 	</main>
 
 	<footer class="pie">
@@ -596,6 +622,43 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 	}
 
 	/* La previsión de una sola venta, destacada bajo los precios. */
+	.regalo-portada {
+		margin-top: 24px;
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.expuestas {
+		margin-top: 64px;
+	}
+
+	.lista-obras {
+		margin: 12px 0 0;
+		padding: 0;
+		list-style: none;
+		columns: 2;
+		column-gap: 24px;
+		font-size: var(--lectura);
+		line-height: var(--lectura-alto);
+	}
+
+	.facturacion {
+		margin-top: 40px;
+	}
+
+	.cuenta {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		margin-top: 16px;
+	}
+
+	.enviar {
+		margin-top: 16px;
+		font-size: var(--nav-central);
+		line-height: var(--nav-central-alto);
+	}
+
 	.una-venta {
 		margin-top: 40px;
 		font-weight: var(--peso-regular);

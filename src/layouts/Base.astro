@@ -26,15 +26,20 @@ interface Props {
 }
 
 const { idioma, t, enIdioma, conEquivalente } = usar(Astro);
+// Publicación provisional (Fase 10): mientras la web no esté en su dominio, ninguna página se
+// indexa. Se activa con la variable PUBLICACION_PROVISIONAL=1 en el alojamiento.
+const provisional = import.meta.env.PUBLICACION_PROVISIONAL === '1';
 const {
 	title = t.seo.inicio.titulo,
 	description = t.seo.inicio.descripcion,
 	imagen = t.seo.imagen,
 	datos = [],
-	noindex = false,
+	noindex: noindexPagina = false,
 	sinReferente = false,
 	tono = 'claro',
 } = Astro.props;
+
+const noindex = noindexPagina || provisional;
 
 const absoluta = (ruta: string) => new URL(ruta, Astro.site).href;
 const canonica = absoluta(sinBarraFinal(Astro.url.pathname));

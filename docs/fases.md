@@ -68,7 +68,9 @@ Hecho el 05/10/2026: direcciones definitivas, títulos y descripciones, canónic
 
 ## Fase 10 — Publicación en dirección provisional
 
-GitHub conectado a Cloudflare: cada cambio subido se publica solo en una dirección *.workers.dev. Revisión en móviles reales.
+GitHub conectado a Cloudflare: cada cambio subido se publica solo en una dirección provisional (Cloudflare Pages, *.pages.dev). Revisión en móviles reales.
+
+Ajustes del alojamiento (09/11/2026): preset Astro, `npm run build`, salida `dist`, rama `main`. Variables: INVITACION_CLAVE, INVITACION_TITULAR, INVITACION_IBAN (las de `.env`), PUBLICACION_PROVISIONAL=1 (nada se indexa mientras sea provisional) y NODE_VERSION=24. El vídeo del hero no se publica hasta comprimirlo y subirlo a R2.
 
 ## Fase 11 — Dominio
 

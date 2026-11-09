@@ -72,12 +72,39 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
   escaque; en la galería hay una de cada y la colección admite encargos. Pendiente: edición de
   Solid surface y precios definitivos.
 
+## Cambios de Jorge (09/11/2026, tercera revisión)
+
+- Sin «Descubrir la invitación»: en la portada, PARTICIPAR (lleva a «Cómo participar») y la
+  línea del regalo.
+- Carta acortada por decisión de Jorge (seis párrafos), con la idea de que las primeras ventas
+  devuelven el mecenazgo y que se prevé que una sola venta cubra el coste.
+- Recaudado y verificado: 1.800 € (a 09/11/2026).
+- En lugar de la tabla de precios: los nombres de las obras expuestas y la facturación posible
+  total, calculada en src/data/invitacion.ts (Vittoria Eterna son dos obras de 7.000 €; Six cuenta
+  tres unidades).
+- Regalo de las seis piezas en bronce: solo para aportaciones superiores a 500 €; sube justo
+  después de la carta y se anuncia en la portada.
+- «¿Puedo perder dinero?»: si en 2026 no se cierra ninguna venta, la devolución se haría con las
+  ventas previstas para 2027 (siempre que se produzcan). **Amplía lo que dice el modelo original
+  (ventas elegibles hasta el 31/12/2026): debe figurar en el acuerdo.**
+- Participación ACTIVADA por decisión de Jorge: tres pasos (transferir con el concepto MECENAS a
+  la cuenta mostrada, enviar el justificante por correo, recibir la documentación en el mismo
+  hilo). La revisión jurídica y fiscal sigue recomendada.
+
 ## Cálculos
 
 Una sola función, `src/data/participacion.ts`, con las fórmulas del documento (q, D, K, E, B, T,
 P, ROI). Las tablas de la página salen de ella. `node scripts/comprobar-participacion.ts`
 comprueba las cifras del documento, el capital no utilizado, la financiación parcial, el
 redondeo a céntimos y los datos imposibles.
+
+## Datos de la transferencia (09/11/2026)
+
+Jorge ha dado el titular, el IBAN (comprobado: el dígito de control es correcto) y el concepto
+MECENAS. El titular y el IBAN están en `.env` (`INVITACION_TITULAR`, `INVITACION_IBAN`), fuera de
+GitHub, y al publicar habrá que ponerlos también en los ajustes del alojamiento, como la clave.
+El paso final es enviar el justificante por correo a jorge@vittoriachess.com; Jorge responde en
+el mismo hilo con el resto de la información. Todo se muestra solo con `aportacionesAbiertas: true`.
 
 ## Cómo actualizar
 
@@ -91,7 +118,6 @@ redondeo a céntimos y los datos imposibles.
 
 - Revisión jurídica y fiscal del modelo 20/80 y del obsequio (el propio documento lo exige).
 - Acuerdo definitivo, presupuesto definitivo, régimen fiscal, fecha límite de liquidaciones.
-- Cuenta bancaria (titular e IBAN) y, si se quiere, referencia individual por participante.
 - Fotografía de la portada y de las seis piezas en bronce.
 - Costes y logística del regalo de 2027.
 - Publicar la web (Fase 10) y poner la clave en los ajustes del alojamiento.

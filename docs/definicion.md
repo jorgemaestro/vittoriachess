@@ -231,3 +231,4 @@ Decidido el 13/10/2026 (sustituye al icono por defecto de Astro). Un cuadrado en
 ## Invitación privada
 
 Decidida el 09/11/2026. Página privada para invitar a la financiación de la inauguración, dentro de esta web pero fuera de toda navegación pública, en español e inglés. Todo el detalle (dirección secreta, contenido, cálculos, privacidad y pendientes) está en docs/invitacion.md.
+- Publicación provisional (09/11/2026): con la variable PUBLICACION_PROVISIONAL=1 en el alojamiento, todas las páginas llevan «noindex, nofollow», para que Google no indexe la copia provisional. Se quita al pasar al dominio definitivo (Fase 11).
