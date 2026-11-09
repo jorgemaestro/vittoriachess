@@ -91,6 +91,26 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
   la cuenta mostrada, enviar el justificante por correo, recibir la documentación en el mismo
   hilo). La revisión jurídica y fiscal sigue recomendada.
 
+## Cambios de Jorge (09/11/2026, cuarta revisión)
+
+- Título «Mecenas», subtítulo «Nace Vittoria Chess, por Jorge Maestro». La galería no se nombra:
+  «una galería muy especial en pleno Malasaña, entre obras del siglo XVII».
+- Portada: QUIERO PARTICIPAR (lleva a los pasos) y el regalo en bronce para aportaciones de más
+  de 500 €. Foto de portada panorámica (2000 × 775).
+- Carta reescrita por Jorge (objetivo «mínimo» de 8.000 €), terminada en «Muchas gracias».
+- Oculto «El comienzo de una nueva etapa»; su nota sobre invitados y medios pasa a las obras.
+- RESTANTE en lugar de PENDIENTE; «En qué se emplean los 8.000 €» pasa a las preguntas.
+- Paso 2 en negrita: una sola venta cubriría la inauguración; lo no usado se devuelve la semana
+  siguiente al evento.
+- Paso 3, «Se reparte el margen»: 20 % del beneficio de Vittoria Chess hasta fin de 2026 (decidido
+  por Jorge: beneficio, no facturación), coherente con las tablas y la función de cálculo.
+- Preguntas: uso del dinero con informe la semana siguiente; devolución sujeta a alguna venta;
+  80 % «para el proyecto»; una gestoría llevará contratos y modelos; sin la pregunta de deducción.
+- Calendario: recaudación hasta el 1 de diciembre.
+- Objetivo mínimo (no máximo): lo que pase de 8.000 € se usará, si hace falta, en más medios o en
+  invitar a algún artista o creador de contenido. Al alcanzarlo, las aportaciones siguen abiertas.
+  Debe figurar en el acuerdo.
+
 ## Cálculos
 
 Una sola función, `src/data/participacion.ts`, con las fórmulas del documento (q, D, K, E, B, T,

@@ -93,7 +93,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 				<Foto
 					nombre="invitacion/portada"
 					alt={`[${t.pendiente}: ${x.imagenPortada}]`}
-					proporcion={16 / 9}
+					proporcion={2000 / 775}
 					sizes="(max-width: 809px) calc(100vw - 40px), 86.667vw"
 				/>
 			</div>
@@ -135,22 +135,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 			</div>
 		</section>
 
-		<!-- Por qué este momento (puente entre la carta y la financiación) -->
-		<section class="bloque momento">
-			{
-				fotoMomento && (
-					<figure class="foto-momento">
-						<Foto nombre={fotoMomento.fotos[0]} alt={fotoMomento.nombre} proporcion={3 / 4} sizes="(max-width: 809px) calc(100vw - 40px), 20.833vw" />
-						<figcaption>{fotoMomento.nombre} · {fotoMomento.tipo}</figcaption>
-					</figure>
-				)
-			}
-			<div class="columna">
-				<p class="titulo-bloque">{x.momento.titulo}</p>
-				<p class="texto">{x.momento.texto}</p>
-				<p class="texto discreto">{x.momento.discreto}</p>
-			</div>
-		</section>
+		{/* «El comienzo de una nueva etapa»: oculto por ahora (decisión de Jorge, 09/11/2026). */}
 
 		<!-- 03 · Objetivo -->
 		<section class="bloque">
@@ -168,12 +153,6 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 				{alcanzado && <p class="aviso">{x.objetivo.alcanzado}</p>}
 				<p class="nota">{x.objetivo.nota}</p>
 
-				<details class="desplegable">
-					<summary data-ver={x.ver} data-cerrar={x.cerrar}>{x.destino.abrir}</summary>
-					<p class="texto">{x.destino.texto}</p>
-					<ul class="partidas">{x.destino.partidas.map((partida) => <li>{partida}</li>)}</ul>
-					<p class="nota">{x.destino.sinDesglose}</p>
-				</details>
 			</div>
 		</section>
 
@@ -187,7 +166,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 							<li>
 								<span class="numero">{String(i + 1).padStart(2, '0')}</span>
 								<p class="paso-titulo">{titulo}</p>
-								<p>{texto}</p>
+								<p set:html={texto} />
 							</li>
 						))
 					}
@@ -216,6 +195,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 					<div class="columna">
 						<p class="titulo-bloque">{x.obra.titulo}</p>
 						<p class="texto">{x.obra.texto}</p>
+						<p class="texto discreto">{x.momento.discreto}</p>
 					</div>
 					<ul class="obras-reales">
 						{obrasReales.map((o) => (
@@ -242,8 +222,6 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 		<section class="bloque">
 			<h2 class="seccion">{x.ejemplo.titulo}</h2>
 			<div class="columna">
-				<p class="texto">{x.ejemplo.texto}</p>
-
 				<details class="desplegable">
 					<summary data-ver={x.ver} data-cerrar={x.cerrar}>{x.ejemplo.abrir}</summary>
 					<table>
@@ -364,6 +342,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 			</div>
 		</section>
 
+		<p class="gracias">{x.gracias}</p>
 	</main>
 
 	<footer class="pie">
@@ -612,7 +591,20 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 		width: 27.778vw;
 	}
 
-	.discreto {
+	/* Cierre de la página. */
+	.gracias {
+		margin: 160px 6.667vw 0;
+		font-weight: var(--peso-regular);
+		font-size: var(--destacado);
+		line-height: var(--destacado-alto);
+		letter-spacing: var(--manifiesto-espaciado);
+	}
+
+	.pasos :global(b) {
+		font-weight: var(--peso-medio);
+	}
+
+		.discreto {
 		margin-top: 16px;
 		color: var(--color-secundario);
 	}
