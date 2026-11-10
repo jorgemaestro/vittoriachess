@@ -111,6 +111,48 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
   invitar a algún artista o creador de contenido. Al alcanzarlo, las aportaciones siguen abiertas.
   Debe figurar en el acuerdo.
 
+## Revisión con opiniones de varias personas (10/11/2026)
+
+- Carta más corta y directa, sin «como seguramente sepas» ni «lejos de pedirte ayuda»; la intro,
+  a 40 px. Subtítulo «Vittoria, por Jorge Maestro». La palabra «mecenas» desaparece del texto.
+- Concepto de la transferencia y asunto del correo: VITTORIA 2026 (antes MECENAS).
+- Pasos reescritos: aportas lo que quieras (objetivo mínimo 8.000 €); «con dos o tres ventas se
+  devuelven todas las aportaciones» (sustituye a «con una sola venta», que no cuadraba con los
+  costes); el 20 % del beneficio se reparte en proporción a lo aportado, con ejemplo del 10 %.
+- Regalo: aparte de la devolución y del beneficio.
+- «Qué puedes recibir»: tabla visible por obras vendidas (1, 2, 3, 5 ajedreces y todo lo
+  expuesto), con costes de producción de Jorge (2.500 € por ajedrez, 600 € por Six) y sin
+  comisión de galería. Sustituye a las tablas de «neto disponible» y al escenario extraordinario.
+- Títulos de sección a 40 px en la columna; QUIERO PARTICIPAR en una caja de 1 px que se invierte
+  al pasar el ratón (portada y bajo la tabla).
+
+## Revisión del 10/11/2026 (segunda tanda)
+
+- Portada: gancho del regalo sin la cifra de 500 € (la condición sigue en la sección del regalo);
+  botón INVERTIR.
+- Carta: debajo de «La cuenta atrás ha comenzado», la cuenta atrás a 64 px hasta las 20:00 del
+  jueves 10 (como en Obras).
+- Save the date: jueves 10 a las 20:00, con AÑADIR A GOOGLE CALENDAR (enlace de plantilla de
+  Google, sin cuentas ni servicios añadidos) y OTROS CALENDARIOS (archivo .ics para Apple y
+  Outlook). Lugar: «Malasaña, Madrid», sin la galería.
+- Regalo: empieza por «Recibirás un regalo muy especial».
+- Pasos: «Inviertes», «Recuperas tu inversión» (lo no gastado se devuelve la semana siguiente, en
+  proporción; con dos o tres ventas o encargos hasta el 31/12 se recupera la inversión),
+  «Compartimos el beneficio». «Participantes» pasa a «inversores». Fuera el párrafo de riesgo y
+  la letra pequeña de esta sección (el riesgo sigue en «¿Puedo perder dinero?»).
+- Ventana: la cuenta final se hace el 31 de diciembre con todo lo cerrado hasta fin de año.
+- Obras: 85.000 € estimados; margen medio del 60 al 80 % por obra.
+- Tabla escalonada por facturación (15.000, 25.000, 50.000, 85.000 y 120.000 € con encargos), con
+  el margen prudente del 60 % sobre el precio sin IVA.
+- Calendario: «Ronda de financiación», «Informe de ingresos y gastos»; termina en enero de 2027.
+
+## Ajuste del 10/11/2026
+
+- Paso 2: lo no utilizado se devuelve proporcionalmente; «se estima que con dos o tres ventas
+  cerradas se recupera la inversión». Paso 3: «el 20 % del margen directo de las ventas hasta el
+  31 de diciembre se reparte entre los inversores» (margen directo = precio sin IVA menos coste de
+  producción; es lo que calculan las tablas).
+
 ## Cálculos
 
 Una sola función, `src/data/participacion.ts`, con las fórmulas del documento (q, D, K, E, B, T,

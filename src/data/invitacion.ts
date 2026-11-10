@@ -22,9 +22,9 @@ export const invitacion = {
 	titular: (import.meta.env.INVITACION_TITULAR ?? '').trim(),
 	iban: (import.meta.env.INVITACION_IBAN ?? '').trim(),
 	/** Concepto de la transferencia y asunto del correo con el justificante. */
-	concepto: 'MECENAS',
+	concepto: 'VITTORIA 2026',
 	correo: 'jorge@vittoriachess.com',
-	asuntoParticipar: 'MECENAS',
+	asuntoParticipar: 'VITTORIA 2026',
 };
 
 /**
@@ -44,8 +44,29 @@ export const precios: { obra: string; edicion: { es: string; en: string }; preci
 	{ obra: 'Six', edicion: { es: '2–3 unidades', en: '2–3 units' }, precio: 1200, unidades: 3 },
 	{ obra: 'Mil y una noches', edicion: { es: '1/1', en: '1/1' }, precio: 8200 },
 	{ obra: 'Microcemento blanco', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 8500 },
-	{ obra: 'Colaboración con Manufacturas Anframa', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 18000 },
+	// Colaboración con Manufacturas Anframa: se presenta como sorpresa, sin nombrarla.
+	{ obra: 'Colaboración sorpresa', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 18000 },
 ];
+
+/**
+ * Coste de producción aproximado por pieza (dato de Jorge, 10/11/2026): 2.500 € cada ajedrez,
+ * tablero o vertical; 600 € cada Six. La colaboración se calcula como un ajedrez más.
+ * La galería no cobra comisión (solo el alquiler, incluido en los gastos del evento).
+ */
+const IVA = 1.21;
+const coste = (p: { obra: string }) => (p.obra === 'Six' ? 600 : 2500);
+/** Lo que deja limpia una venta: precio sin IVA menos coste de producción. */
+export const netoVenta = (p: { obra: string; precio: number }) => p.precio / IVA - coste(p);
+
+/**
+ * Facturación estimada de la exposición y margen medio por obra (datos de Jorge, 10/11/2026):
+ * 85.000 € estimados; margen del 60 al 80 % por obra. La tabla de rentabilidad usa el 60 %, el
+ * extremo prudente, sobre el precio sin IVA.
+ */
+export const facturacionEstimada = 85000;
+export const margenTabla = 0.6;
+/** Escalones de facturación de la tabla (IVA incluido) y obras aproximadas que suponen. */
+export const escalones = [15000, 25000, 50000, 85000, 120000];
 
 /** Facturación posible si se vendiera todo lo expuesto (IVA incluido). */
 export const facturacionPosible = precios.reduce((suma, p) => suma + p.precio * (p.unidades ?? 1), 0);
