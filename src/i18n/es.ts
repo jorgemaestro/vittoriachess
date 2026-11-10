@@ -134,7 +134,7 @@ const es = {
 			discreto: 'Por privacidad aún no puedo mencionar invitados ni medios, pero se prevé una exposición de alta consideración, con personas y medios conocidos.',
 		},
 		destino: {
-			abrir: 'EN QUÉ SE EMPLEAN LOS 8.000 €',
+			abrir: 'EN QUÉ SE EMPLEAN LOS 10.000 €',
 			texto: 'En gastos identificables del lanzamiento, documentados uno a uno. Lo que no llegue a usarse se devuelve en proporción.',
 			partidas: ['Galería', 'Organización y montaje', 'Catering y hospitalidad', 'Comunicación y difusión', 'Producción y relaciones públicas'],
 			sinDesglose: 'Desglose disponible cuando esté cerrado el presupuesto.',
@@ -169,7 +169,7 @@ const es = {
 		funcionamiento: {
 			titulo: 'Cómo funciona',
 			pasos: [
-				['Inviertes', 'Elige tu aportación. Entre todos, el objetivo es reunir al menos 8.000 € para la exposición.'],
+				['Inviertes', 'Elige tu aportación. Entre todos, el objetivo es reunir al menos 10.000 € para la exposición.'],
 				['Recuperas tu inversión', 'Si no se han utilizado todos los fondos, el importe restante se devuelve proporcionalmente a cada inversor la semana siguiente a la exposición. <b>Se estima que con dos o tres ventas cerradas se recupera la inversión.</b>'],
 				['Compartimos el beneficio', 'El 20 % del margen directo de las ventas hasta el 31 de diciembre se reparte entre los inversores.'],
 			],
@@ -181,7 +181,7 @@ const es = {
 			abrir: '',
 			columnas: ['FACTURACIÓN', 'INVIERTES 1.000 €, RECIBES', 'RENTABILIDAD'],
 			filas: ['2 obras est.', '3 obras est.', '6 obras est.', 'toda la exposición', 'exposición y encargos, en el mejor de los casos'],
-			nota: 'Con 8.000 € reunidos y un margen del 60 % por obra.',
+			nota: 'Con 10.000 € reunidos y un margen del 60 % por obra.',
 		},
 		extraordinario: {
 			abrir: '¿Y SI SE VENDE TODO Y LLEGAN ENCARGOS ANTES DE FIN DE AÑO?',
@@ -192,12 +192,12 @@ const es = {
 		preguntas: {
 			titulo: 'Preguntas frecuentes',
 			lista: [
-				['¿En qué se usará mi dinero?', 'Íntegramente en las actividades y los procesos necesarios para el buen desarrollo del evento: alquiler de la galería, catering, medios… La semana siguiente se entregará un informe con el desglose detallado de todas las partidas.'],
-				['¿Cuánto podría ganar?', 'Depende de las ventas. Con 1.000 € aportados: unos 1.085 € si se venden tres ajedreces, y unos 1.900 € si se vende todo lo expuesto.'],
+				['¿En qué se usará mi dinero?', 'Íntegramente en las actividades, los procesos y el material necesarios para el buen desarrollo del evento: alquiler de la galería, producción, catering, medios… La semana siguiente se entregará un informe con el desglose detallado de todas las partidas.'],
+				['¿Cuánto podría ganar?', 'Depende de las ventas: alrededor de un +5 % con tres obras vendidas, un +30 % con seis, un +64 % si se vende toda la exposición y cerca de un +100 % en el mejor de los casos, con encargos.'],
 				['¿Puedo perder dinero?', 'Existe ese riesgo. Si en 2026 no se cierra ninguna venta, el importe se devolvería con las ventas previstas para 2027. La devolución estará sujeta a que se produzca alguna venta.'],
 				['¿Y si no se vende ninguna obra?', 'Solo se devolvería la parte de la financiación no utilizada.'],
-				['¿Y si se recauda más de 8.000 €?', 'Se utilizará, si es necesario, para más medios o para invitar a algún artista o creador de contenido concreto. Todo figurará en el informe de gastos.'],
-				['¿Y si no se gastan los 8.000 €?', 'Lo sobrante se devuelve en proporción. Si se usan 6.000 €, quien aportó 1.000 € recupera 250 € de inmediato; los otros 750 € dependen de los resultados.'],
+				['¿Y si se recauda más de 10.000 €?', 'Se utilizará, si es necesario, para más medios o para invitar a algún artista o creador de contenido concreto. Todo figurará en el informe de gastos.'],
+				['¿Y si no se gastan los 10.000 €?', 'Lo sobrante se devuelve en proporción. Si se usan 6.000 €, quien aportó 1.000 € recupera 400 € de inmediato; los otros 600 € dependen de los resultados.'],
 				['¿Cómo se reparte el beneficio?', 'Primero se devuelven las aportaciones. Después, el 20 % del beneficio se reparte entre todos los inversores, cada uno en proporción a lo que aportó; el 80 % es para el proyecto.'],
 				['¿Cuenta una venta firmada aún no cobrada?', 'Cuenta si se formaliza antes del 31 de diciembre, pero solo se reparte cuando se cobra.'],
 				['¿Se incluyen los encargos?', 'Sí, los elegibles según el acuerdo y formalizados en plazo, descontados sus costes y anticipos.'],

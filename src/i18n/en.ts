@@ -131,7 +131,7 @@ const en: Textos = {
 			discreto: 'For privacy reasons I cannot yet name guests or media, but this is expected to be a highly regarded exhibition, with well-known people and press in attendance.',
 		},
 		destino: {
-			abrir: 'WHAT THE €8,000 IS FOR',
+			abrir: 'WHAT THE €10,000 IS FOR',
 			texto: 'Identifiable launch expenses, each one documented. Anything not used is returned proportionally.',
 			partidas: ['Gallery', 'Organisation and installation', 'Catering and hospitality', 'Communication and promotion', 'Production and public relations'],
 			sinDesglose: 'A breakdown will be available once the budget is final.',
@@ -166,7 +166,7 @@ const en: Textos = {
 		funcionamiento: {
 			titulo: 'How it works',
 			pasos: [
-				['You invest', 'Choose your contribution. Together, the goal is to raise at least €8,000 for the exhibition.'],
+				['You invest', 'Choose your contribution. Together, the goal is to raise at least €10,000 for the exhibition.'],
 				['You recover your investment', 'If not all the funds have been used, the remaining amount is returned proportionally to each investor the week after the exhibition. <b>Two or three closed sales are estimated to recover the investment.</b>'],
 				['We share the profit', '20% of the direct margin on sales until 31 December is shared among the investors.'],
 			],
@@ -178,7 +178,7 @@ const en: Textos = {
 			abrir: '',
 			columnas: ['TURNOVER', 'YOU INVEST €1,000, YOU RECEIVE', 'RETURN'],
 			filas: ['2 works est.', '3 works est.', '6 works est.', 'the whole exhibition', 'exhibition and commissions, best case'],
-			nota: 'With €8,000 raised and a 60% margin per work.',
+			nota: 'With €10,000 raised and a 60% margin per work.',
 		},
 		extraordinario: {
 			abrir: 'WHAT IF EVERYTHING SELLS AND COMMISSIONS ARRIVE BEFORE THE YEAR ENDS?',
@@ -189,12 +189,12 @@ const en: Textos = {
 		preguntas: {
 			titulo: 'Frequently asked questions',
 			lista: [
-				['What will my money be used for?', 'Entirely on the activities and processes needed for the event to run well: gallery hire, catering, press… The following week a report will be provided with a detailed breakdown of every item.'],
-				['How much could I earn?', 'It depends on sales. With €1,000 contributed: about €1,085 if three chess sets are sold, and about €1,900 if everything on show is sold.'],
+				['What will my money be used for?', 'Entirely on the activities, processes and materials needed for the event to run well: gallery hire, production, catering, press… The following week a report will be provided with a detailed breakdown of every item.'],
+				['How much could I earn?', 'It depends on sales: around +5% with three works sold, +30% with six, +64% if the whole exhibition sells and close to +100% in the best case, with commissions.'],
 				['Could I lose money?', 'There is that risk. If no sale is closed in 2026, the amount would be returned from the sales expected in 2027. The return is subject to at least one sale taking place.'],
 				['What if no work is sold?', 'Only the unused part of the funding would be returned.'],
-				['What if more than €8,000 is raised?', 'If needed, it will be used for more press coverage or to invite a particular artist or content creator. Everything will appear in the expense report.'],
-				['What if the €8,000 is not all spent?', 'The remainder is returned proportionally. If €6,000 is used, someone who contributed €1,000 gets €250 back straight away; the other €750 depends on results.'],
+				['What if more than €10,000 is raised?', 'If needed, it will be used for more press coverage or to invite a particular artist or content creator. Everything will appear in the expense report.'],
+				['What if the €10,000 is not all spent?', 'The remainder is returned proportionally. If €6,000 is used, someone who contributed €1,000 gets €400 back straight away; the other €600 depends on results.'],
 				['How is the profit shared?', 'First, contributions are returned. Then 20% of the profit is shared among all investors, each in proportion to what they contributed; 80% goes to the project.'],
 				['Does a signed sale that has not been paid count?', 'It counts if formalised by 31 December, but is only shared once it has been paid.'],
 				['Are commissions included?', 'Yes, eligible ones under the agreement and formalised in time, net of their costs and advances.'],

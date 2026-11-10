@@ -153,6 +153,13 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
   31 de diciembre se reparte entre los inversores» (margen directo = precio sin IVA menos coste de
   producción; es lo que calculan las tablas).
 
+## Ajuste del 10/11/2026 (2)
+
+- Objetivo estimado: 10.000 € (antes 8.000 €). La tabla de rentabilidad usa ahora el objetivo.
+- «¿En qué se usará mi dinero?» incluye «el material necesario» y «producción» (Jorge podrá
+  dedicar parte a producir obras): **debe figurar así en el acuerdo**.
+- «¿Cuánto podría ganar?» en porcentajes, sacados de la tabla.
+
 ## Cálculos
 
 Una sola función, `src/data/participacion.ts`, con las fórmulas del documento (q, D, K, E, B, T,

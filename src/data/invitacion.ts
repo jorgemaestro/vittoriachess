@@ -4,7 +4,7 @@
 
 export const invitacion = {
 	/** Objetivo y máximo de la campaña inicial, en euros. */
-	objetivo: 8000,
+	objetivo: 10000,
 	/** Recibido y verificado, en euros. */
 	recibido: 1800,
 	/** Fecha de la última comprobación (AAAA-MM-DD). */

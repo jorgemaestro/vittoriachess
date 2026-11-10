@@ -54,9 +54,9 @@ const obrasReales = (await cargarObras(idioma, t.obras.sinDatos))
 const fotoMomento = obrasReales[0];
 
 // «Rentabilidad según las ventas»: escalones de facturación (IVA incluido). Neto = precio sin
-// IVA × margen prudente (60 %). Con 8.000 € reunidos y utilizados; aportación de 1.000 €.
+// IVA × margen prudente (60 %). Con el objetivo reunido y utilizado; aportación de 1.000 €.
 const escenarios = escalones.map((fact, i) => {
-	const r = calcular({ F: 8000, U: 8000, A: 1000, N: (fact / 1.21) * margenTabla });
+	const r = calcular({ F: invitacion.objetivo, U: invitacion.objetivo, A: 1000, N: (fact / 1.21) * margenTabla });
 	return [`${euros(fact)} (${x.ejemplo.filas[i]})`, euros(Math.round(r.T / 5) * 5), porcentaje(Math.round(r.ROI))];
 });
 
