@@ -14,7 +14,7 @@ import EnlaceGuia from '../components/EnlaceGuia.astro';
 import Foto from '../components/Foto.astro';
 import { calcular } from '../data/participacion';
 import { cargarObras } from '../data/obras';
-import { invitacion, claveInvitacion, precios, facturacionEstimada, margenTabla, escalones } from '../data/invitacion';
+import { invitacion, claveInvitacion, precios, facturacionEstimada, escalones } from '../data/invitacion';
 import { exposicion } from '../data/exposicion';
 import { usar, rutas } from '../i18n';
 
@@ -55,8 +55,8 @@ const fotoMomento = obrasReales[0];
 
 // «Rentabilidad según las ventas»: escalones de facturación (IVA incluido). Neto = precio sin
 // IVA × margen prudente (60 %). Con el objetivo reunido y utilizado; aportación de 1.000 €.
-const escenarios = escalones.map((fact, i) => {
-	const r = calcular({ F: invitacion.objetivo, U: invitacion.objetivo, A: 1000, N: (fact / 1.21) * margenTabla });
+const escenarios = escalones.map(({ facturacion: fact, coste }, i) => {
+	const r = calcular({ F: invitacion.objetivo, U: invitacion.objetivo, A: 1000, N: Math.max(0, fact / 1.21 - coste) });
 	return [`${euros(fact)} (${x.ejemplo.filas[i]})`, euros(Math.round(r.T / 5) * 5), porcentaje(Math.round(r.ROI))];
 });
 
@@ -84,6 +84,7 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 <Base title={x.tituloSeo} noindex sinReferente>
 	<header class="cabecera">
 		<Logo enlace={false} />
+		<p class="confidencial">{x.confidencial}</p>
 		<nav class="lado" aria-label={en ? 'Language' : 'Idioma'}>
 			<span class="idiomas">
 				<Enlace href={direccion.es} activo={!en} hreflang="es">ES</Enlace>
@@ -165,6 +166,14 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 				<p class="acciones-calendario">
 					<a class="boton" href={googleCalendar} target="_blank" rel="noopener noreferrer">{g.google}</a>
 					<Enlace href={icsEnlace} download="vittoria-chess-inauguracion.ics">{g.otros}</Enlace>
+				</p>
+
+				<p class="etiqueta compartir-etiqueta">{x.compartir.etiqueta}</p>
+				<p class="texto">{x.compartir.texto}</p>
+				<p class="acciones-calendario" data-compartir data-ruta={rutas[idioma].obras} data-mensaje={x.compartir.mensaje}>
+					<a class="boton" href={`https://wa.me/?text=${encodeURIComponent(`${x.compartir.mensaje} https://vittoriachess.pages.dev${rutas[idioma].obras}`)}`} target="_blank" rel="noopener noreferrer" data-whatsapp>{x.compartir.whatsapp}</a>
+					<button class="enlace-boton" type="button" data-nativo hidden>{x.compartir.otras}</button>
+					<button class="enlace-boton" type="button" data-copiar-enlace data-copiado={x.compartir.copiado}>{x.compartir.copiar}</button>
 				</p>
 			</div>
 		</section>
@@ -383,6 +392,33 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 			cuenta.hidden = false;
 			const reloj = setInterval(() => !pintar() && clearInterval(reloj), 1000);
 		}
+	}
+
+	// Compartir la página pública de Obras (nunca esta invitación). La dirección se forma con el
+	// dominio desde el que se ve la página, para que valga en la provisional y en la definitiva.
+	const compartir = document.querySelector<HTMLElement>('[data-compartir]');
+	if (compartir) {
+		const url = `${location.origin}${compartir.dataset.ruta}`;
+		const mensaje = compartir.dataset.mensaje ?? '';
+		const whatsapp = compartir.querySelector<HTMLAnchorElement>('[data-whatsapp]');
+		if (whatsapp) whatsapp.href = `https://wa.me/?text=${encodeURIComponent(`${mensaje} ${url}`)}`;
+		// Instagram no permite compartir desde la web: se usa el menú del propio móvil, que lo incluye.
+		const nativo = compartir.querySelector<HTMLButtonElement>('[data-nativo]');
+		if (nativo && 'share' in navigator) {
+			nativo.hidden = false;
+			nativo.addEventListener('click', () => navigator.share({ title: 'Vittoria Chess', text: mensaje, url }).catch(() => {}));
+		}
+		const copiar = compartir.querySelector<HTMLButtonElement>('[data-copiar-enlace]');
+		copiar?.addEventListener('click', async () => {
+			const original = copiar.textContent;
+			try {
+				await navigator.clipboard.writeText(url);
+				copiar.textContent = copiar.dataset.copiado ?? original;
+				setTimeout(() => (copiar.textContent = original), 2000);
+			} catch {
+				/* Sin permiso del navegador: no se copia. */
+			}
+		});
 	}
 
 	// Salida a la home reemplazando el historial: Atrás no vuelve a la invitación.
@@ -733,6 +769,32 @@ const mailtoParticipar = `mailto:${invitacion.correo}?subject=${encodeURICompone
 		color: var(--color-secundario);
 		font-size: var(--respuesta);
 		letter-spacing: 0;
+	}
+
+	.confidencial {
+		margin: 0;
+		font-size: var(--pie-foto);
+		line-height: var(--pie-foto-alto);
+		letter-spacing: 0.04em;
+	}
+
+	.compartir-etiqueta {
+		margin-top: 64px;
+	}
+
+	.enlace-boton {
+		padding: 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-decoration: underline;
+		text-decoration-thickness: var(--linea);
+		text-underline-offset: 4px;
+	}
+
+	.enlace-boton[hidden] {
+		display: none;
 	}
 
 	.acciones-calendario {

@@ -28,22 +28,24 @@ export const invitacion = {
 };
 
 /**
- * Precios de la exposición, IVA incluido. Primer borrador de Jorge (09/11/2026), pendiente de
- * confirmar los definitivos. «Colección de 64»: cada pieza es única y representa un escaque del
+ * Precios de la exposición, IVA incluido. Primer borrador de Jorge (09/11/2026), con los verticales
+ * revisados el 11/11/2026 (precio medio de un vertical: 10.000 €). «Colección de 64»: cada pieza es única y representa un escaque del
  * tablero (D4, F3…); en la galería hay una de cada, y la colección admite encargos.
  */
 export const precios: { obra: string; edicion: { es: string; en: string }; precio: number; unidades?: number }[] = [
+	// Blanco y negro: añadido el 11/11/2026; se calcula como un vertical medio, 10.000 €.
+	{ obra: 'Blanco y negro', edicion: { es: 'Pieza única', en: 'One of a kind' }, precio: 10000 },
 	// Vittoria Eterna: dos obras de la colección permanente, a 7.000 € cada una.
 	{ obra: 'Vittoria Eterna · Mármol de Namibia', edicion: { es: 'Colección permanente', en: 'Permanent collection' }, precio: 7000 },
 	{ obra: 'Vittoria Eterna · Tinos verde', edicion: { es: 'Colección permanente', en: 'Permanent collection' }, precio: 7000 },
 	{ obra: 'Vittoria Cerámica azul', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 6500 },
-	{ obra: 'Beige vertical', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 9000 },
-	{ obra: 'Espejo', edicion: { es: '1/1', en: '1/1' }, precio: 9000 },
+	{ obra: 'Beige vertical', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 12000 },
+	{ obra: 'Espejo', edicion: { es: '1/1', en: '1/1' }, precio: 15000 },
 	{ obra: 'Solid surface', edicion: { es: 'Edición única', en: 'Single edition' }, precio: 5800 },
 	// Six: habrá dos o tres; para la facturación posible se cuentan tres.
 	{ obra: 'Six', edicion: { es: '2–3 unidades', en: '2–3 units' }, precio: 1200, unidades: 3 },
-	{ obra: 'Mil y una noches', edicion: { es: '1/1', en: '1/1' }, precio: 8200 },
-	{ obra: 'Microcemento blanco', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 8500 },
+	{ obra: 'Mil y una noches', edicion: { es: '1/1', en: '1/1' }, precio: 12000 },
+	{ obra: 'Microcemento blanco', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 13000 },
 	// Colaboración con Manufacturas Anframa: se presenta como sorpresa, sin nombrarla.
 	{ obra: 'Colaboración sorpresa', edicion: { es: 'Pieza única · colección de 64', en: 'One of a kind · collection of 64' }, precio: 18000 },
 ];
@@ -59,14 +61,20 @@ const coste = (p: { obra: string }) => (p.obra === 'Six' ? 600 : 2500);
 export const netoVenta = (p: { obra: string; precio: number }) => p.precio / IVA - coste(p);
 
 /**
- * Facturación estimada de la exposición y margen medio por obra (datos de Jorge, 10/11/2026):
- * 85.000 € estimados; margen del 60 al 80 % por obra. La tabla de rentabilidad usa el 60 %, el
- * extremo prudente, sobre el precio sin IVA.
+ * Tabla de rentabilidad (11/11/2026): escalones de facturación con IVA y las obras que suponen,
+ * con un precio medio de unos 10.000 € por obra. Neto = facturación sin IVA menos el coste de
+ * producción de esas obras (2.500 € cada una; los tres Six, 600 € cada uno). Todo lo expuesto
+ * suma unos 110.000 €; el mejor de los casos añade unos 40.000 € de encargos (cuatro obras más).
  */
-export const facturacionEstimada = 85000;
-export const margenTabla = 0.6;
-/** Escalones de facturación de la tabla (IVA incluido) y obras aproximadas que suponen. */
-export const escalones = [15000, 25000, 50000, 85000, 120000];
+export const escalones: { facturacion: number; coste: number }[] = [
+	{ facturacion: 20000, coste: 5000 },
+	{ facturacion: 30000, coste: 7500 },
+	{ facturacion: 60000, coste: 15000 },
+	{ facturacion: 110000, coste: 26800 },
+	{ facturacion: 150000, coste: 36800 },
+];
+/** Valor estimado de las obras expuestas (suma de precios, redondeada). */
+export const facturacionEstimada = 110000;
 
 /** Facturación posible si se vendiera todo lo expuesto (IVA incluido). */
 export const facturacionPosible = precios.reduce((suma, p) => suma + p.precio * (p.unidades ?? 1), 0);

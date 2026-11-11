@@ -160,6 +160,23 @@ Mejoras incrementales sin tocar la carta, las cifras, las fórmulas, la privacid
   dedicar parte a producir obras): **debe figurar así en el acuerdo**.
 - «¿Cuánto podría ganar?» en porcentajes, sacados de la tabla.
 
+## Ajustes del 11/11/2026
+
+- Arriba, en la cabecera y en la portada: «Invitación privada · Información confidencial».
+- Portada: jueves 10, inauguración privada a las 20:00; viernes 11 a domingo 13, entrada abierta.
+  Gancho del regalo: «Por tu confianza: seis piezas…».
+- Carta: «el comienzo de un camino que, por fin, puedo compartir»; «me hace especial ilusión contar
+  contigo. Y la cuenta atrás… ha comenzado».
+- Regalo: «la confianza que has depositado en este proyecto». Devoluciones en futuro.
+- Compartir (junto al save the date): WhatsApp, menú del móvil (incluye Instagram, que no permite
+  compartir desde la web) y copiar enlace. Siempre comparten la página pública de Obras, nunca la
+  invitación.
+- Obras: añadida «Blanco y negro» (calculada como un vertical medio de 10.000 €). Precios nuevos:
+  Beige vertical 12.000, Espejo 15.000, Mil y una noches 12.000, Microcemento blanco 13.000.
+  Valor estimado de lo expuesto: 110.000 €.
+- Tabla de rentabilidad: neto = facturación sin IVA menos coste de producción real (2.500 € por
+  obra), con escalones de 2, 3 y 6 obras, toda la exposición y el mejor de los casos con encargos.
+
 ## Cálculos
 
 Una sola función, `src/data/participacion.ts`, con las fórmulas del documento (q, D, K, E, B, T,
